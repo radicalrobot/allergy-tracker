@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "RRLocationManager.h"
+#import <MagicalRecord/CoreData+MagicalRecord.h>
 
 @interface AppDelegate ()
 
@@ -17,6 +19,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [MagicalRecord setupAutoMigratingCoreDataStack];
+    
+    [RRLocationManager start];
     return YES;
 }
 
