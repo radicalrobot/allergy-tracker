@@ -1,0 +1,446 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BE8C6BAB1AA6BCCD005FC2FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAA1AA6BCCD005FC2FB /* main.m */; };
+		BE8C6BAE1AA6BCCD005FC2FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAD1AA6BCCD005FC2FB /* AppDelegate.m */; };
+		BE8C6BB11AA6BCCD005FC2FB /* AlergyTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAF1AA6BCCD005FC2FB /* AlergyTracker.xcdatamodeld */; };
+		BE8C6BB41AA6BCCD005FC2FB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BB31AA6BCCD005FC2FB /* ViewController.m */; };
+		BE8C6BB71AA6BCCD005FC2FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE8C6BB51AA6BCCD005FC2FB /* Main.storyboard */; };
+		BE8C6BB91AA6BCCD005FC2FB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8C6BB81AA6BCCD005FC2FB /* Images.xcassets */; };
+		BE8C6BBC1AA6BCCD005FC2FB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE8C6BBA1AA6BCCD005FC2FB /* LaunchScreen.xib */; };
+		BE8C6BC81AA6BCCD005FC2FB /* AlergyTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BC71AA6BCCD005FC2FB /* AlergyTrackerTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BE8C6BC21AA6BCCD005FC2FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE8C6B9D1AA6BCCD005FC2FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE8C6BA41AA6BCCD005FC2FB;
+			remoteInfo = AlergyTracker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BE8C6BA51AA6BCCD005FC2FB /* AlergyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlergyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE8C6BA91AA6BCCD005FC2FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE8C6BAA1AA6BCCD005FC2FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BE8C6BAC1AA6BCCD005FC2FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		BE8C6BAD1AA6BCCD005FC2FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		BE8C6BB01AA6BCCD005FC2FB /* AlergyTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AlergyTracker.xcdatamodel; sourceTree = "<group>"; };
+		BE8C6BB21AA6BCCD005FC2FB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		BE8C6BB31AA6BCCD005FC2FB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		BE8C6BB61AA6BCCD005FC2FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BE8C6BB81AA6BCCD005FC2FB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BE8C6BBB1AA6BCCD005FC2FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		BE8C6BC11AA6BCCD005FC2FB /* AlergyTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlergyTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE8C6BC61AA6BCCD005FC2FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE8C6BC71AA6BCCD005FC2FB /* AlergyTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlergyTrackerTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BE8C6BA21AA6BCCD005FC2FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE8C6BBE1AA6BCCD005FC2FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BE8C6B9C1AA6BCCD005FC2FB = {
+			isa = PBXGroup;
+			children = (
+				BE8C6BA71AA6BCCD005FC2FB /* AlergyTracker */,
+				BE8C6BC41AA6BCCD005FC2FB /* AlergyTrackerTests */,
+				BE8C6BA61AA6BCCD005FC2FB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BE8C6BA61AA6BCCD005FC2FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BE8C6BA51AA6BCCD005FC2FB /* AlergyTracker.app */,
+				BE8C6BC11AA6BCCD005FC2FB /* AlergyTrackerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BE8C6BA71AA6BCCD005FC2FB /* AlergyTracker */ = {
+			isa = PBXGroup;
+			children = (
+				BE8C6BAC1AA6BCCD005FC2FB /* AppDelegate.h */,
+				BE8C6BAD1AA6BCCD005FC2FB /* AppDelegate.m */,
+				BE8C6BB21AA6BCCD005FC2FB /* ViewController.h */,
+				BE8C6BB31AA6BCCD005FC2FB /* ViewController.m */,
+				BE8C6BB51AA6BCCD005FC2FB /* Main.storyboard */,
+				BE8C6BB81AA6BCCD005FC2FB /* Images.xcassets */,
+				BE8C6BBA1AA6BCCD005FC2FB /* LaunchScreen.xib */,
+				BE8C6BAF1AA6BCCD005FC2FB /* AlergyTracker.xcdatamodeld */,
+				BE8C6BA81AA6BCCD005FC2FB /* Supporting Files */,
+			);
+			path = AlergyTracker;
+			sourceTree = "<group>";
+		};
+		BE8C6BA81AA6BCCD005FC2FB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BE8C6BA91AA6BCCD005FC2FB /* Info.plist */,
+				BE8C6BAA1AA6BCCD005FC2FB /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BE8C6BC41AA6BCCD005FC2FB /* AlergyTrackerTests */ = {
+			isa = PBXGroup;
+			children = (
+				BE8C6BC71AA6BCCD005FC2FB /* AlergyTrackerTests.m */,
+				BE8C6BC51AA6BCCD005FC2FB /* Supporting Files */,
+			);
+			path = AlergyTrackerTests;
+			sourceTree = "<group>";
+		};
+		BE8C6BC51AA6BCCD005FC2FB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BE8C6BC61AA6BCCD005FC2FB /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BE8C6BA41AA6BCCD005FC2FB /* AlergyTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE8C6BCB1AA6BCCD005FC2FB /* Build configuration list for PBXNativeTarget "AlergyTracker" */;
+			buildPhases = (
+				BE8C6BA11AA6BCCD005FC2FB /* Sources */,
+				BE8C6BA21AA6BCCD005FC2FB /* Frameworks */,
+				BE8C6BA31AA6BCCD005FC2FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AlergyTracker;
+			productName = AlergyTracker;
+			productReference = BE8C6BA51AA6BCCD005FC2FB /* AlergyTracker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BE8C6BC01AA6BCCD005FC2FB /* AlergyTrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE8C6BCE1AA6BCCD005FC2FB /* Build configuration list for PBXNativeTarget "AlergyTrackerTests" */;
+			buildPhases = (
+				BE8C6BBD1AA6BCCD005FC2FB /* Sources */,
+				BE8C6BBE1AA6BCCD005FC2FB /* Frameworks */,
+				BE8C6BBF1AA6BCCD005FC2FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BE8C6BC31AA6BCCD005FC2FB /* PBXTargetDependency */,
+			);
+			name = AlergyTrackerTests;
+			productName = AlergyTrackerTests;
+			productReference = BE8C6BC11AA6BCCD005FC2FB /* AlergyTrackerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BE8C6B9D1AA6BCCD005FC2FB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Radical Robot";
+				TargetAttributes = {
+					BE8C6BA41AA6BCCD005FC2FB = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					BE8C6BC01AA6BCCD005FC2FB = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = BE8C6BA41AA6BCCD005FC2FB;
+					};
+				};
+			};
+			buildConfigurationList = BE8C6BA01AA6BCCD005FC2FB /* Build configuration list for PBXProject "AlergyTracker" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BE8C6B9C1AA6BCCD005FC2FB;
+			productRefGroup = BE8C6BA61AA6BCCD005FC2FB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BE8C6BA41AA6BCCD005FC2FB /* AlergyTracker */,
+				BE8C6BC01AA6BCCD005FC2FB /* AlergyTrackerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BE8C6BA31AA6BCCD005FC2FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE8C6BB71AA6BCCD005FC2FB /* Main.storyboard in Resources */,
+				BE8C6BBC1AA6BCCD005FC2FB /* LaunchScreen.xib in Resources */,
+				BE8C6BB91AA6BCCD005FC2FB /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE8C6BBF1AA6BCCD005FC2FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BE8C6BA11AA6BCCD005FC2FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE8C6BAE1AA6BCCD005FC2FB /* AppDelegate.m in Sources */,
+				BE8C6BB11AA6BCCD005FC2FB /* AlergyTracker.xcdatamodeld in Sources */,
+				BE8C6BB41AA6BCCD005FC2FB /* ViewController.m in Sources */,
+				BE8C6BAB1AA6BCCD005FC2FB /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE8C6BBD1AA6BCCD005FC2FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE8C6BC81AA6BCCD005FC2FB /* AlergyTrackerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BE8C6BC31AA6BCCD005FC2FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE8C6BA41AA6BCCD005FC2FB /* AlergyTracker */;
+			targetProxy = BE8C6BC21AA6BCCD005FC2FB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BE8C6BB51AA6BCCD005FC2FB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE8C6BB61AA6BCCD005FC2FB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BE8C6BBA1AA6BCCD005FC2FB /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE8C6BBB1AA6BCCD005FC2FB /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BE8C6BC91AA6BCCD005FC2FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BE8C6BCA1AA6BCCD005FC2FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BE8C6BCC1AA6BCCD005FC2FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = AlergyTracker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		BE8C6BCD1AA6BCCD005FC2FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = AlergyTracker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		BE8C6BCF1AA6BCCD005FC2FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = AlergyTrackerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlergyTracker.app/AlergyTracker";
+			};
+			name = Debug;
+		};
+		BE8C6BD01AA6BCCD005FC2FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = AlergyTrackerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlergyTracker.app/AlergyTracker";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BE8C6BA01AA6BCCD005FC2FB /* Build configuration list for PBXProject "AlergyTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE8C6BC91AA6BCCD005FC2FB /* Debug */,
+				BE8C6BCA1AA6BCCD005FC2FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE8C6BCB1AA6BCCD005FC2FB /* Build configuration list for PBXNativeTarget "AlergyTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE8C6BCC1AA6BCCD005FC2FB /* Debug */,
+				BE8C6BCD1AA6BCCD005FC2FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		BE8C6BCE1AA6BCCD005FC2FB /* Build configuration list for PBXNativeTarget "AlergyTrackerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE8C6BCF1AA6BCCD005FC2FB /* Debug */,
+				BE8C6BD01AA6BCCD005FC2FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		BE8C6BAF1AA6BCCD005FC2FB /* AlergyTracker.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BE8C6BB01AA6BCCD005FC2FB /* AlergyTracker.xcdatamodel */,
+			);
+			currentVersion = BE8C6BB01AA6BCCD005FC2FB /* AlergyTracker.xcdatamodel */;
+			path = AlergyTracker.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = BE8C6B9D1AA6BCCD005FC2FB /* Project object */;
+}
