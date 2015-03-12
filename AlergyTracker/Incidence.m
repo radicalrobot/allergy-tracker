@@ -2,7 +2,7 @@
 //  Incidence.m
 //  AlergyTracker
 //
-//  Created by Emily Toop on 03/03/2015.
+//  Created by Emily Toop on 04/03/2015.
 //  Copyright (c) 2015 Radical Robot. All rights reserved.
 //
 
@@ -11,8 +11,9 @@
 
 @implementation Incidence
 
-@dynamic time;
 @dynamic latitude;
 @dynamic longitude;
+@dynamic time;
+@dynamic type;
 
 @end

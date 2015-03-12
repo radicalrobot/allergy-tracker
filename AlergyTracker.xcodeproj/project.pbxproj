@@ -18,8 +18,8 @@
 		BE8C6BC81AA6BCCD005FC2FB /* AlergyTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BC71AA6BCCD005FC2FB /* AlergyTrackerTests.m */; };
 		BE8C6BD31AA6C3BB005FC2FB /* RRLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BD21AA6C3BB005FC2FB /* RRLocationManager.m */; };
 		BE8C6BD51AA6C3F8005FC2FB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8C6BD41AA6C3F8005FC2FB /* CoreLocation.framework */; };
-		BE8C6BD81AA6C5C4005FC2FB /* Incidence.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BD71AA6C5C4005FC2FB /* Incidence.m */; };
-		BE8C6BDB1AA6C5C5005FC2FB /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BDA1AA6C5C5005FC2FB /* Location.m */; };
+		BE8C6BDE1AA77606005FC2FB /* IncidenceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BDD1AA77606005FC2FB /* IncidenceTableViewController.m */; };
+		BE8C6BE11AA7882F005FC2FB /* Incidence.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BE01AA7882F005FC2FB /* Incidence.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,10 +52,10 @@
 		BE8C6BD11AA6C3BB005FC2FB /* RRLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRLocationManager.h; sourceTree = "<group>"; };
 		BE8C6BD21AA6C3BB005FC2FB /* RRLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRLocationManager.m; sourceTree = "<group>"; };
 		BE8C6BD41AA6C3F8005FC2FB /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		BE8C6BD61AA6C5C4005FC2FB /* Incidence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Incidence.h; sourceTree = "<group>"; };
-		BE8C6BD71AA6C5C4005FC2FB /* Incidence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Incidence.m; sourceTree = "<group>"; };
-		BE8C6BD91AA6C5C5005FC2FB /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
-		BE8C6BDA1AA6C5C5005FC2FB /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		BE8C6BDC1AA77606005FC2FB /* IncidenceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncidenceTableViewController.h; sourceTree = "<group>"; };
+		BE8C6BDD1AA77606005FC2FB /* IncidenceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncidenceTableViewController.m; sourceTree = "<group>"; };
+		BE8C6BDF1AA7882F005FC2FB /* Incidence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Incidence.h; sourceTree = "<group>"; };
+		BE8C6BE01AA7882F005FC2FB /* Incidence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Incidence.m; sourceTree = "<group>"; };
 		EE11A62584F48FFA2CA3071D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -122,10 +122,10 @@
 				BE8C6BA81AA6BCCD005FC2FB /* Supporting Files */,
 				BE8C6BD11AA6C3BB005FC2FB /* RRLocationManager.h */,
 				BE8C6BD21AA6C3BB005FC2FB /* RRLocationManager.m */,
-				BE8C6BD91AA6C5C5005FC2FB /* Location.h */,
-				BE8C6BDA1AA6C5C5005FC2FB /* Location.m */,
-				BE8C6BD61AA6C5C4005FC2FB /* Incidence.h */,
-				BE8C6BD71AA6C5C4005FC2FB /* Incidence.m */,
+				BE8C6BDC1AA77606005FC2FB /* IncidenceTableViewController.h */,
+				BE8C6BDD1AA77606005FC2FB /* IncidenceTableViewController.m */,
+				BE8C6BDF1AA7882F005FC2FB /* Incidence.h */,
+				BE8C6BE01AA7882F005FC2FB /* Incidence.m */,
 			);
 			path = AlergyTracker;
 			sourceTree = "<group>";
@@ -301,11 +301,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE8C6BAE1AA6BCCD005FC2FB /* AppDelegate.m in Sources */,
-				BE8C6BDB1AA6C5C5005FC2FB /* Location.m in Sources */,
+				BE8C6BE11AA7882F005FC2FB /* Incidence.m in Sources */,
+				BE8C6BDE1AA77606005FC2FB /* IncidenceTableViewController.m in Sources */,
 				BE8C6BB11AA6BCCD005FC2FB /* AlergyTracker.xcdatamodeld in Sources */,
 				BE8C6BB41AA6BCCD005FC2FB /* ViewController.m in Sources */,
 				BE8C6BAB1AA6BCCD005FC2FB /* main.m in Sources */,
-				BE8C6BD81AA6C5C4005FC2FB /* Incidence.m in Sources */,
 				BE8C6BD31AA6C3BB005FC2FB /* RRLocationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

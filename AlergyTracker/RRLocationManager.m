@@ -9,7 +9,7 @@
 #import "RRLocationManager.h"
 #import <MagicalRecord/CoreData+MagicalRecord.h>
 
-#import "Location.h"
+#import "Incidence.h"
 
 @interface RRLocationManager ()
 
@@ -55,19 +55,21 @@
 }
 
 
-//-(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-//    
-//}
++(void)locationStringForLocation:(CLLocation *)location completionHandler:(void (^)(NSArray *, NSError *))completionHandler {
+    CLGeocoder *geocoder = [CLGeocoder new];
+    [geocoder reverseGeocodeLocation:location completionHandler:completionHandler];
+}
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     
     CLLocation *currentLocation = [locations lastObject];
-    __block Location *location;
+    __block Incidence *location;
     [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
-        location = [Location MR_createEntity];
+        location = [Incidence MR_createEntity];
         location.latitude = @(currentLocation.coordinate.latitude);
         location.longitude = @(currentLocation.coordinate.longitude);
         location.time = currentLocation.timestamp;
+        location.type = @"location";
     } completion:nil];
 }
 

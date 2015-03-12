@@ -15,5 +15,6 @@
 +(instancetype) sharedInstance;
 +(CLLocation*) currentLocation;
 +(void) start;
++(void)locationStringForLocation:(CLLocation*)location completionHandler:(void (^)(NSArray *placemarks, NSError *error))completionHandler;
 
 @end

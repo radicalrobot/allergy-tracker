@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6EY-2h-87B">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -18,7 +18,73 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXD-hg-5av">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No of Incidents Today:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gma-oY-QJx">
+                                        <rect key="frame" x="383" y="67" width="172" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="leT-Qy-gVM">
+                                        <rect key="frame" x="556" y="61" width="30" height="33"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="0">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="viewIncidence:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lBZ-6S-7Gq"/>
+                                            <segue destination="yi5-kT-Xe0" kind="popoverPresentation" identifier="IncidentViewSegue" popoverAnchorView="leT-Qy-gVM" id="2cD-qa-Iet">
+                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                            </segue>
+                                        </connections>
+                                    </button>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHv-fz-5kN">
+                                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                        <items>
+                                            <barButtonItem image="Pill" id="KbI-Al-Uct">
+                                                <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <action selector="actionTaken:" destination="BYZ-38-t0r" id="SIV-AY-sDc"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="LHo-oF-aUC"/>
+                                            <barButtonItem tag="1" image="Cat" id="ic9-ys-inM">
+                                                <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <action selector="actionTaken:" destination="BYZ-38-t0r" id="bwM-Bd-twU"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="3Zf-Kf-X0p"/>
+                                            <barButtonItem tag="2" image="Dog" id="kdL-X1-YSG">
+                                                <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <action selector="actionTaken:" destination="BYZ-38-t0r" id="U7f-kz-aFx"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="eHP-4p-zxX"/>
+                                            <barButtonItem tag="3" image="Flowers" id="qsu-tx-Dgf">
+                                                <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <action selector="actionTaken:" destination="BYZ-38-t0r" id="svu-2a-c5r"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </items>
+                                    </toolbar>
+                                </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="leT-Qy-gVM" secondAttribute="trailing" constant="14" id="22R-83-CKu"/>
+                                    <constraint firstItem="leT-Qy-gVM" firstAttribute="top" secondItem="sXD-hg-5av" secondAttribute="top" constant="61" id="60m-X5-HOj"/>
+                                    <constraint firstItem="Gma-oY-QJx" firstAttribute="top" secondItem="sXD-hg-5av" secondAttribute="top" constant="67" id="6ug-pv-654"/>
+                                    <constraint firstItem="leT-Qy-gVM" firstAttribute="leading" secondItem="Gma-oY-QJx" secondAttribute="trailing" constant="1" id="8V2-m7-m9M"/>
+                                    <constraint firstAttribute="trailing" secondItem="Gma-oY-QJx" secondAttribute="trailing" constant="45" id="A9r-KA-W44"/>
+                                    <constraint firstAttribute="bottom" secondItem="vHv-fz-5kN" secondAttribute="bottom" id="AzE-cg-530"/>
+                                    <constraint firstItem="vHv-fz-5kN" firstAttribute="leading" secondItem="sXD-hg-5av" secondAttribute="leading" id="DDC-HM-hFw"/>
+                                    <constraint firstItem="Gma-oY-QJx" firstAttribute="centerX" secondItem="leT-Qy-gVM" secondAttribute="centerX" constant="-102" id="ST5-Gd-sJT"/>
+                                    <constraint firstAttribute="trailing" secondItem="vHv-fz-5kN" secondAttribute="trailing" id="bpp-UU-R4R"/>
+                                    <constraint firstAttribute="width" secondItem="vHv-fz-5kN" secondAttribute="width" id="nF9-Ia-4YN"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -29,12 +95,118 @@
                             <constraint firstItem="sXD-hg-5av" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ly4-zS-mTF"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Dmb-VK-jxV">
+                        <barButtonItem key="leftBarButtonItem" image="Settings" id="XE0-rC-Fj6"/>
+                        <barButtonItem key="rightBarButtonItem" image="Details" id="y9a-dN-MAQ">
+                            <connections>
+                                <action selector="segueToIncidenceViewer:" destination="BYZ-38-t0r" id="Jap-aj-7ua"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="catButton" destination="ic9-ys-inM" id="LdN-MT-QId"/>
+                        <outlet property="dogButton" destination="kdL-X1-YSG" id="sc8-s1-I5r"/>
                         <outlet property="foreground" destination="sXD-hg-5av" id="9xq-a4-77Q"/>
+                        <outlet property="incidenceNumber" destination="leT-Qy-gVM" id="762-Jd-OsD"/>
+                        <outlet property="pillButton" destination="KbI-Al-Uct" id="bD9-uK-84M"/>
+                        <outlet property="pollenButton" destination="qsu-tx-Dgf" id="E3G-N8-7d5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1070" y="266"/>
+        </scene>
+        <!--Incidence Table View Controller-->
+        <scene sceneID="qlh-cC-jPC">
+            <objects>
+                <tableViewController id="0o1-JN-zMK" customClass="IncidenceTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bWc-Mu-ilU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="IncidenceCell" textLabel="eMZ-pj-TKi" detailTextLabel="DgC-Mj-ZmE" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="ibk-v8-MOb">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ibk-v8-MOb" id="G4O-zo-Of9">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eMZ-pj-TKi">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DgC-Mj-ZmE">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0o1-JN-zMK" id="2Sp-VX-CtT"/>
+                            <outlet property="delegate" destination="0o1-JN-zMK" id="61T-SD-oHK"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="oUl-Fx-0tp">
+                        <barButtonItem key="rightBarButtonItem" title="Close" id="aPp-O1-QMI">
+                            <connections>
+                                <action selector="close:" destination="0o1-JN-zMK" id="OOs-gw-xJX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IfI-Qb-XuT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2633" y="272"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Rz9-8O-cXC">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yi5-kT-Xe0" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SOW-Fg-f7o">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0o1-JN-zMK" kind="relationship" relationship="rootViewController" id="xxc-sL-fBG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aSx-AO-DIc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1821" y="272"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ToU-RE-xhx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6EY-2h-87B" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dFW-dJ-up8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ncg-iD-d2G"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ncp-Fv-FsU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="258" y="266"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Cat" width="22" height="22"/>
+        <image name="Details" width="22" height="22"/>
+        <image name="Dog" width="22" height="22"/>
+        <image name="Flowers" width="22" height="22"/>
+        <image name="Pill" width="22" height="22"/>
+        <image name="Settings" width="22" height="22"/>
+    </resources>
+    <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

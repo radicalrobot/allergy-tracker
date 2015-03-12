@@ -2,7 +2,7 @@
 //  Incidence.h
 //  AlergyTracker
 //
-//  Created by Emily Toop on 03/03/2015.
+//  Created by Emily Toop on 04/03/2015.
 //  Copyright (c) 2015 Radical Robot. All rights reserved.
 //
 
@@ -12,8 +12,9 @@
 
 @interface Incidence : NSManagedObject
 
-@property (nonatomic, retain) NSDate * time;
 @property (nonatomic, retain) NSNumber * latitude;
 @property (nonatomic, retain) NSNumber * longitude;
+@property (nonatomic, retain) NSDate * time;
+@property (nonatomic, retain) NSString * type;
 
 @end
