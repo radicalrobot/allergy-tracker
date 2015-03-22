@@ -13,13 +13,7 @@
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "Pill-Filled@3x.png"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "Pill@3x.png",
-      "unassigned" : true,
-      "scale" : "3x"
+      "filename" : "Pill@3x.png"
     }
   ],
   "info" : {

@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		332436354D0BC5F962E46BB8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE11A62584F48FFA2CA3071D /* libPods.a */; };
+		BE4703D11AB137CA001AF1E8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703D01AB137CA001AF1E8 /* SettingsTableViewController.m */; };
+		BE4703DB1AB13FDC001AF1E8 /* Interaction+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */; };
+		BE4703DE1AB14187001AF1E8 /* Symptom+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */; };
 		BE8C6BAB1AA6BCCD005FC2FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAA1AA6BCCD005FC2FB /* main.m */; };
 		BE8C6BAE1AA6BCCD005FC2FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAD1AA6BCCD005FC2FB /* AppDelegate.m */; };
 		BE8C6BB11AA6BCCD005FC2FB /* AlergyTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAF1AA6BCCD005FC2FB /* AlergyTracker.xcdatamodeld */; };
-		BE8C6BB41AA6BCCD005FC2FB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BB31AA6BCCD005FC2FB /* ViewController.m */; };
+		BE8C6BB41AA6BCCD005FC2FB /* AllergyLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BB31AA6BCCD005FC2FB /* AllergyLogViewController.m */; };
 		BE8C6BB71AA6BCCD005FC2FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE8C6BB51AA6BCCD005FC2FB /* Main.storyboard */; };
 		BE8C6BB91AA6BCCD005FC2FB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8C6BB81AA6BCCD005FC2FB /* Images.xcassets */; };
 		BE8C6BBC1AA6BCCD005FC2FB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE8C6BBA1AA6BCCD005FC2FB /* LaunchScreen.xib */; };
@@ -20,6 +23,9 @@
 		BE8C6BD51AA6C3F8005FC2FB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8C6BD41AA6C3F8005FC2FB /* CoreLocation.framework */; };
 		BE8C6BDE1AA77606005FC2FB /* IncidenceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BDD1AA77606005FC2FB /* IncidenceTableViewController.m */; };
 		BE8C6BE11AA7882F005FC2FB /* Incidence.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BE01AA7882F005FC2FB /* Incidence.m */; };
+		BEE0EF7F1ABF5F9D00D710FB /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF7E1ABF5F9D00D710FB /* SettingTableViewCell.m */; };
+		BEE0EF881ABF65FB00D710FB /* Symptom.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF871ABF65FB00D710FB /* Symptom.m */; };
+		BEE0EF8B1ABF65FB00D710FB /* Interaction.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF8A1ABF65FB00D710FB /* Interaction.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,14 +41,20 @@
 /* Begin PBXFileReference section */
 		0E1AE1749BE60484F1851335 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		0E8EF7A72DDA1526C6E14D48 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		BE4703CF1AB137CA001AF1E8 /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
+		BE4703D01AB137CA001AF1E8 /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
+		BE4703D91AB13FDC001AF1E8 /* Interaction+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Interaction+Extras.h"; sourceTree = "<group>"; };
+		BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Interaction+Extras.m"; sourceTree = "<group>"; };
+		BE4703DC1AB14187001AF1E8 /* Symptom+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Symptom+Extras.h"; sourceTree = "<group>"; };
+		BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Symptom+Extras.m"; sourceTree = "<group>"; };
 		BE8C6BA51AA6BCCD005FC2FB /* AlergyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlergyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE8C6BA91AA6BCCD005FC2FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE8C6BAA1AA6BCCD005FC2FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BE8C6BAC1AA6BCCD005FC2FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BE8C6BAD1AA6BCCD005FC2FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		BE8C6BB01AA6BCCD005FC2FB /* AlergyTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AlergyTracker.xcdatamodel; sourceTree = "<group>"; };
-		BE8C6BB21AA6BCCD005FC2FB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		BE8C6BB31AA6BCCD005FC2FB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		BE8C6BB21AA6BCCD005FC2FB /* AllergyLogViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllergyLogViewController.h; sourceTree = "<group>"; };
+		BE8C6BB31AA6BCCD005FC2FB /* AllergyLogViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllergyLogViewController.m; sourceTree = "<group>"; };
 		BE8C6BB61AA6BCCD005FC2FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE8C6BB81AA6BCCD005FC2FB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BE8C6BBB1AA6BCCD005FC2FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -56,6 +68,12 @@
 		BE8C6BDD1AA77606005FC2FB /* IncidenceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncidenceTableViewController.m; sourceTree = "<group>"; };
 		BE8C6BDF1AA7882F005FC2FB /* Incidence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Incidence.h; sourceTree = "<group>"; };
 		BE8C6BE01AA7882F005FC2FB /* Incidence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Incidence.m; sourceTree = "<group>"; };
+		BEE0EF7D1ABF5F9D00D710FB /* SettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingTableViewCell.h; path = Views/SettingTableViewCell.h; sourceTree = "<group>"; };
+		BEE0EF7E1ABF5F9D00D710FB /* SettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingTableViewCell.m; path = Views/SettingTableViewCell.m; sourceTree = "<group>"; };
+		BEE0EF861ABF65FB00D710FB /* Symptom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Symptom.h; sourceTree = "<group>"; };
+		BEE0EF871ABF65FB00D710FB /* Symptom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Symptom.m; sourceTree = "<group>"; };
+		BEE0EF891ABF65FB00D710FB /* Interaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Interaction.h; sourceTree = "<group>"; };
+		BEE0EF8A1ABF65FB00D710FB /* Interaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Interaction.m; sourceTree = "<group>"; };
 		EE11A62584F48FFA2CA3071D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -88,6 +106,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BE4703D21AB137D7001AF1E8 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BE8C6BB21AA6BCCD005FC2FB /* AllergyLogViewController.h */,
+				BE8C6BB31AA6BCCD005FC2FB /* AllergyLogViewController.m */,
+				BE8C6BDC1AA77606005FC2FB /* IncidenceTableViewController.h */,
+				BE8C6BDD1AA77606005FC2FB /* IncidenceTableViewController.m */,
+				BE4703CF1AB137CA001AF1E8 /* SettingsTableViewController.h */,
+				BE4703D01AB137CA001AF1E8 /* SettingsTableViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		BE8C6B9C1AA6BCCD005FC2FB = {
 			isa = PBXGroup;
 			children = (
@@ -111,10 +142,10 @@
 		BE8C6BA71AA6BCCD005FC2FB /* AlergyTracker */ = {
 			isa = PBXGroup;
 			children = (
+				BEE0EF7C1ABF5F3E00D710FB /* Views */,
 				BE8C6BAC1AA6BCCD005FC2FB /* AppDelegate.h */,
 				BE8C6BAD1AA6BCCD005FC2FB /* AppDelegate.m */,
-				BE8C6BB21AA6BCCD005FC2FB /* ViewController.h */,
-				BE8C6BB31AA6BCCD005FC2FB /* ViewController.m */,
+				BE4703D21AB137D7001AF1E8 /* View Controllers */,
 				BE8C6BB51AA6BCCD005FC2FB /* Main.storyboard */,
 				BE8C6BB81AA6BCCD005FC2FB /* Images.xcassets */,
 				BE8C6BBA1AA6BCCD005FC2FB /* LaunchScreen.xib */,
@@ -122,10 +153,16 @@
 				BE8C6BA81AA6BCCD005FC2FB /* Supporting Files */,
 				BE8C6BD11AA6C3BB005FC2FB /* RRLocationManager.h */,
 				BE8C6BD21AA6C3BB005FC2FB /* RRLocationManager.m */,
-				BE8C6BDC1AA77606005FC2FB /* IncidenceTableViewController.h */,
-				BE8C6BDD1AA77606005FC2FB /* IncidenceTableViewController.m */,
 				BE8C6BDF1AA7882F005FC2FB /* Incidence.h */,
 				BE8C6BE01AA7882F005FC2FB /* Incidence.m */,
+				BE4703D91AB13FDC001AF1E8 /* Interaction+Extras.h */,
+				BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */,
+				BE4703DC1AB14187001AF1E8 /* Symptom+Extras.h */,
+				BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */,
+				BEE0EF891ABF65FB00D710FB /* Interaction.h */,
+				BEE0EF8A1ABF65FB00D710FB /* Interaction.m */,
+				BEE0EF861ABF65FB00D710FB /* Symptom.h */,
+				BEE0EF871ABF65FB00D710FB /* Symptom.m */,
 			);
 			path = AlergyTracker;
 			sourceTree = "<group>";
@@ -154,6 +191,15 @@
 				BE8C6BC61AA6BCCD005FC2FB /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BEE0EF7C1ABF5F3E00D710FB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BEE0EF7D1ABF5F9D00D710FB /* SettingTableViewCell.h */,
+				BEE0EF7E1ABF5F9D00D710FB /* SettingTableViewCell.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		D65F7F297281124A029D93AA /* Pods */ = {
@@ -300,12 +346,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE4703D11AB137CA001AF1E8 /* SettingsTableViewController.m in Sources */,
 				BE8C6BAE1AA6BCCD005FC2FB /* AppDelegate.m in Sources */,
+				BEE0EF7F1ABF5F9D00D710FB /* SettingTableViewCell.m in Sources */,
 				BE8C6BE11AA7882F005FC2FB /* Incidence.m in Sources */,
+				BEE0EF8B1ABF65FB00D710FB /* Interaction.m in Sources */,
 				BE8C6BDE1AA77606005FC2FB /* IncidenceTableViewController.m in Sources */,
+				BEE0EF881ABF65FB00D710FB /* Symptom.m in Sources */,
 				BE8C6BB11AA6BCCD005FC2FB /* AlergyTracker.xcdatamodeld in Sources */,
-				BE8C6BB41AA6BCCD005FC2FB /* ViewController.m in Sources */,
+				BE8C6BB41AA6BCCD005FC2FB /* AllergyLogViewController.m in Sources */,
 				BE8C6BAB1AA6BCCD005FC2FB /* main.m in Sources */,
+				BE4703DB1AB13FDC001AF1E8 /* Interaction+Extras.m in Sources */,
+				BE4703DE1AB14187001AF1E8 /* Symptom+Extras.m in Sources */,
 				BE8C6BD31AA6C3BB005FC2FB /* RRLocationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

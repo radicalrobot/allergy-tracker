@@ -6,14 +6,14 @@
 //  Copyright (c) 2015 Radical Robot. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "AllergyLogViewController.h"
 
 #import "RRLocationManager.h"
 #import "Incidence.h"
 
 #import <MagicalRecord/CoreData+MagicalRecord.h>
 
-@interface ViewController ()
+@interface AllergyLogViewController ()
 @property (weak, nonatomic) IBOutlet UIView *foreground;
 @property (weak, nonatomic) IBOutlet UIButton *incidenceNumber;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *pillButton;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation ViewController
+@implementation AllergyLogViewController
 
 static NSString* const kIncidenceSegue = @"IncidentViewSegue";
 
@@ -33,6 +33,11 @@ static NSString* const kIncidenceSegue = @"IncidentViewSegue";
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
     [self.foreground addGestureRecognizer:tapGesture];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidEnterForeground:)
+                                                name: UIApplicationWillEnterForegroundNotification
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,11 +47,19 @@ static NSString* const kIncidenceSegue = @"IncidentViewSegue";
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self updateIncidence];
-    [self setupMedicationNotification];
+    [self updateViewStatus];
 }
 
--(void)setupMedicationNotification {
+-(void)applicationDidEnterForeground:(NSNotification*)notification {
+    [self updateViewStatus];
+}
+
+-(void)updateViewStatus {
+    [self updateIncidence];
+    [self updateAllergens];
+}
+
+-(void)updateAllergens {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *now = [NSDate date];
     NSDate *from = [calendar dateBySettingHour:0  minute:0  second:0  ofDate:now options:0];
@@ -155,5 +168,4 @@ static NSString* const kIncidenceSegue = @"IncidentViewSegue";
         incidence.type = incidenceType;
     } completion:nil];
 }
-
 @end
