@@ -100,7 +100,7 @@ static NSString* const kCellIdentifier = @"SymptomCell";
 -(void)updateAllergen:(id)sender {
     UIBarButtonItem *button = sender;
     if(button.tag == MEDICATION_TAG) {
-        NSNumber *numberOfIncidents = [Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type='Medication'", _dayStart, _dayEnd]];
+        NSNumber *numberOfIncidents = [Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=[c]'Medication'", _dayStart, _dayEnd]];
         if([numberOfIncidents intValue] > 0){
             [button setImage:[UIImage imageNamed:@"PillFilled"]];
         }
@@ -110,7 +110,7 @@ static NSString* const kCellIdentifier = @"SymptomCell";
     }
     else {
         Interaction *allergen = self.selectedAllergens[button.tag];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=%@", _dayStart, _dayEnd, allergen.name];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=[c]%@", _dayStart, _dayEnd, allergen.name];
         NSNumber *numberOfIncidents = [Incidence MR_numberOfEntitiesWithPredicate:predicate];
         if([numberOfIncidents intValue] > 0){
             [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@Filled", allergen.name]]];
@@ -176,7 +176,7 @@ static NSString* const kCellIdentifier = @"SymptomCell";
     Symptom *selectedSymptom = self.selectedSymptoms[indexPath.row];
     IncidentCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellIdentifier forIndexPath:indexPath];
     cell.symptomNameLabel.text = selectedSymptom.name;
-    cell.incidenceCountLabel.text = [[Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"type=%@", selectedSymptom.name]] stringValue];
+    cell.incidenceCountLabel.text = [[Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=[c]%@", _dayStart, _dayEnd, selectedSymptom.name]] stringValue];
     
     return cell;
 }
