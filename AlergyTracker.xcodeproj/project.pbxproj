@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		332436354D0BC5F962E46BB8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE11A62584F48FFA2CA3071D /* libPods.a */; };
+		BE2D74291AC1B4BD000C5815 /* MigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2D74281AC1B4BD000C5815 /* MigrationManager.m */; };
 		BE4703D11AB137CA001AF1E8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703D01AB137CA001AF1E8 /* SettingsTableViewController.m */; };
 		BE4703DB1AB13FDC001AF1E8 /* Interaction+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */; };
 		BE4703DE1AB14187001AF1E8 /* Symptom+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */; };
@@ -42,6 +43,8 @@
 /* Begin PBXFileReference section */
 		0E1AE1749BE60484F1851335 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		0E8EF7A72DDA1526C6E14D48 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		BE2D74271AC1B4BD000C5815 /* MigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MigrationManager.h; path = Model/MigrationManager.h; sourceTree = "<group>"; };
+		BE2D74281AC1B4BD000C5815 /* MigrationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MigrationManager.m; path = Model/MigrationManager.m; sourceTree = "<group>"; };
 		BE4703CF1AB137CA001AF1E8 /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
 		BE4703D01AB137CA001AF1E8 /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		BE4703D91AB13FDC001AF1E8 /* Interaction+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Interaction+Extras.h"; sourceTree = "<group>"; };
@@ -122,6 +125,8 @@
 				BEE0EF8A1ABF65FB00D710FB /* Interaction.m */,
 				BEE0EF861ABF65FB00D710FB /* Symptom.h */,
 				BEE0EF871ABF65FB00D710FB /* Symptom.m */,
+				BE2D74271AC1B4BD000C5815 /* MigrationManager.h */,
+				BE2D74281AC1B4BD000C5815 /* MigrationManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -372,6 +377,7 @@
 				BEE0EF8E1AC0455D00D710FB /* IncidentCollectionViewCell.m in Sources */,
 				BE4703DB1AB13FDC001AF1E8 /* Interaction+Extras.m in Sources */,
 				BE4703DE1AB14187001AF1E8 /* Symptom+Extras.m in Sources */,
+				BE2D74291AC1B4BD000C5815 /* MigrationManager.m in Sources */,
 				BE8C6BD31AA6C3BB005FC2FB /* RRLocationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

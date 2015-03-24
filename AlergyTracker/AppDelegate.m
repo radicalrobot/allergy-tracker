@@ -11,6 +11,7 @@
 #import <MagicalRecord/CoreData+MagicalRecord.h>
 #import "Symptom+Extras.h"
 #import "Interaction+Extras.h"
+#import "MigrationManager.h"
 
 @interface AppDelegate ()
 
@@ -112,6 +113,8 @@
             }
         }
     }];
+    
+    [[MigrationManager sharedInstance] migrateFromVersion:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
 }
 
 @end
