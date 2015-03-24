@@ -99,7 +99,9 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="Details" id="y9a-dN-MAQ">
                             <connections>
-                                <action selector="segueToIncidenceViewer:" destination="BYZ-38-t0r" id="Jap-aj-7ua"/>
+                                <segue destination="yi5-kT-Xe0" kind="popoverPresentation" popoverAnchorBarButtonItem="y9a-dN-MAQ" id="cxl-oS-o2Q">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
