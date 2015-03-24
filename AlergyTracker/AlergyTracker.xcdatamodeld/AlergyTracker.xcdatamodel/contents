@@ -7,6 +7,7 @@
         <attribute name="type" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
     <entity name="Interaction" representedClassName="Interaction" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="interactionId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="selected" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -18,7 +19,7 @@
     </entity>
     <elements>
         <element name="Incidence" positionX="-36" positionY="9" width="128" height="105"/>
-        <element name="Interaction" positionX="-9" positionY="54" width="128" height="88"/>
+        <element name="Interaction" positionX="-9" positionY="54" width="128" height="105"/>
         <element name="Symptom" positionX="-27" positionY="45" width="128" height="88"/>
     </elements>
 </model>

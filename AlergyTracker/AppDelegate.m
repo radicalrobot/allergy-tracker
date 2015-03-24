@@ -54,13 +54,13 @@
 }
 
 -(void)setupData {
-    NSArray *symptoms = @[@"wheezing",
+    NSArray *symptoms = @[@"wheezy",
                           @"vomiting",
                           @"hives",
                           @"diarrhea",
-                          @"itching",
+                          @"itchy skin",
                           @"rash",
-                          @"throat swelling",
+                          @"swollen throat",
                           @"low blood pressure",
                           @"runny nose",
                           @"abdominal pain",
@@ -73,10 +73,10 @@
                           @"dizziness",
                           @"runny nose",
                           @"stuffy nose",
-                          @"sneezing",
+                          @"sneeze",
                           @"cough",
                           @"conjunctivitis",
-                          @"nosebleeds",
+                          @"nosebleed",
                           @"itchy nose"];
     
     NSArray *interactions = @[@"Dairy",

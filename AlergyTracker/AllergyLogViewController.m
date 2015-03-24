@@ -17,21 +17,22 @@
 #import <MagicalRecord/CoreData+MagicalRecord.h>
 
 #define CELL_SPACING 5
+#define MEDICATION_TAG 200
 
 @interface AllergyLogViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *pillButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *catButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *dogButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *pollenButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIToolbar *allergenToolbar;
 
 @property (nonatomic, strong) NSArray *selectedSymptoms;
 @property (nonatomic, strong) NSArray *selectedAllergens;
 
 @end
 
-@implementation AllergyLogViewController
+@implementation AllergyLogViewController {
+    NSDate *_dayStart;
+    NSDate *_dayEnd;
+}
 
 static NSString* const kIncidenceSegue = @"IncidentViewSegue";
 static NSString* const kCellIdentifier = @"SymptomCell";
@@ -56,7 +57,7 @@ static NSString* const kCellIdentifier = @"SymptomCell";
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self updateViewStatus];
+    [self setupAllergens];
 }
 
 -(void)applicationDidEnterForeground:(NSNotification*)notification {
@@ -67,39 +68,56 @@ static NSString* const kCellIdentifier = @"SymptomCell";
     [self updateAllergens];
 }
 
--(void)updateAllergens {
+-(void)setupAllergens {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *now = [NSDate date];
-    NSDate *from = [calendar dateBySettingHour:0  minute:0  second:0  ofDate:now options:0];
-    NSDate *to   = [calendar dateBySettingHour:23 minute:59 second:59 ofDate:now options:0];
+    _dayStart = [calendar dateBySettingHour:0  minute:0  second:0  ofDate:now options:0];
+    _dayEnd   = [calendar dateBySettingHour:23 minute:59 second:59 ofDate:now options:0];
+    UIBarButtonItem *medication = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Pill"] style:UIBarButtonItemStylePlain target:self action:@selector(actionTaken:)];
+    medication.tag = MEDICATION_TAG;
+    NSMutableArray *items = [NSMutableArray arrayWithObject:medication];
+    UIBarButtonItem *allergen;
+    for(int idx = 0; idx < [self.selectedAllergens count]; ++idx) {
+        [items addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+        Interaction *interaction = self.selectedAllergens[idx];
+        allergen = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:interaction.name] style:UIBarButtonItemStylePlain target:self action:@selector(actionTaken:)];
+        allergen.tag = idx;
+        [items addObject:allergen];
+    }
+    self.allergenToolbar.items = items;
     
-    NSNumber *numberOfIncidents = [Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type='Medication'", from, to]];
-    if([numberOfIncidents intValue] > 0){
-        [self.pillButton setImage:[UIImage imageNamed:@"PillFilled"]];
+    [self updateAllergens];
+}
+
+-(void)updateAllergens {
+    for(UIBarButtonItem *button in self.allergenToolbar.items) {
+        if(button.style == UIBarButtonItemStylePlain){
+            [self updateAllergen:button];
+        }
+    }
+}
+
+-(void)updateAllergen:(id)sender {
+    UIBarButtonItem *button = sender;
+    if(button.tag == MEDICATION_TAG) {
+        NSNumber *numberOfIncidents = [Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type='Medication'", _dayStart, _dayEnd]];
+        if([numberOfIncidents intValue] > 0){
+            [button setImage:[UIImage imageNamed:@"PillFilled"]];
+        }
+        else {
+            [button setImage:[UIImage imageNamed:@"Pill"]];
+        }
     }
     else {
-        [self.pillButton setImage:[UIImage imageNamed:@"Pill"]];
-    }
-    numberOfIncidents = [Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type='Cat'", from, to]];
-    if([numberOfIncidents intValue] > 0){
-        [self.catButton setImage:[UIImage imageNamed:@"CatFilled"]];
-    }
-    else {
-        [self.catButton setImage:[UIImage imageNamed:@"Cat"]];
-    }
-    numberOfIncidents = [Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type='Dog'", from, to]];
-    if([numberOfIncidents intValue] > 0){
-        [self.dogButton setImage:[UIImage imageNamed:@"DogFilled"]];
-    }
-    else {
-        [self.dogButton setImage:[UIImage imageNamed:@"Dog"]];
-    }
-    numberOfIncidents = [Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type='Pollen'", from, to]];
-    if([numberOfIncidents intValue] > 0){
-        [self.pollenButton setImage:[UIImage imageNamed:@"FlowersFilled"]];
-    }
-    else {
-        [self.pollenButton setImage:[UIImage imageNamed:@"Flowers"]];
+        Interaction *allergen = self.selectedAllergens[button.tag];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=%@", _dayStart, _dayEnd, allergen.name];
+        NSNumber *numberOfIncidents = [Incidence MR_numberOfEntitiesWithPredicate:predicate];
+        if([numberOfIncidents intValue] > 0){
+            [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@Filled", allergen.name]]];
+        }
+        else {
+            [button setImage:[UIImage imageNamed:allergen.name]];
+        }
     }
 }
 
@@ -122,31 +140,26 @@ static NSString* const kCellIdentifier = @"SymptomCell";
 - (IBAction)actionTaken:(id)sender {
     NSString *incidenceType;
     
-    if([sender tag] == 0) {
+    if([sender tag] == MEDICATION_TAG) {
         incidenceType = @"Medication";
-        [sender setImage:[UIImage imageNamed:@"PillFilled"]];
     }
-    else if([sender tag] == 1) {
-        incidenceType = @"Cat";
-        [sender setImage:[UIImage imageNamed:@"CatFilled"]];
+    else {
+        Interaction *allergen = self.selectedAllergens[[sender tag]];
+        incidenceType = allergen.name;
     }
-    else if([sender tag] == 2) {
-        incidenceType = @"Dog";
-        [sender setImage:[UIImage imageNamed:@"DogFilled"]];
-    }
-    else if([sender tag] == 3) {
-        incidenceType = @"Pollen";
-        [sender setImage:[UIImage imageNamed:@"FlowersFilled"]];
-    }
-    __block Incidence *incidence;
+    __weak typeof(self) weakself = self;
     CLLocation *currentLocation = [RRLocationManager currentLocation];
     [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
-        incidence = [Incidence MR_createInContext:localContext];
+        Incidence *incidence = [Incidence MR_createInContext:localContext];
         incidence.latitude = @(currentLocation.coordinate.latitude);
         incidence.longitude = @(currentLocation.coordinate.longitude);
         incidence.time = [NSDate date];
         incidence.type = incidenceType;
-    } completion:nil];
+    } completion:^(BOOL success, NSError *error) {
+        typeof(weakself) localself = weakself;
+        [localself updateAllergen:sender];
+    }];
+    
 }
 
 #pragma mark - UICollectionView methods

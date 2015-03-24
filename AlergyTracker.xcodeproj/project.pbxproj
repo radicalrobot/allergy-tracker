@@ -109,6 +109,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BE2D74261AC1B47E000C5815 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BE8C6BDF1AA7882F005FC2FB /* Incidence.h */,
+				BE8C6BE01AA7882F005FC2FB /* Incidence.m */,
+				BE4703D91AB13FDC001AF1E8 /* Interaction+Extras.h */,
+				BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */,
+				BE4703DC1AB14187001AF1E8 /* Symptom+Extras.h */,
+				BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */,
+				BEE0EF891ABF65FB00D710FB /* Interaction.h */,
+				BEE0EF8A1ABF65FB00D710FB /* Interaction.m */,
+				BEE0EF861ABF65FB00D710FB /* Symptom.h */,
+				BEE0EF871ABF65FB00D710FB /* Symptom.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		BE4703D21AB137D7001AF1E8 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,16 +173,7 @@
 				BE8C6BA81AA6BCCD005FC2FB /* Supporting Files */,
 				BE8C6BD11AA6C3BB005FC2FB /* RRLocationManager.h */,
 				BE8C6BD21AA6C3BB005FC2FB /* RRLocationManager.m */,
-				BE8C6BDF1AA7882F005FC2FB /* Incidence.h */,
-				BE8C6BE01AA7882F005FC2FB /* Incidence.m */,
-				BE4703D91AB13FDC001AF1E8 /* Interaction+Extras.h */,
-				BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */,
-				BE4703DC1AB14187001AF1E8 /* Symptom+Extras.h */,
-				BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */,
-				BEE0EF891ABF65FB00D710FB /* Interaction.h */,
-				BEE0EF8A1ABF65FB00D710FB /* Interaction.m */,
-				BEE0EF861ABF65FB00D710FB /* Symptom.h */,
-				BEE0EF871ABF65FB00D710FB /* Symptom.m */,
+				BE2D74261AC1B47E000C5815 /* Model */,
 			);
 			path = AlergyTracker;
 			sourceTree = "<group>";

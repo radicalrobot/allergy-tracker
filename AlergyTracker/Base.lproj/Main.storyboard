@@ -99,13 +99,14 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="Details" id="y9a-dN-MAQ">
                             <connections>
-                                <segue destination="yi5-kT-Xe0" kind="popoverPresentation" popoverAnchorBarButtonItem="y9a-dN-MAQ" id="cxl-oS-o2Q">
+                                <segue destination="yi5-kT-Xe0" kind="popoverPresentation" identifier="IncidentViewSegue" popoverAnchorBarButtonItem="y9a-dN-MAQ" id="cxl-oS-o2Q">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="allergenToolbar" destination="vHv-fz-5kN" id="Y2u-y1-SVa"/>
                         <outlet property="collectionView" destination="JKp-5K-Mwf" id="MJL-kX-yZt"/>
                     </connections>
                 </viewController>
