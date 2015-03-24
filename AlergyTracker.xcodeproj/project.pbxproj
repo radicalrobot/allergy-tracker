@@ -26,6 +26,7 @@
 		BEE0EF7F1ABF5F9D00D710FB /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF7E1ABF5F9D00D710FB /* SettingTableViewCell.m */; };
 		BEE0EF881ABF65FB00D710FB /* Symptom.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF871ABF65FB00D710FB /* Symptom.m */; };
 		BEE0EF8B1ABF65FB00D710FB /* Interaction.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF8A1ABF65FB00D710FB /* Interaction.m */; };
+		BEE0EF8E1AC0455D00D710FB /* IncidentCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF8D1AC0455D00D710FB /* IncidentCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,8 @@
 		BEE0EF871ABF65FB00D710FB /* Symptom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Symptom.m; sourceTree = "<group>"; };
 		BEE0EF891ABF65FB00D710FB /* Interaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Interaction.h; sourceTree = "<group>"; };
 		BEE0EF8A1ABF65FB00D710FB /* Interaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Interaction.m; sourceTree = "<group>"; };
+		BEE0EF8C1AC0455D00D710FB /* IncidentCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IncidentCollectionViewCell.h; path = Views/IncidentCollectionViewCell.h; sourceTree = "<group>"; };
+		BEE0EF8D1AC0455D00D710FB /* IncidentCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IncidentCollectionViewCell.m; path = Views/IncidentCollectionViewCell.m; sourceTree = "<group>"; };
 		EE11A62584F48FFA2CA3071D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -198,6 +201,8 @@
 			children = (
 				BEE0EF7D1ABF5F9D00D710FB /* SettingTableViewCell.h */,
 				BEE0EF7E1ABF5F9D00D710FB /* SettingTableViewCell.m */,
+				BEE0EF8C1AC0455D00D710FB /* IncidentCollectionViewCell.h */,
+				BEE0EF8D1AC0455D00D710FB /* IncidentCollectionViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -356,6 +361,7 @@
 				BE8C6BB11AA6BCCD005FC2FB /* AlergyTracker.xcdatamodeld in Sources */,
 				BE8C6BB41AA6BCCD005FC2FB /* AllergyLogViewController.m in Sources */,
 				BE8C6BAB1AA6BCCD005FC2FB /* main.m in Sources */,
+				BEE0EF8E1AC0455D00D710FB /* IncidentCollectionViewCell.m in Sources */,
 				BE4703DB1AB13FDC001AF1E8 /* Interaction+Extras.m in Sources */,
 				BE4703DE1AB14187001AF1E8 /* Symptom+Extras.m in Sources */,
 				BE8C6BD31AA6C3BB005FC2FB /* RRLocationManager.m in Sources */,
