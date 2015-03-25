@@ -46,8 +46,6 @@ static NSString* const kCellIdentifier = @"SymptomCell";
                                                 name: UIApplicationWillEnterForegroundNotification
                                                object:nil];
     
-    self.selectedAllergens = [Interaction MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
-    self.selectedSymptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,7 +55,7 @@ static NSString* const kCellIdentifier = @"SymptomCell";
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self setupAllergens];
+    [self updateViewStatus];
 }
 
 -(void)applicationDidEnterForeground:(NSNotification*)notification {
@@ -65,14 +63,21 @@ static NSString* const kCellIdentifier = @"SymptomCell";
 }
 
 -(void)updateViewStatus {
-    [self updateAllergens];
-}
-
--(void)setupAllergens {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *now = [NSDate date];
     _dayStart = [calendar dateBySettingHour:0  minute:0  second:0  ofDate:now options:0];
     _dayEnd   = [calendar dateBySettingHour:23 minute:59 second:59 ofDate:now options:0];
+    [self updateAllergens];
+    [self updateSymptoms];
+}
+
+-(void)updateSymptoms {
+    self.selectedSymptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+    [self.collectionView reloadData];
+}
+
+-(void)setupAllergens {
+    self.selectedAllergens = [Interaction MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
     UIBarButtonItem *medication = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Pill"] style:UIBarButtonItemStylePlain target:self action:@selector(actionTaken:)];
     medication.tag = MEDICATION_TAG;
     NSMutableArray *items = [NSMutableArray arrayWithObject:medication];
@@ -85,11 +90,10 @@ static NSString* const kCellIdentifier = @"SymptomCell";
         [items addObject:allergen];
     }
     self.allergenToolbar.items = items;
-    
-    [self updateAllergens];
 }
 
 -(void)updateAllergens {
+    [self setupAllergens];
     for(UIBarButtonItem *button in self.allergenToolbar.items) {
         if(button.style == UIBarButtonItemStylePlain){
             [self updateAllergen:button];
