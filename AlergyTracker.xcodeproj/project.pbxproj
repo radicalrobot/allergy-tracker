@@ -14,7 +14,7 @@
 		BE4703DE1AB14187001AF1E8 /* Symptom+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */; };
 		BE8C6BAB1AA6BCCD005FC2FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAA1AA6BCCD005FC2FB /* main.m */; };
 		BE8C6BAE1AA6BCCD005FC2FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAD1AA6BCCD005FC2FB /* AppDelegate.m */; };
-		BE8C6BB11AA6BCCD005FC2FB /* AlergyTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAF1AA6BCCD005FC2FB /* AlergyTracker.xcdatamodeld */; };
+		BE8C6BB11AA6BCCD005FC2FB /* AllergyTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAF1AA6BCCD005FC2FB /* AllergyTracker.xcdatamodeld */; };
 		BE8C6BB41AA6BCCD005FC2FB /* AllergyLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BB31AA6BCCD005FC2FB /* AllergyLogViewController.m */; };
 		BE8C6BB71AA6BCCD005FC2FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE8C6BB51AA6BCCD005FC2FB /* Main.storyboard */; };
 		BE8C6BB91AA6BCCD005FC2FB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8C6BB81AA6BCCD005FC2FB /* Images.xcassets */; };
@@ -23,7 +23,8 @@
 		BE8C6BD31AA6C3BB005FC2FB /* RRLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BD21AA6C3BB005FC2FB /* RRLocationManager.m */; };
 		BE8C6BD51AA6C3F8005FC2FB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8C6BD41AA6C3F8005FC2FB /* CoreLocation.framework */; };
 		BE8C6BDE1AA77606005FC2FB /* IncidenceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BDD1AA77606005FC2FB /* IncidenceTableViewController.m */; };
-		BE8C6BE11AA7882F005FC2FB /* Incidence.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BE01AA7882F005FC2FB /* Incidence.m */; };
+		BEC1B7D61AC5C74F001EE74C /* Incidence.m in Sources */ = {isa = PBXBuildFile; fileRef = BEC1B7D51AC5C74F001EE74C /* Incidence.m */; };
+		BEC1B7D91AC5C787001EE74C /* Incidence+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BEC1B7D81AC5C787001EE74C /* Incidence+Extras.m */; };
 		BEE0EF7F1ABF5F9D00D710FB /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF7E1ABF5F9D00D710FB /* SettingTableViewCell.m */; };
 		BEE0EF881ABF65FB00D710FB /* Symptom.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF871ABF65FB00D710FB /* Symptom.m */; };
 		BEE0EF8B1ABF65FB00D710FB /* Interaction.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF8A1ABF65FB00D710FB /* Interaction.m */; };
@@ -56,7 +57,7 @@
 		BE8C6BAA1AA6BCCD005FC2FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BE8C6BAC1AA6BCCD005FC2FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BE8C6BAD1AA6BCCD005FC2FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BE8C6BB01AA6BCCD005FC2FB /* AlergyTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AlergyTracker.xcdatamodel; sourceTree = "<group>"; };
+		BE8C6BB01AA6BCCD005FC2FB /* AllergyTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AllergyTracker.xcdatamodel; sourceTree = "<group>"; };
 		BE8C6BB21AA6BCCD005FC2FB /* AllergyLogViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllergyLogViewController.h; sourceTree = "<group>"; };
 		BE8C6BB31AA6BCCD005FC2FB /* AllergyLogViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllergyLogViewController.m; sourceTree = "<group>"; };
 		BE8C6BB61AA6BCCD005FC2FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -70,8 +71,11 @@
 		BE8C6BD41AA6C3F8005FC2FB /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BE8C6BDC1AA77606005FC2FB /* IncidenceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncidenceTableViewController.h; sourceTree = "<group>"; };
 		BE8C6BDD1AA77606005FC2FB /* IncidenceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncidenceTableViewController.m; sourceTree = "<group>"; };
-		BE8C6BDF1AA7882F005FC2FB /* Incidence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Incidence.h; sourceTree = "<group>"; };
-		BE8C6BE01AA7882F005FC2FB /* Incidence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Incidence.m; sourceTree = "<group>"; };
+		BEC1B7D41AC5C74F001EE74C /* Incidence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Incidence.h; path = Model/Incidence.h; sourceTree = "<group>"; };
+		BEC1B7D51AC5C74F001EE74C /* Incidence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Incidence.m; path = Model/Incidence.m; sourceTree = "<group>"; };
+		BEC1B7D71AC5C787001EE74C /* Incidence+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Incidence+Extras.h"; path = "Model/Incidence+Extras.h"; sourceTree = "<group>"; };
+		BEC1B7D81AC5C787001EE74C /* Incidence+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Incidence+Extras.m"; path = "Model/Incidence+Extras.m"; sourceTree = "<group>"; };
+		BEC1B7DA1AC5C9B7001EE74C /* AllergyTracker 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AllergyTracker 2.xcdatamodel"; sourceTree = "<group>"; };
 		BEE0EF7D1ABF5F9D00D710FB /* SettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingTableViewCell.h; path = Views/SettingTableViewCell.h; sourceTree = "<group>"; };
 		BEE0EF7E1ABF5F9D00D710FB /* SettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingTableViewCell.m; path = Views/SettingTableViewCell.m; sourceTree = "<group>"; };
 		BEE0EF861ABF65FB00D710FB /* Symptom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Symptom.h; sourceTree = "<group>"; };
@@ -115,8 +119,6 @@
 		BE2D74261AC1B47E000C5815 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BE8C6BDF1AA7882F005FC2FB /* Incidence.h */,
-				BE8C6BE01AA7882F005FC2FB /* Incidence.m */,
 				BE4703D91AB13FDC001AF1E8 /* Interaction+Extras.h */,
 				BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */,
 				BE4703DC1AB14187001AF1E8 /* Symptom+Extras.h */,
@@ -127,6 +129,10 @@
 				BEE0EF871ABF65FB00D710FB /* Symptom.m */,
 				BE2D74271AC1B4BD000C5815 /* MigrationManager.h */,
 				BE2D74281AC1B4BD000C5815 /* MigrationManager.m */,
+				BEC1B7D41AC5C74F001EE74C /* Incidence.h */,
+				BEC1B7D51AC5C74F001EE74C /* Incidence.m */,
+				BEC1B7D71AC5C787001EE74C /* Incidence+Extras.h */,
+				BEC1B7D81AC5C787001EE74C /* Incidence+Extras.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -174,7 +180,7 @@
 				BE8C6BB51AA6BCCD005FC2FB /* Main.storyboard */,
 				BE8C6BB81AA6BCCD005FC2FB /* Images.xcassets */,
 				BE8C6BBA1AA6BCCD005FC2FB /* LaunchScreen.xib */,
-				BE8C6BAF1AA6BCCD005FC2FB /* AlergyTracker.xcdatamodeld */,
+				BE8C6BAF1AA6BCCD005FC2FB /* AllergyTracker.xcdatamodeld */,
 				BE8C6BA81AA6BCCD005FC2FB /* Supporting Files */,
 				BE8C6BD11AA6C3BB005FC2FB /* RRLocationManager.h */,
 				BE8C6BD21AA6C3BB005FC2FB /* RRLocationManager.m */,
@@ -365,13 +371,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE4703D11AB137CA001AF1E8 /* SettingsTableViewController.m in Sources */,
+				BEC1B7D91AC5C787001EE74C /* Incidence+Extras.m in Sources */,
+				BEC1B7D61AC5C74F001EE74C /* Incidence.m in Sources */,
 				BE8C6BAE1AA6BCCD005FC2FB /* AppDelegate.m in Sources */,
 				BEE0EF7F1ABF5F9D00D710FB /* SettingTableViewCell.m in Sources */,
-				BE8C6BE11AA7882F005FC2FB /* Incidence.m in Sources */,
 				BEE0EF8B1ABF65FB00D710FB /* Interaction.m in Sources */,
 				BE8C6BDE1AA77606005FC2FB /* IncidenceTableViewController.m in Sources */,
 				BEE0EF881ABF65FB00D710FB /* Symptom.m in Sources */,
-				BE8C6BB11AA6BCCD005FC2FB /* AlergyTracker.xcdatamodeld in Sources */,
+				BE8C6BB11AA6BCCD005FC2FB /* AllergyTracker.xcdatamodeld in Sources */,
 				BE8C6BB41AA6BCCD005FC2FB /* AllergyLogViewController.m in Sources */,
 				BE8C6BAB1AA6BCCD005FC2FB /* main.m in Sources */,
 				BEE0EF8E1AC0455D00D710FB /* IncidentCollectionViewCell.m in Sources */,
@@ -587,13 +594,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		BE8C6BAF1AA6BCCD005FC2FB /* AlergyTracker.xcdatamodeld */ = {
+		BE8C6BAF1AA6BCCD005FC2FB /* AllergyTracker.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				BE8C6BB01AA6BCCD005FC2FB /* AlergyTracker.xcdatamodel */,
+				BEC1B7DA1AC5C9B7001EE74C /* AllergyTracker 2.xcdatamodel */,
+				BE8C6BB01AA6BCCD005FC2FB /* AllergyTracker.xcdatamodel */,
 			);
-			currentVersion = BE8C6BB01AA6BCCD005FC2FB /* AlergyTracker.xcdatamodel */;
-			path = AlergyTracker.xcdatamodeld;
+			currentVersion = BEC1B7DA1AC5C9B7001EE74C /* AllergyTracker 2.xcdatamodel */;
+			path = AllergyTracker.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

@@ -8,7 +8,7 @@
 
 #import "IncidenceTableViewController.h"
 
-#import "Incidence.h"
+#import "Incidence+Extras.h"
 #import "RRLocationManager.h"
 
 #import <MagicalRecord/CoreData+MagicalRecord.h>

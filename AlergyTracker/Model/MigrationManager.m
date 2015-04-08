@@ -9,7 +9,7 @@
 #import "MigrationManager.h"
 
 #import <MagicalRecord/CoreData+MagicalRecord.h>
-#import "Incidence.h"
+#import "Incidence+Extras.h"
 
 @implementation MigrationManager
 

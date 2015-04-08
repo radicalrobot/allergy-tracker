@@ -9,7 +9,7 @@
 #import "AllergyLogViewController.h"
 
 #import "RRLocationManager.h"
-#import "Incidence.h"
+#import "Incidence+Extras.h"
 #import "Interaction+Extras.h"
 #import "Symptom+Extras.h"
 #import "IncidentCollectionViewCell.h"
