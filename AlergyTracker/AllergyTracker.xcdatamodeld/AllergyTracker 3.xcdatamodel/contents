@@ -4,6 +4,7 @@
         <attribute name="formattedTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
@@ -19,7 +20,7 @@
         <attribute name="symptomId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Incidence" positionX="-36" positionY="9" width="128" height="120"/>
+        <element name="Incidence" positionX="-36" positionY="9" width="128" height="135"/>
         <element name="Interaction" positionX="-9" positionY="54" width="128" height="105"/>
         <element name="Symptom" positionX="-27" positionY="45" width="128" height="88"/>
     </elements>

@@ -1,8 +1,8 @@
 //
 //  Incidence.h
-//  AlergyTracker
+//  AllergyTracker
 //
-//  Created by Emily Toop on 27/03/2015.
+//  Created by Emily Toop on 18/05/2015.
 //  Copyright (c) 2015 Radical Robot. All rights reserved.
 //
 
@@ -17,5 +17,6 @@
 @property (nonatomic, retain) NSNumber * longitude;
 @property (nonatomic, retain) NSDate * time;
 @property (nonatomic, retain) NSString * type;
+@property (nonatomic, retain) NSString * notes;
 
 @end

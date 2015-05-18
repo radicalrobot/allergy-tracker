@@ -10,6 +10,7 @@
 
 #import "Incidence+Extras.h"
 #import "RRLocationManager.h"
+#import "EditIncidenceViewController.h"
 
 #import <MagicalRecord/CoreData+MagicalRecord.h>
 
@@ -23,6 +24,7 @@
 
 @implementation IncidenceTableViewController
 
+static NSString * const kSegueIdentifier = @"EditIncidenceSegue";
 static NSString * const kCellIdentifier = @"IncidenceCell";
 
 - (void)viewDidLoad {
@@ -131,28 +133,19 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
     return UITableViewCellEditingStyleDelete;
 }
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:kSegueIdentifier]) {
+        Incidence *selectedIncidence = self.events[[self.tableView indexPathForSelectedRow].row];
+        EditIncidenceViewController *eivc = (EditIncidenceViewController*)segue.destinationViewController;
+        eivc.incidence = selectedIncidence;
+    }
 }
-*/
+
 
 @end

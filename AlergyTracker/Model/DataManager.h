@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#import "Incidence.h"
+#import <MagicalRecord/CoreData+MagicalRecord.h>
+
+
 @interface DataManager : NSObject
 
 +(void)setup;
@@ -15,5 +19,7 @@
 
 +(BOOL)isFirstRun;
 +(NSInteger)numberOfSelectedSymptoms;
+
++(void)saveIncidence:(Incidence*)incidence withCompletion:(MRSaveCompletionHandler)completion;
 
 @end

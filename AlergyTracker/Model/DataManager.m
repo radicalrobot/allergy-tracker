@@ -12,7 +12,6 @@
 #import "Symptom+Extras.h"
 #import "Interaction+Extras.h"
 
-#import <MagicalRecord/CoreData+MagicalRecord.h>
 
 @implementation DataManager
 
@@ -23,6 +22,14 @@
 
 +(void)cleanup {
     [MagicalRecord cleanUp];
+}
+
++(void)saveIncidence:(Incidence *)incidence withCompletion:(MRSaveCompletionHandler)completion {
+    [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
+        Incidence *localIncidence = [incidence MR_inContext:localContext];
+        localIncidence.notes = incidence.notes;
+        localIncidence.time = incidence.time;
+    } completion:completion];
 }
 
 +(NSInteger)numberOfSelectedSymptoms {
