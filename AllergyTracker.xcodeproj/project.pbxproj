@@ -12,6 +12,8 @@
 		BE4703D11AB137CA001AF1E8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703D01AB137CA001AF1E8 /* SettingsTableViewController.m */; };
 		BE4703DB1AB13FDC001AF1E8 /* Interaction+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */; };
 		BE4703DE1AB14187001AF1E8 /* Symptom+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */; };
+		BE4F516E1B09E7C800039E6C /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4F516C1B09E7C800039E6C /* Fabric.framework */; };
+		BE4F516F1B09E7C800039E6C /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4F516D1B09E7C800039E6C /* Crashlytics.framework */; };
 		BE8C6BAB1AA6BCCD005FC2FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAA1AA6BCCD005FC2FB /* main.m */; };
 		BE8C6BAE1AA6BCCD005FC2FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAD1AA6BCCD005FC2FB /* AppDelegate.m */; };
 		BE8C6BB11AA6BCCD005FC2FB /* AllergyTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAF1AA6BCCD005FC2FB /* AllergyTracker.xcdatamodeld */; };
@@ -52,6 +54,8 @@
 		BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Interaction+Extras.m"; sourceTree = "<group>"; };
 		BE4703DC1AB14187001AF1E8 /* Symptom+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Symptom+Extras.h"; sourceTree = "<group>"; };
 		BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Symptom+Extras.m"; sourceTree = "<group>"; };
+		BE4F516C1B09E7C800039E6C /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Pods/Fabric.framework; sourceTree = "<group>"; };
+		BE4F516D1B09E7C800039E6C /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Pods/Crashlytics.framework; sourceTree = "<group>"; };
 		BE8C6BA51AA6BCCD005FC2FB /* AllergyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllergyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE8C6BA91AA6BCCD005FC2FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE8C6BAA1AA6BCCD005FC2FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 			files = (
 				BE8C6BD51AA6C3F8005FC2FB /* CoreLocation.framework in Frameworks */,
 				332436354D0BC5F962E46BB8 /* libPods.a in Frameworks */,
+				BE4F516F1B09E7C800039E6C /* Crashlytics.framework in Frameworks */,
+				BE4F516E1B09E7C800039E6C /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +116,8 @@
 		9AB225D17BCED72E11F1B7A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE4F516C1B09E7C800039E6C /* Fabric.framework */,
+				BE4F516D1B09E7C800039E6C /* Crashlytics.framework */,
 				BE8C6BD41AA6C3F8005FC2FB /* CoreLocation.framework */,
 				EE11A62584F48FFA2CA3071D /* libPods.a */,
 			);
@@ -247,6 +255,7 @@
 				BE8C6BA21AA6BCCD005FC2FB /* Frameworks */,
 				BE8C6BA31AA6BCCD005FC2FB /* Resources */,
 				C36CDC7628075243A163A3C1 /* Copy Pods Resources */,
+				BE4F51671B09E75100039E6C /* Fabric Integration */,
 			);
 			buildRules = (
 			);
@@ -333,6 +342,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		BE4F51671B09E75100039E6C /* Fabric Integration */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Fabric Integration";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 66bce3289ef695cfd11b64e231e1f47fe1efbcb3 ca9ea2511941b370ec60313bea88c09fc92a388ac7e40f9db93211ece05330a7";
+		};
 		C36CDC7628075243A163A3C1 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -461,7 +484,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -497,7 +520,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -510,6 +533,10 @@
 			baseConfigurationReference = 0E8EF7A72DDA1526C6E14D48 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods",
+				);
 				INFOPLIST_FILE = AlergyTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = AllergyTracker;
@@ -521,6 +548,10 @@
 			baseConfigurationReference = 0E1AE1749BE60484F1851335 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods",
+				);
 				INFOPLIST_FILE = AlergyTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = AllergyTracker;
@@ -542,7 +573,7 @@
 				INFOPLIST_FILE = AlergyTrackerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = AllergyTrackerTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlergyTracker.app/AlergyTracker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AllergyTracker.app/AllergyTracker";
 			};
 			name = Debug;
 		};
@@ -557,7 +588,7 @@
 				INFOPLIST_FILE = AlergyTrackerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = AllergyTrackerTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlergyTracker.app/AlergyTracker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AllergyTracker.app/AllergyTracker";
 			};
 			name = Release;
 		};
