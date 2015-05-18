@@ -148,6 +148,7 @@ static UIColor* badgeColor;
             [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@Filled", allergen.name]] forState:UIControlStateNormal];
         }
         else {
+            button.badgeValue = @"0";
             [button setImage:[UIImage imageNamed:allergen.name] forState:UIControlStateNormal];
         }
     }

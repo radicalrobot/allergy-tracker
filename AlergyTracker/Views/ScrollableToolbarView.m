@@ -26,5 +26,11 @@
     }
 }
 
+-(void)setItems:(NSArray *)items {
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    _items = items;
+    [self setNeedsLayout];
+}
+
 
 @end
