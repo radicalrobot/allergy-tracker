@@ -11,11 +11,13 @@
 #import "Interaction+Extras.h"
 #import "SettingTableViewCell.h"
 #import "DataManager.h"
+#import "UIView+FrameAccessors.h"
 
 #import <MagicalRecord/CoreData+MagicalRecord.h>
 
 @interface SettingsTableViewController () {
     BOOL isFirstRun;
+    NSInteger maxNumberOfSelectedAllergens;
 }
 
 @property (nonatomic, strong) NSArray *symptoms;
@@ -50,6 +52,8 @@ static NSString * const CellIdentifier = @"SettingsCell";
     [self.choices addTarget:self action:@selector(selectedSegmentChanged:) forControlEvents:UIControlEventValueChanged];
     
     self.tableView.tableHeaderView = self.choices;
+    
+    maxNumberOfSelectedAllergens = floor((self.view.width - 40) / 40);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,6 +86,14 @@ static NSString * const CellIdentifier = @"SettingsCell";
             }
             case 1:{
                 Interaction *allergen = [self.allergens[cellIndex.row] MR_inContext:localContext];
+                if(switchView.on){
+                    NSInteger numberOfSelectedAllergens = [self.allergens filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"selected=YES"]].count;
+                    if(numberOfSelectedAllergens >= maxNumberOfSelectedAllergens){
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Max number of allergens reached" message:[NSString stringWithFormat:@"You may ony track up to %ld allergens at a time", maxNumberOfSelectedAllergens] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                        [alert show];
+                        switchView.on = NO;
+                    }
+                }
                 allergen.selected = @(switchView.on);
                 break;
             }
@@ -152,7 +164,7 @@ static NSString * const CellIdentifier = @"SettingsCell";
         case 0:
             return @"Select symptoms to track";
         case 1:
-            return @"Select allergens to track";
+            return @"Select up to 5 allergens to track";
         default:
             break;
     }
