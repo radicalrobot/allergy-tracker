@@ -15,13 +15,18 @@
 #import "Symptom+Extras.h"
 #import "IncidentCollectionViewCell.h"
 
+#import "UIView+FrameAccessors.h"
+
 #import <MagicalRecord/CoreData+MagicalRecord.h>
 #import <AudioToolbox/AudioServices.h>
 
 #define CELL_SPACING 5
+#define MINIMUM_CELL_HEIGHT 100
 #define MEDICATION_TAG 200
 
-@interface AllergyLogViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface AllergyLogViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout> {
+    CGSize cellSize;
+}
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIToolbar *allergenToolbar;
@@ -69,6 +74,7 @@ static NSString* const kCellIdentifier = @"SymptomCell";
     if([DataManager isFirstRun]){
         [self performSegueWithIdentifier:kSettingsSegue sender:self];
     }
+    cellSize = CGSizeZero;
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *now = [NSDate date];
     _dayStart = [calendar dateBySettingHour:0  minute:0  second:0  ofDate:now options:0];
@@ -191,16 +197,21 @@ static NSString* const kCellIdentifier = @"SymptomCell";
     return cell;
 }
 
-CGSize cellSize;
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if(cellSize.width == CGSizeZero.width && cellSize.height == CGSizeZero.height) {
-        CGFloat width = (collectionView.frame.size.width - (3 * CELL_SPACING)) / 2;
-        NSInteger spaces = [self.selectedSymptoms count] * CELL_SPACING;
-        CGFloat height = (collectionView.frame.size.height - spaces) / ([self.selectedSymptoms count] / 2);
-        
-        cellSize = CGSizeMake(width, height);
+        if(self.selectedSymptoms.count == 1) {
+            cellSize = CGSizeMake(self.collectionView.width - (2 * CELL_SPACING), self.collectionView.height - CELL_SPACING);
+        }
+        else {
+            CGFloat width = ((collectionView.width - CELL_SPACING) / 2) - CELL_SPACING;
+            NSInteger spaces = [self.selectedSymptoms count] * CELL_SPACING;
+            NSInteger numberOfRows = ceilf(self.selectedSymptoms.count / 2.0);
+            CGFloat height = MAX(MINIMUM_CELL_HEIGHT, (collectionView.height - spaces) / numberOfRows);
+            
+            cellSize = CGSizeMake(width, height);
+        }
     }
     return cellSize;
 }
@@ -209,18 +220,18 @@ CGSize cellSize;
     return CELL_SPACING;
 }
 
+-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return CELL_SPACING;
+}
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     IncidentCollectionViewCell *cell = (IncidentCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
     [cell flash];
+    cell.incidenceCountLabel.text = [NSString stringWithFormat:@"%ld", [cell.incidenceCountLabel.text integerValue] + 1];
 
     Symptom *selectedSymptom = self.selectedSymptoms[indexPath.row];
     [self logIncidenceForSymptom:selectedSymptom];
     
-    __weak typeof(collectionView) weakview = collectionView;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
-        typeof(weakview) localview = weakview;
-        [localview reloadItemsAtIndexPaths:@[indexPath]];
-    });
 }
 
 @end
