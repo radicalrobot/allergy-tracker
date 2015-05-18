@@ -8,10 +8,7 @@
 
 #import "AppDelegate.h"
 #import "RRLocationManager.h"
-#import <MagicalRecord/CoreData+MagicalRecord.h>
-#import "Symptom+Extras.h"
-#import "Interaction+Extras.h"
-#import "MigrationManager.h"
+#import "DataManager.h"
 
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -27,11 +24,10 @@
     // Override point for customization after application launch.
     [Fabric with:@[CrashlyticsKit]];
     
-    [MagicalRecord setupAutoMigratingCoreDataStack];
+    [DataManager setup];
     
     [RRLocationManager start];
     
-    [self setupData];
     return YES;
 }
 
@@ -56,70 +52,8 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
-    [MagicalRecord cleanUp];
+    [DataManager cleanup];
 }
 
--(void)setupData {
-    NSArray *symptoms = @[@"wheezy",
-                          @"vomiting",
-                          @"hives",
-                          @"diarrhea",
-                          @"itchy skin",
-                          @"rash",
-                          @"swollen throat",
-                          @"low blood pressure",
-                          @"runny nose",
-                          @"abdominal pain",
-                          @"headaches",
-                          @"anxiety",
-                          @"itchy eye",
-                          @"watery eye",
-                          @"swelling",
-                          @"nausea",
-                          @"dizziness",
-                          @"runny nose",
-                          @"stuffy nose",
-                          @"sneeze",
-                          @"cough",
-                          @"conjunctivitis",
-                          @"nosebleed",
-                          @"itchy nose"];
-    
-    NSArray *interactions = @[@"Dairy",
-                              @"Eggs",
-                              @"Wheat",
-                              @"Nuts",
-                              @"Fish",
-                              @"Shellfish",
-                              @"Soy",
-                              @"Pollen",
-                              @"Mould",
-                              @"Dog",
-                              @"Cat",
-                              @"Dust",
-                              @"Alcohol"];
-    
-    __block Symptom *symptom;
-    __block Interaction *interaction;
-    [MagicalRecord saveUsingCurrentThreadContextWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-        for(NSString *symptomName in symptoms) {
-            symptom = [Symptom MR_findFirstByAttribute:@"name" withValue:symptomName inContext:localContext];
-            if(!symptom){
-                symptom = [Symptom MR_createInContext:localContext];
-                symptom.name = symptomName;
-            }
-        }
-        
-        for(NSString *interactionName in interactions) {
-            interaction = [Interaction MR_findFirstByAttribute:@"name" withValue:interactionName inContext:localContext];
-            if(!interaction){
-                interaction = [Interaction MR_createInContext:localContext];
-                interaction.name = interactionName;
-            }
-        }
-    }];
-    
-    [[MigrationManager sharedInstance] migrateFromVersion:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
-}
 
 @end

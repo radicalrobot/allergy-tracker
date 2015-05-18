@@ -30,7 +30,7 @@
         Incidence *localIncidence;
         for(Incidence *incidence in actions) {
             localIncidence = [incidence MR_inContext:localContext];
-            localIncidence.type = @"Sneeze";
+            localIncidence.type = @"sneeze";
         }
     }];
 }

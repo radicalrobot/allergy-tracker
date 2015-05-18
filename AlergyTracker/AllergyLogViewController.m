@@ -9,6 +9,7 @@
 #import "AllergyLogViewController.h"
 
 #import "RRLocationManager.h"
+#import "DataManager.h"
 #import "Incidence+Extras.h"
 #import "Interaction+Extras.h"
 #import "Symptom+Extras.h"
@@ -36,6 +37,7 @@
 }
 
 static NSString* const kIncidenceSegue = @"IncidentViewSegue";
+static NSString* const kSettingsSegue = @"SettingsViewSegue";
 static NSString* const kCellIdentifier = @"SymptomCell";
 
 - (void)viewDidLoad {
@@ -64,6 +66,9 @@ static NSString* const kCellIdentifier = @"SymptomCell";
 }
 
 -(void)updateViewStatus {
+    if([DataManager isFirstRun]){
+        [self performSegueWithIdentifier:kSettingsSegue sender:self];
+    }
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *now = [NSDate date];
     _dayStart = [calendar dateBySettingHour:0  minute:0  second:0  ofDate:now options:0];
@@ -207,21 +212,12 @@ CGSize cellSize;
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     IncidentCollectionViewCell *cell = (IncidentCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
     [cell flash];
-    BOOL enabledSounds = CFPreferencesGetAppBooleanValue(
-                                                         CFSTR("keyboard"),
-                                                         CFSTR("/var/mobile/Library/Preferences/com.apple.preferences.sounds"),
-                                                         NULL);
-    NSLog(@"sounds %@", enabledSounds? @"enabled" : @"disabled");
-    if(enabledSounds){
-        
-        AudioServicesPlaySystemSound( 1104 );
-    }
-    
+
     Symptom *selectedSymptom = self.selectedSymptoms[indexPath.row];
     [self logIncidenceForSymptom:selectedSymptom];
     
     __weak typeof(collectionView) weakview = collectionView;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
         typeof(weakview) localview = weakview;
         [localview reloadItemsAtIndexPaths:@[indexPath]];
     });

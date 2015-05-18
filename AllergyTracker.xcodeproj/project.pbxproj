@@ -14,6 +14,7 @@
 		BE4703DE1AB14187001AF1E8 /* Symptom+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */; };
 		BE4F516E1B09E7C800039E6C /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4F516C1B09E7C800039E6C /* Fabric.framework */; };
 		BE4F516F1B09E7C800039E6C /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4F516D1B09E7C800039E6C /* Crashlytics.framework */; };
+		BE4F51721B09EDD400039E6C /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4F51711B09EDD400039E6C /* DataManager.m */; };
 		BE8C6BAB1AA6BCCD005FC2FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAA1AA6BCCD005FC2FB /* main.m */; };
 		BE8C6BAE1AA6BCCD005FC2FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAD1AA6BCCD005FC2FB /* AppDelegate.m */; };
 		BE8C6BB11AA6BCCD005FC2FB /* AllergyTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAF1AA6BCCD005FC2FB /* AllergyTracker.xcdatamodeld */; };
@@ -56,6 +57,8 @@
 		BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Symptom+Extras.m"; sourceTree = "<group>"; };
 		BE4F516C1B09E7C800039E6C /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Pods/Fabric.framework; sourceTree = "<group>"; };
 		BE4F516D1B09E7C800039E6C /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Pods/Crashlytics.framework; sourceTree = "<group>"; };
+		BE4F51701B09EDD400039E6C /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManager.h; path = Model/DataManager.h; sourceTree = "<group>"; };
+		BE4F51711B09EDD400039E6C /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = Model/DataManager.m; sourceTree = "<group>"; };
 		BE8C6BA51AA6BCCD005FC2FB /* AllergyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllergyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE8C6BA91AA6BCCD005FC2FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE8C6BAA1AA6BCCD005FC2FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -141,6 +144,8 @@
 				BEC1B7D51AC5C74F001EE74C /* Incidence.m */,
 				BEC1B7D71AC5C787001EE74C /* Incidence+Extras.h */,
 				BEC1B7D81AC5C787001EE74C /* Incidence+Extras.m */,
+				BE4F51701B09EDD400039E6C /* DataManager.h */,
+				BE4F51711B09EDD400039E6C /* DataManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -398,6 +403,7 @@
 				BEC1B7D91AC5C787001EE74C /* Incidence+Extras.m in Sources */,
 				BEC1B7D61AC5C74F001EE74C /* Incidence.m in Sources */,
 				BE8C6BAE1AA6BCCD005FC2FB /* AppDelegate.m in Sources */,
+				BE4F51721B09EDD400039E6C /* DataManager.m in Sources */,
 				BEE0EF7F1ABF5F9D00D710FB /* SettingTableViewCell.m in Sources */,
 				BEE0EF8B1ABF65FB00D710FB /* Interaction.m in Sources */,
 				BE8C6BDE1AA77606005FC2FB /* IncidenceTableViewController.m in Sources */,
