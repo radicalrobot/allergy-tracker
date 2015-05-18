@@ -15,6 +15,7 @@
 #import "IncidentCollectionViewCell.h"
 
 #import <MagicalRecord/CoreData+MagicalRecord.h>
+#import <AudioToolbox/AudioServices.h>
 
 #define CELL_SPACING 5
 #define MEDICATION_TAG 200
@@ -206,6 +207,15 @@ CGSize cellSize;
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     IncidentCollectionViewCell *cell = (IncidentCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
     [cell flash];
+    BOOL enabledSounds = CFPreferencesGetAppBooleanValue(
+                                                         CFSTR("keyboard"),
+                                                         CFSTR("/var/mobile/Library/Preferences/com.apple.preferences.sounds"),
+                                                         NULL);
+    NSLog(@"sounds %@", enabledSounds? @"enabled" : @"disabled");
+    if(enabledSounds){
+        
+        AudioServicesPlaySystemSound( 1104 );
+    }
     
     Symptom *selectedSymptom = self.selectedSymptoms[indexPath.row];
     [self logIncidenceForSymptom:selectedSymptom];

@@ -52,7 +52,7 @@
 		BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Interaction+Extras.m"; sourceTree = "<group>"; };
 		BE4703DC1AB14187001AF1E8 /* Symptom+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Symptom+Extras.h"; sourceTree = "<group>"; };
 		BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Symptom+Extras.m"; sourceTree = "<group>"; };
-		BE8C6BA51AA6BCCD005FC2FB /* AlergyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlergyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE8C6BA51AA6BCCD005FC2FB /* AllergyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllergyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE8C6BA91AA6BCCD005FC2FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE8C6BAA1AA6BCCD005FC2FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BE8C6BAC1AA6BCCD005FC2FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 		BE8C6BB61AA6BCCD005FC2FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE8C6BB81AA6BCCD005FC2FB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BE8C6BBB1AA6BCCD005FC2FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		BE8C6BC11AA6BCCD005FC2FB /* AlergyTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlergyTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE8C6BC11AA6BCCD005FC2FB /* AllergyTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AllergyTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE8C6BC61AA6BCCD005FC2FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE8C6BC71AA6BCCD005FC2FB /* AlergyTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlergyTrackerTests.m; sourceTree = "<group>"; };
 		BE8C6BD11AA6C3BB005FC2FB /* RRLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRLocationManager.h; sourceTree = "<group>"; };
@@ -164,8 +164,8 @@
 		BE8C6BA61AA6BCCD005FC2FB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BE8C6BA51AA6BCCD005FC2FB /* AlergyTracker.app */,
-				BE8C6BC11AA6BCCD005FC2FB /* AlergyTrackerTests.xctest */,
+				BE8C6BA51AA6BCCD005FC2FB /* AllergyTracker.app */,
+				BE8C6BC11AA6BCCD005FC2FB /* AllergyTrackerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -238,9 +238,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BE8C6BA41AA6BCCD005FC2FB /* AlergyTracker */ = {
+		BE8C6BA41AA6BCCD005FC2FB /* AllergyTracker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BE8C6BCB1AA6BCCD005FC2FB /* Build configuration list for PBXNativeTarget "AlergyTracker" */;
+			buildConfigurationList = BE8C6BCB1AA6BCCD005FC2FB /* Build configuration list for PBXNativeTarget "AllergyTracker" */;
 			buildPhases = (
 				F2B5D66BCF3372CBBFCF610E /* Check Pods Manifest.lock */,
 				BE8C6BA11AA6BCCD005FC2FB /* Sources */,
@@ -252,14 +252,14 @@
 			);
 			dependencies = (
 			);
-			name = AlergyTracker;
+			name = AllergyTracker;
 			productName = AlergyTracker;
-			productReference = BE8C6BA51AA6BCCD005FC2FB /* AlergyTracker.app */;
+			productReference = BE8C6BA51AA6BCCD005FC2FB /* AllergyTracker.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BE8C6BC01AA6BCCD005FC2FB /* AlergyTrackerTests */ = {
+		BE8C6BC01AA6BCCD005FC2FB /* AllergyTrackerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BE8C6BCE1AA6BCCD005FC2FB /* Build configuration list for PBXNativeTarget "AlergyTrackerTests" */;
+			buildConfigurationList = BE8C6BCE1AA6BCCD005FC2FB /* Build configuration list for PBXNativeTarget "AllergyTrackerTests" */;
 			buildPhases = (
 				BE8C6BBD1AA6BCCD005FC2FB /* Sources */,
 				BE8C6BBE1AA6BCCD005FC2FB /* Frameworks */,
@@ -270,9 +270,9 @@
 			dependencies = (
 				BE8C6BC31AA6BCCD005FC2FB /* PBXTargetDependency */,
 			);
-			name = AlergyTrackerTests;
+			name = AllergyTrackerTests;
 			productName = AlergyTrackerTests;
-			productReference = BE8C6BC11AA6BCCD005FC2FB /* AlergyTrackerTests.xctest */;
+			productReference = BE8C6BC11AA6BCCD005FC2FB /* AllergyTrackerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -293,7 +293,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BE8C6BA01AA6BCCD005FC2FB /* Build configuration list for PBXProject "AlergyTracker" */;
+			buildConfigurationList = BE8C6BA01AA6BCCD005FC2FB /* Build configuration list for PBXProject "AllergyTracker" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -306,8 +306,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BE8C6BA41AA6BCCD005FC2FB /* AlergyTracker */,
-				BE8C6BC01AA6BCCD005FC2FB /* AlergyTrackerTests */,
+				BE8C6BA41AA6BCCD005FC2FB /* AllergyTracker */,
+				BE8C6BC01AA6BCCD005FC2FB /* AllergyTrackerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -402,7 +402,7 @@
 /* Begin PBXTargetDependency section */
 		BE8C6BC31AA6BCCD005FC2FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BE8C6BA41AA6BCCD005FC2FB /* AlergyTracker */;
+			target = BE8C6BA41AA6BCCD005FC2FB /* AllergyTracker */;
 			targetProxy = BE8C6BC21AA6BCCD005FC2FB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -512,7 +512,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AlergyTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AllergyTracker;
 			};
 			name = Debug;
 		};
@@ -523,7 +523,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AlergyTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AllergyTracker;
 			};
 			name = Release;
 		};
@@ -541,7 +541,7 @@
 				);
 				INFOPLIST_FILE = AlergyTrackerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AllergyTrackerTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlergyTracker.app/AlergyTracker";
 			};
 			name = Debug;
@@ -556,7 +556,7 @@
 				);
 				INFOPLIST_FILE = AlergyTrackerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AllergyTrackerTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlergyTracker.app/AlergyTracker";
 			};
 			name = Release;
@@ -564,7 +564,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BE8C6BA01AA6BCCD005FC2FB /* Build configuration list for PBXProject "AlergyTracker" */ = {
+		BE8C6BA01AA6BCCD005FC2FB /* Build configuration list for PBXProject "AllergyTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE8C6BC91AA6BCCD005FC2FB /* Debug */,
@@ -573,7 +573,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BE8C6BCB1AA6BCCD005FC2FB /* Build configuration list for PBXNativeTarget "AlergyTracker" */ = {
+		BE8C6BCB1AA6BCCD005FC2FB /* Build configuration list for PBXNativeTarget "AllergyTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE8C6BCC1AA6BCCD005FC2FB /* Debug */,
@@ -582,7 +582,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BE8C6BCE1AA6BCCD005FC2FB /* Build configuration list for PBXNativeTarget "AlergyTrackerTests" */ = {
+		BE8C6BCE1AA6BCCD005FC2FB /* Build configuration list for PBXNativeTarget "AllergyTrackerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE8C6BCF1AA6BCCD005FC2FB /* Debug */,
