@@ -18,6 +18,7 @@
 		BE4F51751B09FAD000039E6C /* UIView+FrameAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4F51741B09FAD000039E6C /* UIView+FrameAccessors.m */; };
 		BE4F51781B0A1BEB00039E6C /* EditIncidenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4F51771B0A1BEB00039E6C /* EditIncidenceViewController.m */; };
 		BE4F517C1B0A23D700039E6C /* Incidence.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4F517B1B0A23D700039E6C /* Incidence.m */; };
+		BE4F51811B0A468900039E6C /* ScrollableToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4F51801B0A468900039E6C /* ScrollableToolbarView.m */; };
 		BE8C6BAB1AA6BCCD005FC2FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAA1AA6BCCD005FC2FB /* main.m */; };
 		BE8C6BAE1AA6BCCD005FC2FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAD1AA6BCCD005FC2FB /* AppDelegate.m */; };
 		BE8C6BB11AA6BCCD005FC2FB /* AllergyTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BAF1AA6BCCD005FC2FB /* AllergyTracker.xcdatamodeld */; };
@@ -68,6 +69,8 @@
 		BE4F51791B0A238400039E6C /* AllergyTracker 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AllergyTracker 3.xcdatamodel"; sourceTree = "<group>"; };
 		BE4F517A1B0A23D700039E6C /* Incidence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Incidence.h; path = Model/Incidence.h; sourceTree = "<group>"; };
 		BE4F517B1B0A23D700039E6C /* Incidence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Incidence.m; path = Model/Incidence.m; sourceTree = "<group>"; };
+		BE4F517F1B0A468900039E6C /* ScrollableToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScrollableToolbarView.h; path = Views/ScrollableToolbarView.h; sourceTree = "<group>"; };
+		BE4F51801B0A468900039E6C /* ScrollableToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScrollableToolbarView.m; path = Views/ScrollableToolbarView.m; sourceTree = "<group>"; };
 		BE8C6BA51AA6BCCD005FC2FB /* AllergyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllergyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE8C6BA91AA6BCCD005FC2FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE8C6BAA1AA6BCCD005FC2FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -246,6 +249,8 @@
 				BEE0EF8D1AC0455D00D710FB /* IncidentCollectionViewCell.m */,
 				BE4F51731B09FAD000039E6C /* UIView+FrameAccessors.h */,
 				BE4F51741B09FAD000039E6C /* UIView+FrameAccessors.m */,
+				BE4F517F1B0A468900039E6C /* ScrollableToolbarView.h */,
+				BE4F51801B0A468900039E6C /* ScrollableToolbarView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -425,6 +430,7 @@
 				BE8C6BB41AA6BCCD005FC2FB /* AllergyLogViewController.m in Sources */,
 				BE8C6BAB1AA6BCCD005FC2FB /* main.m in Sources */,
 				BEE0EF8E1AC0455D00D710FB /* IncidentCollectionViewCell.m in Sources */,
+				BE4F51811B0A468900039E6C /* ScrollableToolbarView.m in Sources */,
 				BE4703DB1AB13FDC001AF1E8 /* Interaction+Extras.m in Sources */,
 				BE4703DE1AB14187001AF1E8 /* Symptom+Extras.m in Sources */,
 				BE2D74291AC1B4BD000C5815 /* MigrationManager.m in Sources */,

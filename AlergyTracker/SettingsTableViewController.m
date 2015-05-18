@@ -53,7 +53,7 @@ static NSString * const CellIdentifier = @"SettingsCell";
     
     self.tableView.tableHeaderView = self.choices;
     
-    maxNumberOfSelectedAllergens = floor((self.view.width - 40) / 40);
+    maxNumberOfSelectedAllergens = floor((self.view.width - 44) / 44);
 }
 
 - (void)didReceiveMemoryWarning {

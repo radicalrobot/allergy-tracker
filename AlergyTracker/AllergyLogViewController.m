@@ -14,10 +14,13 @@
 #import "Interaction+Extras.h"
 #import "Symptom+Extras.h"
 #import "IncidentCollectionViewCell.h"
+#import "ScrollableToolbarView.h"
 
 #import "UIView+FrameAccessors.h"
 
 #import <MagicalRecord/CoreData+MagicalRecord.h>
+#import "UIButton+Badge.h"
+
 #import <AudioToolbox/AudioServices.h>
 
 #define CELL_SPACING 5
@@ -29,7 +32,7 @@
 }
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIToolbar *allergenToolbar;
+@property (weak, nonatomic) IBOutlet ScrollableToolbarView *allergenToolbarView;
 
 @property (nonatomic, strong) NSArray *selectedSymptoms;
 @property (nonatomic, strong) NSArray *selectedAllergens;
@@ -44,11 +47,15 @@
 static NSString* const kIncidenceSegue = @"IncidentViewSegue";
 static NSString* const kSettingsSegue = @"SettingsViewSegue";
 static NSString* const kCellIdentifier = @"SymptomCell";
+static UIColor* badgeColor;
+
+#define RGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
+#define RGBA(r, g, b, a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
+    badgeColor = RGB(74,171,186);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(applicationDidEnterForeground:)
                                                 name: UIApplicationWillEnterForegroundNotification
@@ -88,53 +95,65 @@ static NSString* const kCellIdentifier = @"SymptomCell";
     [self.collectionView reloadData];
 }
 
+-(UIButton*)toolbarButtonWithImageNamed:(NSString*)imageName tag:(NSInteger)tag {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(actionTaken:) forControlEvents:UIControlEventTouchUpInside];
+    button.size = (CGSize){40, 44};
+    button.tag = tag;
+    button.shouldHideBadgeAtZero = YES;
+    
+    return button;
+}
+
 -(void)setupAllergens {
     self.selectedAllergens = [Interaction MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
-    UIBarButtonItem *medication = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Pill"] style:UIBarButtonItemStylePlain target:self action:@selector(actionTaken:)];
-    medication.tag = MEDICATION_TAG;
+    UIButton *medication = [self toolbarButtonWithImageNamed:@"Pill" tag:MEDICATION_TAG];
     NSMutableArray *items = [NSMutableArray arrayWithObject:medication];
-    UIBarButtonItem *allergen;
+    UIButton *allergen;
     for(int idx = 0; idx < [self.selectedAllergens count]; ++idx) {
-        [items addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
         Interaction *interaction = self.selectedAllergens[idx];
-        allergen = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:interaction.name] style:UIBarButtonItemStylePlain target:self action:@selector(actionTaken:)];
-        allergen.tag = idx;
+        allergen = [self toolbarButtonWithImageNamed:interaction.name tag:idx];
         [items addObject:allergen];
     }
-    self.allergenToolbar.items = items;
+    self.allergenToolbarView.items = items;
 }
 
 -(void)updateAllergens {
     [self setupAllergens];
-    for(UIBarButtonItem *button in self.allergenToolbar.items) {
-        if(button.style == UIBarButtonItemStylePlain){
-            [self updateAllergen:button];
-        }
+    for(UIButton *button in self.allergenToolbarView.items) {
+        [self updateAllergen:button];
     }
 }
 
 -(void)updateAllergen:(id)sender {
-    UIBarButtonItem *button = sender;
+    UIButton *button = sender;
+    NSInteger numberOfIncidentsOfInteraction;
     if(button.tag == MEDICATION_TAG) {
-        NSNumber *numberOfIncidents = [Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=[c]'Medication'", _dayStart, _dayEnd]];
-        if([numberOfIncidents intValue] > 0){
-            [button setImage:[UIImage imageNamed:@"PillFilled"]];
+        numberOfIncidentsOfInteraction = [DataManager numberOfIncidentsWithName:@"Medication" betweenDate:_dayStart endDate:_dayEnd];
+        button.badgeValue = [NSString stringWithFormat:@"%ld", numberOfIncidentsOfInteraction];
+        if(numberOfIncidentsOfInteraction > 0){
+            [button setImage:[UIImage imageNamed:@"PillFilled"] forState:UIControlStateNormal];
         }
         else {
-            [button setImage:[UIImage imageNamed:@"Pill"]];
+            [button setImage:[UIImage imageNamed:@"Pill"] forState:UIControlStateNormal];
         }
     }
     else {
         Interaction *allergen = self.selectedAllergens[button.tag];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=[c]%@", _dayStart, _dayEnd, allergen.name];
-        NSNumber *numberOfIncidents = [Incidence MR_numberOfEntitiesWithPredicate:predicate];
-        if([numberOfIncidents intValue] > 0){
-            [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@Filled", allergen.name]]];
+        numberOfIncidentsOfInteraction = [DataManager numberOfIncidentsWithName:allergen.name betweenDate:_dayStart endDate:_dayEnd];
+        
+        button.badgeValue = [NSString stringWithFormat:@"%ld", numberOfIncidentsOfInteraction];
+        if(numberOfIncidentsOfInteraction > 0){
+            [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@Filled", allergen.name]] forState:UIControlStateNormal];
         }
         else {
-            [button setImage:[UIImage imageNamed:allergen.name]];
+            [button setImage:[UIImage imageNamed:allergen.name] forState:UIControlStateNormal];
         }
     }
+    button.badgeOriginX = 25;
+    button.badgeOriginY = 20;
+    button.badgeBGColor = badgeColor;
 }
 
 - (IBAction)segueToIncidenceViewer:(id)sender {

@@ -10,7 +10,6 @@
 
 #import "MigrationManager.h"
 #import "Symptom+Extras.h"
-#import "Interaction+Extras.h"
 
 
 @implementation DataManager
@@ -30,6 +29,11 @@
         localIncidence.notes = incidence.notes;
         localIncidence.time = incidence.time;
     } completion:completion];
+}
+
++(NSInteger)numberOfIncidentsWithName:(NSString*)name betweenDate:(NSDate*)startDate endDate:(NSDate*)endDate {
+    return [Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=%@", startDate, endDate,name]].integerValue;
+    
 }
 
 +(NSInteger)numberOfSelectedSymptoms {

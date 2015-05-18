@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "Incidence.h"
+#import "Interaction.h"
 #import <MagicalRecord/CoreData+MagicalRecord.h>
 
 
@@ -18,6 +19,8 @@
 +(void)cleanup;
 
 +(BOOL)isFirstRun;
+
++(NSInteger)numberOfIncidentsWithName:(NSString*)name betweenDate:(NSDate*)startDate endDate:(NSDate*)endDate;
 +(NSInteger)numberOfSelectedSymptoms;
 
 +(void)saveIncidence:(Incidence*)incidence withCompletion:(MRSaveCompletionHandler)completion;

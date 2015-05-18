@@ -2,11 +2,23 @@ PODS:
   - MagicalRecord (2.2):
     - MagicalRecord/Core (= 2.2)
   - MagicalRecord/Core (2.2)
+  - UIBarButtonItem-Badge (0.0.1)
 
 DEPENDENCIES:
   - MagicalRecord
+  - UIBarButtonItem-Badge (from `https://github.com/mikeMTOL/UIBarButtonItem-Badge`)
+
+EXTERNAL SOURCES:
+  UIBarButtonItem-Badge:
+    :git: https://github.com/mikeMTOL/UIBarButtonItem-Badge
+
+CHECKOUT OPTIONS:
+  UIBarButtonItem-Badge:
+    :commit: 7a556e360ce0c63d18177e8b77e104ce3e05a5a1
+    :git: https://github.com/mikeMTOL/UIBarButtonItem-Badge
 
 SPEC CHECKSUMS:
-  MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
+  MagicalRecord: f8a56bb87ab6552f20c4bb8681a1958a197ea3cd
+  UIBarButtonItem-Badge: 8f5ed4d32d32dbb03034d4f273d02c8da680236b
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.37.1

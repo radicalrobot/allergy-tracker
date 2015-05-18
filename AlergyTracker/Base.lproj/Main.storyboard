@@ -17,13 +17,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHv-fz-5kN">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AHZ-X6-9Ck" customClass="ScrollableToolbarView">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                                <items/>
-                            </toolbar>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JKp-5K-Mwf">
-                                <rect key="frame" x="0.0" y="72" width="600" height="484"/>
+                                <rect key="frame" x="0.0" y="72" width="600" height="493"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="493" id="0Jh-Xc-Wdx"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yBE-eF-dmI">
                                     <size key="itemSize" width="200" height="200"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -46,9 +49,9 @@
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3v-qz-fmt">
-                                                    <rect key="frame" x="16" y="8" width="184" height="151"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3v-qz-fmt">
+                                                    <rect key="frame" x="8" y="8" width="184" height="151"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -80,13 +83,14 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="vHv-fz-5kN" secondAttribute="trailing" id="2Ei-cs-18T"/>
-                            <constraint firstItem="JKp-5K-Mwf" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="72" id="9CS-c2-qB6"/>
-                            <constraint firstItem="vHv-fz-5kN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="JZh-Zq-a5N"/>
-                            <constraint firstItem="vHv-fz-5kN" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="gaL-9G-SDj"/>
-                            <constraint firstItem="JKp-5K-Mwf" firstAttribute="bottom" secondItem="vHv-fz-5kN" secondAttribute="top" id="pei-z6-Hn2"/>
-                            <constraint firstItem="JKp-5K-Mwf" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="qU9-N6-V7e"/>
-                            <constraint firstItem="JKp-5K-Mwf" firstAttribute="leading" secondItem="vHv-fz-5kN" secondAttribute="leading" id="vDa-Cm-brh"/>
+                            <constraint firstItem="JKp-5K-Mwf" firstAttribute="trailing" secondItem="AHZ-X6-9Ck" secondAttribute="trailing" id="4Fz-O1-DOI"/>
+                            <constraint firstItem="AHZ-X6-9Ck" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="7Xa-wk-dmQ"/>
+                            <constraint firstItem="AHZ-X6-9Ck" firstAttribute="leading" secondItem="JKp-5K-Mwf" secondAttribute="leading" id="GHU-OC-WE3"/>
+                            <constraint firstItem="AHZ-X6-9Ck" firstAttribute="top" secondItem="JKp-5K-Mwf" secondAttribute="bottom" constant="-9" id="NzC-BJ-yrh"/>
+                            <constraint firstItem="JKp-5K-Mwf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="RIh-0Y-UMn"/>
+                            <constraint firstItem="JKp-5K-Mwf" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Rk4-Ql-5IO"/>
+                            <constraint firstAttribute="trailing" secondItem="JKp-5K-Mwf" secondAttribute="trailing" id="iQb-Dp-mcE"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JKp-5K-Mwf" secondAttribute="bottom" constant="35" id="z3v-wt-lQ5"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Dmb-VK-jxV">
@@ -106,7 +110,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="allergenToolbar" destination="vHv-fz-5kN" id="Y2u-y1-SVa"/>
+                        <outlet property="allergenToolbarView" destination="AHZ-X6-9Ck" id="Jrf-kg-Tn2"/>
                         <outlet property="collectionView" destination="JKp-5K-Mwf" id="MJL-kX-yZt"/>
                     </connections>
                 </viewController>
