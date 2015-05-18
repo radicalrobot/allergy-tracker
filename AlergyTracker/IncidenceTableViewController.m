@@ -63,7 +63,7 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
 -(NSDateFormatter *)dateFormatter {
     if(!_dateFormatter){
         _dateFormatter = [NSDateFormatter new];
-        _dateFormatter.dateFormat = @"HH:MM:SS";
+        _dateFormatter.dateFormat = @"HH:mm:ss";
     }
     
     return _dateFormatter;
