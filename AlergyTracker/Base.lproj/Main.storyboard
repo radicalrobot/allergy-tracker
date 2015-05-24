@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6EY-2h-87B">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6EY-2h-87B">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -184,7 +184,7 @@
         <!--Incidence Table View Controller-->
         <scene sceneID="qlh-cC-jPC">
             <objects>
-                <tableViewController id="0o1-JN-zMK" customClass="IncidenceTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="IncidenceTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0o1-JN-zMK" customClass="IncidenceTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bWc-Mu-ilU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -209,9 +209,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="h6g-DM-egd" kind="show" identifier="EditIncidenceSegue" id="j3K-Bc-JsM"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -229,7 +226,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IfI-Qb-XuT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2633" y="272"/>
+            <point key="canvasLocation" x="3226" y="272"/>
         </scene>
         <!--Edit Incidence View Controller-->
         <scene sceneID="HAP-zE-jhW">
@@ -267,7 +264,7 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3YG-gH-YaW">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3YG-gH-YaW">
                                                 <rect key="frame" x="20" y="279" width="568" height="128"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -336,7 +333,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="agL-3z-QLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3389" y="272"/>
+            <point key="canvasLocation" x="3906" y="272"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Rz9-8O-cXC">
@@ -349,12 +346,40 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="0o1-JN-zMK" kind="relationship" relationship="rootViewController" id="xxc-sL-fBG"/>
+                        <segue destination="bBX-nk-vPO" kind="relationship" relationship="rootViewController" id="2vI-OK-HLB"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aSx-AO-DIc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1821" y="272"/>
+        </scene>
+        <!--Incidence Paging View Controller-->
+        <scene sceneID="xEj-CD-zEK">
+            <objects>
+                <viewController id="bBX-nk-vPO" customClass="IncidencePagingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wwt-oC-hfv"/>
+                        <viewControllerLayoutGuide type="bottom" id="kjq-oI-QFA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mLp-9U-ruh">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="a62-I6-ioc">
+                        <barButtonItem key="rightBarButtonItem" title="Close" id="FDY-4g-vSx">
+                            <connections>
+                                <action selector="close:" destination="bBX-nk-vPO" id="J4J-aJ-sh2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="h6g-DM-egd" kind="show" identifier="EditIncidenceSegue" id="Y0m-K3-XhY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wzN-cQ-n5C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2502" y="272"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ToU-RE-xhx">

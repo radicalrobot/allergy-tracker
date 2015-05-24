@@ -10,4 +10,7 @@
 
 @interface IncidenceTableViewController : UITableViewController
 
+@property (nonatomic, strong) NSDate *currentDate;
+@property (nonatomic, weak) UIViewController *parentController;
+
 @end

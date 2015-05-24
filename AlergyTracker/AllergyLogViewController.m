@@ -17,6 +17,7 @@
 #import "ScrollableToolbarView.h"
 
 #import "UIView+FrameAccessors.h"
+#import "UIColor+Utilities.h"
 
 #import <MagicalRecord/CoreData+MagicalRecord.h>
 #import "UIButton+Badge.h"
@@ -49,13 +50,10 @@ static NSString* const kSettingsSegue = @"SettingsViewSegue";
 static NSString* const kCellIdentifier = @"SymptomCell";
 static UIColor* badgeColor;
 
-#define RGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
-#define RGBA(r, g, b, a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    badgeColor = RGB(74,171,186);
+    badgeColor = [UIColor rr_foregroundColor];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(applicationDidEnterForeground:)
                                                 name: UIApplicationWillEnterForegroundNotification

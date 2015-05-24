@@ -11,6 +11,7 @@
 #import "Incidence+Extras.h"
 #import "RRLocationManager.h"
 #import "EditIncidenceViewController.h"
+#import "NSDate+Utilities.h"
 
 #import <MagicalRecord/CoreData+MagicalRecord.h>
 
@@ -18,7 +19,6 @@
 
 @property (nonatomic, strong) NSArray *events;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
-@property (nonatomic, strong) NSDate *currentDate;
 
 @end
 
@@ -51,6 +51,7 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
     NSDateFormatter *formatter = [NSDateFormatter new];
     formatter.dateFormat = @"EEE, MMM dd, YYYY";
     self.navigationItem.title = [formatter stringFromDate:_currentDate];
+    [self.tableView reloadData];
 }
 
 -(void)eventsForTheDay:(NSDate*) date{
@@ -80,9 +81,6 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
     // Return the number of rows in the section.
     return self.events.count;
 }
-- (IBAction)close:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -104,7 +102,10 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
     return cell;
 }
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Incidence *incidence = self.events[indexPath.row];
+    [self.parentController performSegueWithIdentifier:kSegueIdentifier sender:incidence];
+}
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -132,20 +133,5 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete;
 }
-
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if([segue.identifier isEqualToString:kSegueIdentifier]) {
-        Incidence *selectedIncidence = self.events[[self.tableView indexPathForSelectedRow].row];
-        EditIncidenceViewController *eivc = (EditIncidenceViewController*)segue.destinationViewController;
-        eivc.incidence = selectedIncidence;
-    }
-}
-
 
 @end

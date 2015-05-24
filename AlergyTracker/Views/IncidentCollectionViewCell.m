@@ -7,13 +7,14 @@
 //
 
 #import "IncidentCollectionViewCell.h"
+#import "UIColor+Utilities.h"
 
 @implementation IncidentCollectionViewCell
 
 -(void)flash {
     UIColor *originalColor = self.backgroundColor;
     [UIView animateWithDuration:0.1 animations:^{
-        self.backgroundColor = [UIColor colorWithRed:170/255 green:170/255 blue:170/255 alpha:0.0];
+        self.backgroundColor = [UIColor rr_backgroundColor];
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.1 animations:^{
             self.backgroundColor = originalColor;

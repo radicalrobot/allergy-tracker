@@ -30,6 +30,14 @@
 		BE8C6BD31AA6C3BB005FC2FB /* RRLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BD21AA6C3BB005FC2FB /* RRLocationManager.m */; };
 		BE8C6BD51AA6C3F8005FC2FB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8C6BD41AA6C3F8005FC2FB /* CoreLocation.framework */; };
 		BE8C6BDE1AA77606005FC2FB /* IncidenceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8C6BDD1AA77606005FC2FB /* IncidenceTableViewController.m */; };
+		BEB01FB21B121ED10009F20B /* PagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB01FB01B121ED10009F20B /* PagingViewController.m */; };
+		BEB01FB51B121FC40009F20B /* PagingHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB01FB41B121FC40009F20B /* PagingHeaderView.m */; };
+		BEB01FBB1B1220150009F20B /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB01FB91B1220150009F20B /* TriangleView.m */; };
+		BEB01FBE1B1220870009F20B /* BorderedView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB01FBD1B1220870009F20B /* BorderedView.m */; };
+		BEB01FC31B1221F20009F20B /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB01FC01B1221F20009F20B /* NSDate+Utilities.m */; };
+		BEB01FC41B1221F20009F20B /* NSDateFormatter+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB01FC21B1221F20009F20B /* NSDateFormatter+Utilities.m */; };
+		BEB01FC71B1224CD0009F20B /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB01FC61B1224CD0009F20B /* UIColor+Utilities.m */; };
+		BEB01FCA1B122FD80009F20B /* IncidencePagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB01FC91B122FD80009F20B /* IncidencePagingViewController.m */; };
 		BEC1B7D91AC5C787001EE74C /* Incidence+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BEC1B7D81AC5C787001EE74C /* Incidence+Extras.m */; };
 		BEE0EF7F1ABF5F9D00D710FB /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF7E1ABF5F9D00D710FB /* SettingTableViewCell.m */; };
 		BEE0EF881ABF65FB00D710FB /* Symptom.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF871ABF65FB00D710FB /* Symptom.m */; };
@@ -90,6 +98,23 @@
 		BE8C6BD41AA6C3F8005FC2FB /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BE8C6BDC1AA77606005FC2FB /* IncidenceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncidenceTableViewController.h; sourceTree = "<group>"; };
 		BE8C6BDD1AA77606005FC2FB /* IncidenceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncidenceTableViewController.m; sourceTree = "<group>"; };
+		BEB01FAF1B121ED10009F20B /* PagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagingViewController.h; sourceTree = "<group>"; };
+		BEB01FB01B121ED10009F20B /* PagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagingViewController.m; sourceTree = "<group>"; };
+		BEB01FB11B121ED10009F20B /* PagingViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagingViewControllerDelegate.h; sourceTree = "<group>"; };
+		BEB01FB31B121FC40009F20B /* PagingHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PagingHeaderView.h; path = Views/PagingHeaderView.h; sourceTree = "<group>"; };
+		BEB01FB41B121FC40009F20B /* PagingHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PagingHeaderView.m; path = Views/PagingHeaderView.m; sourceTree = "<group>"; };
+		BEB01FB81B1220150009F20B /* TriangleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TriangleView.h; path = Views/TriangleView.h; sourceTree = "<group>"; };
+		BEB01FB91B1220150009F20B /* TriangleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TriangleView.m; path = Views/TriangleView.m; sourceTree = "<group>"; };
+		BEB01FBC1B1220870009F20B /* BorderedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BorderedView.h; path = Views/BorderedView.h; sourceTree = "<group>"; };
+		BEB01FBD1B1220870009F20B /* BorderedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BorderedView.m; path = Views/BorderedView.m; sourceTree = "<group>"; };
+		BEB01FBF1B1221F20009F20B /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Utilities.h"; path = "Model/NSDate+Utilities.h"; sourceTree = "<group>"; };
+		BEB01FC01B1221F20009F20B /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Utilities.m"; path = "Model/NSDate+Utilities.m"; sourceTree = "<group>"; };
+		BEB01FC11B1221F20009F20B /* NSDateFormatter+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+Utilities.h"; path = "Model/NSDateFormatter+Utilities.h"; sourceTree = "<group>"; };
+		BEB01FC21B1221F20009F20B /* NSDateFormatter+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+Utilities.m"; path = "Model/NSDateFormatter+Utilities.m"; sourceTree = "<group>"; };
+		BEB01FC51B1224CD0009F20B /* UIColor+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Utilities.h"; sourceTree = "<group>"; };
+		BEB01FC61B1224CD0009F20B /* UIColor+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Utilities.m"; sourceTree = "<group>"; };
+		BEB01FC81B122FD80009F20B /* IncidencePagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncidencePagingViewController.h; sourceTree = "<group>"; };
+		BEB01FC91B122FD80009F20B /* IncidencePagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncidencePagingViewController.m; sourceTree = "<group>"; };
 		BEC1B7D71AC5C787001EE74C /* Incidence+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Incidence+Extras.h"; path = "Model/Incidence+Extras.h"; sourceTree = "<group>"; };
 		BEC1B7D81AC5C787001EE74C /* Incidence+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Incidence+Extras.m"; path = "Model/Incidence+Extras.m"; sourceTree = "<group>"; };
 		BEC1B7DA1AC5C9B7001EE74C /* AllergyTracker 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AllergyTracker 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -140,6 +165,10 @@
 		BE2D74261AC1B47E000C5815 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BEB01FBF1B1221F20009F20B /* NSDate+Utilities.h */,
+				BEB01FC01B1221F20009F20B /* NSDate+Utilities.m */,
+				BEB01FC11B1221F20009F20B /* NSDateFormatter+Utilities.h */,
+				BEB01FC21B1221F20009F20B /* NSDateFormatter+Utilities.m */,
 				BE4703D91AB13FDC001AF1E8 /* Interaction+Extras.h */,
 				BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */,
 				BE4703DC1AB14187001AF1E8 /* Symptom+Extras.h */,
@@ -156,6 +185,8 @@
 				BE4F51711B09EDD400039E6C /* DataManager.m */,
 				BE4F517A1B0A23D700039E6C /* Incidence.h */,
 				BE4F517B1B0A23D700039E6C /* Incidence.m */,
+				BEB01FC51B1224CD0009F20B /* UIColor+Utilities.h */,
+				BEB01FC61B1224CD0009F20B /* UIColor+Utilities.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -163,6 +194,9 @@
 		BE4703D21AB137D7001AF1E8 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BEB01FAF1B121ED10009F20B /* PagingViewController.h */,
+				BEB01FB01B121ED10009F20B /* PagingViewController.m */,
+				BEB01FB11B121ED10009F20B /* PagingViewControllerDelegate.h */,
 				BE8C6BB21AA6BCCD005FC2FB /* AllergyLogViewController.h */,
 				BE8C6BB31AA6BCCD005FC2FB /* AllergyLogViewController.m */,
 				BE8C6BDC1AA77606005FC2FB /* IncidenceTableViewController.h */,
@@ -171,6 +205,8 @@
 				BE4703D01AB137CA001AF1E8 /* SettingsTableViewController.m */,
 				BE4F51761B0A1BEB00039E6C /* EditIncidenceViewController.h */,
 				BE4F51771B0A1BEB00039E6C /* EditIncidenceViewController.m */,
+				BEB01FC81B122FD80009F20B /* IncidencePagingViewController.h */,
+				BEB01FC91B122FD80009F20B /* IncidencePagingViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -243,6 +279,12 @@
 		BEE0EF7C1ABF5F3E00D710FB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BEB01FBC1B1220870009F20B /* BorderedView.h */,
+				BEB01FBD1B1220870009F20B /* BorderedView.m */,
+				BEB01FB81B1220150009F20B /* TriangleView.h */,
+				BEB01FB91B1220150009F20B /* TriangleView.m */,
+				BEB01FB31B121FC40009F20B /* PagingHeaderView.h */,
+				BEB01FB41B121FC40009F20B /* PagingHeaderView.m */,
 				BEE0EF7D1ABF5F9D00D710FB /* SettingTableViewCell.h */,
 				BEE0EF7E1ABF5F9D00D710FB /* SettingTableViewCell.m */,
 				BEE0EF8C1AC0455D00D710FB /* IncidentCollectionViewCell.h */,
@@ -415,17 +457,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEB01FB21B121ED10009F20B /* PagingViewController.m in Sources */,
+				BEB01FB51B121FC40009F20B /* PagingHeaderView.m in Sources */,
+				BEB01FC41B1221F20009F20B /* NSDateFormatter+Utilities.m in Sources */,
 				BE4703D11AB137CA001AF1E8 /* SettingsTableViewController.m in Sources */,
 				BEC1B7D91AC5C787001EE74C /* Incidence+Extras.m in Sources */,
+				BEB01FCA1B122FD80009F20B /* IncidencePagingViewController.m in Sources */,
 				BE8C6BAE1AA6BCCD005FC2FB /* AppDelegate.m in Sources */,
 				BE4F51721B09EDD400039E6C /* DataManager.m in Sources */,
 				BEE0EF7F1ABF5F9D00D710FB /* SettingTableViewCell.m in Sources */,
 				BEE0EF8B1ABF65FB00D710FB /* Interaction.m in Sources */,
 				BE4F51751B09FAD000039E6C /* UIView+FrameAccessors.m in Sources */,
+				BEB01FC31B1221F20009F20B /* NSDate+Utilities.m in Sources */,
+				BEB01FBB1B1220150009F20B /* TriangleView.m in Sources */,
 				BE4F51781B0A1BEB00039E6C /* EditIncidenceViewController.m in Sources */,
+				BEB01FBE1B1220870009F20B /* BorderedView.m in Sources */,
 				BE8C6BDE1AA77606005FC2FB /* IncidenceTableViewController.m in Sources */,
 				BE4F517C1B0A23D700039E6C /* Incidence.m in Sources */,
 				BEE0EF881ABF65FB00D710FB /* Symptom.m in Sources */,
+				BEB01FC71B1224CD0009F20B /* UIColor+Utilities.m in Sources */,
 				BE8C6BB11AA6BCCD005FC2FB /* AllergyTracker.xcdatamodeld in Sources */,
 				BE8C6BB41AA6BCCD005FC2FB /* AllergyLogViewController.m in Sources */,
 				BE8C6BAB1AA6BCCD005FC2FB /* main.m in Sources */,
