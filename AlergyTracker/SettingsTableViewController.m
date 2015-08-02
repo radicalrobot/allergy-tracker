@@ -89,7 +89,7 @@ static NSString * const CellIdentifier = @"SettingsCell";
                 if(switchView.on){
                     NSInteger numberOfSelectedAllergens = [self.allergens filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"selected=YES"]].count;
                     if(numberOfSelectedAllergens >= maxNumberOfSelectedAllergens){
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Max number of allergens reached" message:[NSString stringWithFormat:@"You may ony track up to %ld allergens at a time", maxNumberOfSelectedAllergens] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Max number of allergens reached" message:[NSString stringWithFormat:@"You may ony track up to %ld allergens at a time",(long)maxNumberOfSelectedAllergens] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                         [alert show];
                         switchView.on = NO;
                     }
