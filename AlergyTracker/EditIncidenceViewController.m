@@ -10,16 +10,27 @@
 
 #import "UIView+FrameAccessors.h"
 #import "DataManager.h"
+#import "Symptom+Extras.h"
+#import "Interaction+Extras.h"
 
-@interface EditIncidenceViewController () <UITextViewDelegate>
+@interface EditIncidenceViewController () <UITextViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UIDatePicker *incidentTime;
 @property (weak, nonatomic) IBOutlet UITextView *notes;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIButton *incidenceTypeButton;
+@property (weak, nonatomic) IBOutlet UIView *incidenceTypePickerView;
+@property (weak, nonatomic) IBOutlet UIPickerView *incidenceTypePicker;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *incidencePickerViewVerticalLayoutConstraint;
+
+@property (strong, nonatomic) NSArray *pickerData;
 
 @end
 
-@implementation EditIncidenceViewController
+@implementation EditIncidenceViewController {
+    NSString *selectedIncidenceName;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,15 +49,46 @@
     notesToolbar.items= @[spacer, close];
     self.notes.inputAccessoryView = notesToolbar;
     
+    self.incidenceTypePickerView.clipsToBounds = NO;
+    
+    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.incidenceTypePickerView.bounds];
+    self.incidenceTypePickerView.layer.masksToBounds = NO;
+    self.incidenceTypePickerView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.incidenceTypePickerView.layer.shadowOffset = CGSizeMake(5.0f, 0.0f);
+    self.incidenceTypePickerView.layer.shadowOpacity = 0.5f;
+    self.incidenceTypePickerView.layer.shadowPath = shadowPath.CGPath;
+    
+    [self.incidenceTypeButton setTitle:[self.incidence.type capitalizedString] forState:UIControlStateNormal];
+    
     self.scrollView.contentSize = (CGSize){1.0, 1.0};
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
+-(NSArray *)pickerData {
+    if(!_pickerData) {
+        _pickerData = [DataManager companionItemsForIncidenceWithName:self.incidence.type];
+    }
+    
+    return _pickerData;
+}
+
+- (IBAction)incidenceTypeTapped:(id)sender {
+    NSLog(@"incidenceTypeTapped");
+    [self.incidenceTypePicker selectRow:[self.pickerData indexOfObject:self.incidence.type] inComponent:0 animated:NO];
+    [self.incidencePickerViewVerticalLayoutConstraint setConstant:-self.incidenceTypePickerView.height];
+    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.view layoutIfNeeded];
+    } completion:nil];
+}
+
 - (IBAction)save:(id)sender {
     self.incidence.time = self.incidentTime.date;
     self.incidence.notes = self.notes.text;
+    if(selectedIncidenceName) {
+        self.incidence.type = selectedIncidenceName;
+    }
     
     __weak typeof(self) weakself = self;
     [DataManager saveIncidence:self.incidence withCompletion:^(BOOL success, NSError *error) {
@@ -109,5 +151,35 @@
 -(void)textViewDidEndEditing:(UITextView *)textView {
     [textView resignFirstResponder];
 }
+
+#pragma mark - IncidenceType
+
+- (IBAction)incidenceTypeDone:(id)sender {
+    NSLog(@"incidenceTypeDone");
+    if(selectedIncidenceName){
+        [self.incidenceTypeButton setTitle:[selectedIncidenceName capitalizedString] forState:UIControlStateNormal];
+    }
+    [self.incidencePickerViewVerticalLayoutConstraint setConstant:0];
+    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.view layoutIfNeeded];
+    } completion:nil];
+}
+
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.pickerData.count;
+}
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return self.pickerData[row];
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    selectedIncidenceName = self.pickerData[row];
+}
+
 
 @end

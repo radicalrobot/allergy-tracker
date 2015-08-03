@@ -23,6 +23,8 @@
 +(NSInteger)numberOfIncidentsWithName:(NSString*)name betweenDate:(NSDate*)startDate endDate:(NSDate*)endDate;
 +(NSInteger)numberOfSelectedSymptoms;
 
++(NSArray*)companionItemsForIncidenceWithName:(NSString*)name;
+
 +(void)saveIncidence:(Incidence*)incidence withCompletion:(MRSaveCompletionHandler)completion;
 
 @end

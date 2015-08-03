@@ -36,6 +36,27 @@
     
 }
 
++(NSArray *)companionItemsForIncidenceWithName:(NSString *)name {
+    NSInteger numberOfOccurrances = [Interaction MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"name=%@", name]].integerValue;
+    NSMutableArray *results = [NSMutableArray array];
+    if(numberOfOccurrances > 0) {
+        // this is an interaction - get the interaction names and return as array
+        NSArray *allInteractions = [Interaction MR_findAllSortedBy:@"name" ascending:YES];
+        [allInteractions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [results addObject:((Interaction*)obj).name];
+        }];
+    }
+    else {
+        // this is a symptom - get the symptom names and return as array
+        NSArray *allSymptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES];
+        [allSymptoms enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [results addObject:((Symptom*)obj).name];
+        }];
+    }
+    
+    return results;
+}
+
 +(NSInteger)numberOfSelectedSymptoms {
     return [Symptom MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"selected=YES"]].integerValue;
 }
