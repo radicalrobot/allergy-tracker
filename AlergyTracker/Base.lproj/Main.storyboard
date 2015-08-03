@@ -18,10 +18,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JKp-5K-Mwf">
-                                <rect key="frame" x="0.0" y="72" width="600" height="493"/>
+                                <rect key="frame" x="0.0" y="10" width="600" height="546"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="493" id="0Jh-Xc-Wdx"/>
+                                    <constraint firstAttribute="height" constant="546" id="0Jh-Xc-Wdx"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yBE-eF-dmI">
                                     <size key="itemSize" width="200" height="200"/>
@@ -86,11 +86,11 @@
                             <constraint firstItem="JKp-5K-Mwf" firstAttribute="trailing" secondItem="AHZ-X6-9Ck" secondAttribute="trailing" id="4Fz-O1-DOI"/>
                             <constraint firstItem="AHZ-X6-9Ck" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="7Xa-wk-dmQ"/>
                             <constraint firstItem="AHZ-X6-9Ck" firstAttribute="leading" secondItem="JKp-5K-Mwf" secondAttribute="leading" id="GHU-OC-WE3"/>
-                            <constraint firstItem="AHZ-X6-9Ck" firstAttribute="top" secondItem="JKp-5K-Mwf" secondAttribute="bottom" constant="-9" id="NzC-BJ-yrh"/>
+                            <constraint firstItem="AHZ-X6-9Ck" firstAttribute="top" secondItem="JKp-5K-Mwf" secondAttribute="bottom" id="NzC-BJ-yrh"/>
                             <constraint firstItem="JKp-5K-Mwf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="RIh-0Y-UMn"/>
-                            <constraint firstItem="JKp-5K-Mwf" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Rk4-Ql-5IO"/>
+                            <constraint firstItem="JKp-5K-Mwf" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-54" id="Rk4-Ql-5IO"/>
                             <constraint firstAttribute="trailing" secondItem="JKp-5K-Mwf" secondAttribute="trailing" id="iQb-Dp-mcE"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JKp-5K-Mwf" secondAttribute="bottom" constant="35" id="z3v-wt-lQ5"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JKp-5K-Mwf" secondAttribute="bottom" constant="44" id="z3v-wt-lQ5"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Dmb-VK-jxV">
@@ -368,7 +368,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="gWq-Av-9jN" firstAttribute="leading" secondItem="QLd-LG-u7S" secondAttribute="leading" id="0ES-32-ZFE"/>
                                     <constraint firstAttribute="trailing" secondItem="Lsq-aX-SDO" secondAttribute="trailing" constant="27" id="5Bh-1U-r3k"/>
