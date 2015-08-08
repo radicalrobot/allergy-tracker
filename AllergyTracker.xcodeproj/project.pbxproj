@@ -345,7 +345,7 @@
 		BE8C6B9D1AA6BCCD005FC2FB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Radical Robot";
 				TargetAttributes = {
 					BE8C6BA41AA6BCCD005FC2FB = {
@@ -538,6 +538,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -602,12 +603,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods",
 				);
 				INFOPLIST_FILE = AlergyTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.radicalrobot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = AllergyTracker;
 			};
 			name = Debug;
@@ -618,12 +621,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods",
 				);
 				INFOPLIST_FILE = AlergyTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.radicalrobot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = AllergyTracker;
 			};
 			name = Release;
@@ -642,6 +647,7 @@
 				);
 				INFOPLIST_FILE = AlergyTrackerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.radicalrobot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = AllergyTrackerTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AllergyTracker.app/AllergyTracker";
 			};
@@ -657,6 +663,7 @@
 				);
 				INFOPLIST_FILE = AlergyTrackerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.radicalrobot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = AllergyTrackerTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AllergyTracker.app/AllergyTracker";
 			};
