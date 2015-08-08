@@ -1,10 +1,16 @@
 PODS:
+  - Crashlytics (3.1.0)
+  - Fabric (1.2.8):
+    - Fabric/Base (= 1.2.8)
+  - Fabric/Base (1.2.8)
   - MagicalRecord (2.2):
     - MagicalRecord/Core (= 2.2)
   - MagicalRecord/Core (2.2)
   - UIBarButtonItem-Badge (0.0.1)
 
 DEPENDENCIES:
+  - Crashlytics
+  - Fabric
   - MagicalRecord
   - UIBarButtonItem-Badge (from `https://github.com/mikeMTOL/UIBarButtonItem-Badge`)
 
@@ -18,7 +24,9 @@ CHECKOUT OPTIONS:
     :git: https://github.com/mikeMTOL/UIBarButtonItem-Badge
 
 SPEC CHECKSUMS:
+  Crashlytics: 93e2f86363d53c002c6366a9d87e41f2eaee87c3
+  Fabric: a9eabe53915e9f1db55a84dd2838737928675878
   MagicalRecord: f8a56bb87ab6552f20c4bb8681a1958a197ea3cd
   UIBarButtonItem-Badge: 8f5ed4d32d32dbb03034d4f273d02c8da680236b
 
-COCOAPODS: 0.37.1
+COCOAPODS: 0.38.2

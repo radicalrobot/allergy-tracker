@@ -12,8 +12,6 @@
 		BE4703D11AB137CA001AF1E8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703D01AB137CA001AF1E8 /* SettingsTableViewController.m */; };
 		BE4703DB1AB13FDC001AF1E8 /* Interaction+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */; };
 		BE4703DE1AB14187001AF1E8 /* Symptom+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */; };
-		BE4F516E1B09E7C800039E6C /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4F516C1B09E7C800039E6C /* Fabric.framework */; };
-		BE4F516F1B09E7C800039E6C /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4F516D1B09E7C800039E6C /* Crashlytics.framework */; };
 		BE4F51721B09EDD400039E6C /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4F51711B09EDD400039E6C /* DataManager.m */; };
 		BE4F51751B09FAD000039E6C /* UIView+FrameAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4F51741B09FAD000039E6C /* UIView+FrameAccessors.m */; };
 		BE4F51781B0A1BEB00039E6C /* EditIncidenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4F51771B0A1BEB00039E6C /* EditIncidenceViewController.m */; };
@@ -66,8 +64,6 @@
 		BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Interaction+Extras.m"; sourceTree = "<group>"; };
 		BE4703DC1AB14187001AF1E8 /* Symptom+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Symptom+Extras.h"; sourceTree = "<group>"; };
 		BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Symptom+Extras.m"; sourceTree = "<group>"; };
-		BE4F516C1B09E7C800039E6C /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Pods/Fabric.framework; sourceTree = "<group>"; };
-		BE4F516D1B09E7C800039E6C /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Pods/Crashlytics.framework; sourceTree = "<group>"; };
 		BE4F51701B09EDD400039E6C /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManager.h; path = Model/DataManager.h; sourceTree = "<group>"; };
 		BE4F51711B09EDD400039E6C /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = Model/DataManager.m; sourceTree = "<group>"; };
 		BE4F51731B09FAD000039E6C /* UIView+FrameAccessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+FrameAccessors.h"; path = "Views/UIView+FrameAccessors.h"; sourceTree = "<group>"; };
@@ -136,8 +132,6 @@
 			files = (
 				BE8C6BD51AA6C3F8005FC2FB /* CoreLocation.framework in Frameworks */,
 				332436354D0BC5F962E46BB8 /* libPods.a in Frameworks */,
-				BE4F516F1B09E7C800039E6C /* Crashlytics.framework in Frameworks */,
-				BE4F516E1B09E7C800039E6C /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,8 +148,6 @@
 		9AB225D17BCED72E11F1B7A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BE4F516C1B09E7C800039E6C /* Fabric.framework */,
-				BE4F516D1B09E7C800039E6C /* Crashlytics.framework */,
 				BE8C6BD41AA6C3F8005FC2FB /* CoreLocation.framework */,
 				EE11A62584F48FFA2CA3071D /* libPods.a */,
 			);
@@ -418,7 +410,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run 66bce3289ef695cfd11b64e231e1f47fe1efbcb3 ca9ea2511941b370ec60313bea88c09fc92a388ac7e40f9db93211ece05330a7";
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 66bce3289ef695cfd11b64e231e1f47fe1efbcb3 ca9ea2511941b370ec60313bea88c09fc92a388ac7e40f9db93211ece05330a7";
 		};
 		C36CDC7628075243A163A3C1 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
