@@ -11,6 +11,8 @@
 
 #import "Incidence+Extras.h"
 
+#import <Analytics.h>
+
 @interface RRLocationManager ()
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -70,7 +72,15 @@
         location.longitude = @(currentLocation.coordinate.longitude);
         location.time = currentLocation.timestamp;
         location.type = @"location";
-    } completion:nil];
+    } completion:^(BOOL success, NSError *error) {
+        [[SEGAnalytics sharedAnalytics] track:@"Logged Location Change"
+                                   properties:@{ @"id": location.uuid,
+                                                 @"name": location.type,
+                                                 @"time": location.formattedTime,
+                                                 @"latitude": location.latitude,
+                                                 @"longitude": location.longitude,
+                                                 @"notes": location.notes ? location.notes : [NSNull null] }];
+    }];
 }
 
 @end

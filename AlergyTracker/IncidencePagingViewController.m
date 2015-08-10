@@ -11,6 +11,8 @@
 #import "NSDate+Utilities.h"
 #import "EditIncidenceViewController.h"
 
+#import <Analytics.h>
+
 @interface IncidencePagingViewController ()
 
 @property (nonatomic, strong) IncidenceTableViewController *currentController;
@@ -26,6 +28,8 @@ static NSString * const kSegueIdentifier = @"EditIncidenceSegue";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[SEGAnalytics sharedAnalytics] screen:@"Incidence Table"
+                                properties:nil];
 }
 
 - (void)didReceiveMemoryWarning {

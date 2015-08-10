@@ -14,6 +14,7 @@
 #import "NSDate+Utilities.h"
 
 #import <MagicalRecord/CoreData+MagicalRecord.h>
+#import <Analytics.h>
 
 @interface IncidenceTableViewController ()
 
@@ -48,9 +49,14 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
         _currentDate = [NSDate date];
     }
     [self eventsForTheDay:_currentDate];
+    
     NSDateFormatter *formatter = [NSDateFormatter new];
     formatter.dateFormat = @"EEE, MMM dd, YYYY";
     self.navigationItem.title = [formatter stringFromDate:_currentDate];
+    
+    [[SEGAnalytics sharedAnalytics] track:@"View Incidences"
+                               properties:@{ @"date": self.navigationItem.title }];
+    
     [self.tableView reloadData];
 }
 
@@ -119,13 +125,28 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        __block NSString *uuid, *name, *time, *notes;
+        __block NSNumber *lat, *lon;
         [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
-            
             Incidence *incidence = self.events[indexPath.row];
+            name = incidence.type;
+            time = incidence.formattedTime;
+            notes = incidence.notes;
+            lat = incidence.latitude;
+            lon = incidence.longitude;
             [incidence MR_deleteEntity];
         } completion:^(BOOL success, NSError *error) {
-            [self eventsForTheDay:_currentDate];
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            if(success){
+                [self eventsForTheDay:_currentDate];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [[SEGAnalytics sharedAnalytics] track:@"Delete Incidence"
+                                           properties:@{ @"id": uuid,
+                                                         @"name": name,
+                                                         @"time": time,
+                                                         @"latitude": lat,
+                                                         @"longitude": lon,
+                                                         @"notes": notes ? notes : [NSNull null] }];
+            }
         }];
     }
 }

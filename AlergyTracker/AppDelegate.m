@@ -12,6 +12,7 @@
 
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import <Analytics.h>
 
 @interface AppDelegate ()
 
@@ -23,7 +24,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [Fabric with:@[CrashlyticsKit]];
-    
+    [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"FoGKredUEwSGQq3SLZyBkKvcsO9PJV8e"]];
+    [[SEGAnalytics sharedAnalytics] identify:[[[UIDevice currentDevice] identifierForVendor] UUIDString]
+                                      traits:@{ @"name": [[UIDevice currentDevice] name]}];
     [DataManager setup];
     
     [RRLocationManager start];

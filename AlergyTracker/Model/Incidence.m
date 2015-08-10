@@ -2,20 +2,14 @@
 //  Incidence.m
 //  AllergyTracker
 //
-//  Created by Emily Toop on 18/05/2015.
-//  Copyright (c) 2015 Radical Robot. All rights reserved.
+//  Created by Emily Toop on 09/08/2015.
+//  Copyright © 2015 Radical Robot. All rights reserved.
 //
 
 #import "Incidence.h"
 
-
 @implementation Incidence
 
-@dynamic formattedTime;
-@dynamic latitude;
-@dynamic longitude;
-@dynamic time;
-@dynamic type;
-@dynamic notes;
+// Insert code here to add functionality to your managed object subclass
 
 @end

@@ -24,13 +24,18 @@
 }
 
 -(void)migrateFromVersion:(NSString *)version {
-    NSArray *actions = [Incidence MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"type='attack'"]];
+    NSArray *actions = [Incidence MR_findAll];
     
     [MagicalRecord saveUsingCurrentThreadContextWithBlockAndWait:^(NSManagedObjectContext *localContext) {
         Incidence *localIncidence;
         for(Incidence *incidence in actions) {
             localIncidence = [incidence MR_inContext:localContext];
-            localIncidence.type = @"sneeze";
+            if([localIncidence.type isEqualToString:@"attack"]) {
+                localIncidence.type = @"sneeze";
+            }
+            if(!localIncidence.uuid) {
+                localIncidence.uuid = [[NSUUID UUID] UUIDString];
+            }
         }
     }];
 }

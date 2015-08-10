@@ -23,6 +23,7 @@
 #import "UIButton+Badge.h"
 
 #import <AudioToolbox/AudioServices.h>
+#import <Analytics.h>
 
 #define CELL_SPACING 5
 #define MINIMUM_CELL_HEIGHT 100
@@ -76,6 +77,8 @@ static UIColor* badgeColor;
 }
 
 -(void)updateViewStatus {
+    [[SEGAnalytics sharedAnalytics] screen:@"Allergy Log"
+                                properties:nil];
     if([DataManager isFirstRun]){
         [self performSegueWithIdentifier:kSettingsSegue sender:self];
     }
@@ -168,7 +171,15 @@ static UIColor* badgeColor;
         incidence.longitude = @(currentLocation.coordinate.longitude);
         incidence.time = [NSDate date];
         incidence.type = symptom.name;
-    } completion:nil];
+    } completion:^(BOOL success, NSError *error) {
+        [[SEGAnalytics sharedAnalytics] track:@"Logged Incident"
+                                   properties:@{ @"id": incidence.uuid,
+                                                 @"name": incidence.type,
+                                                 @"time": incidence.formattedTime,
+                                                 @"latitude": incidence.latitude,
+                                                 @"longitude": incidence.longitude,
+                                                 @"notes": incidence.notes ? incidence.notes : [NSNull null] }];
+    }];
 }
 
 - (IBAction)actionTaken:(id)sender {
@@ -182,16 +193,26 @@ static UIColor* badgeColor;
         incidenceType = allergen.name;
     }
     __weak typeof(self) weakself = self;
+    __block Incidence *incidence = nil;
     CLLocation *currentLocation = [RRLocationManager currentLocation];
     [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
-        Incidence *incidence = [Incidence MR_createInContext:localContext];
+        incidence = [Incidence MR_createInContext:localContext];
         incidence.latitude = @(currentLocation.coordinate.latitude);
         incidence.longitude = @(currentLocation.coordinate.longitude);
         incidence.time = [NSDate date];
         incidence.type = incidenceType;
     } completion:^(BOOL success, NSError *error) {
-        typeof(weakself) localself = weakself;
-        [localself updateAllergen:sender];
+        if(success){
+            typeof(weakself) localself = weakself;
+            [localself updateAllergen:sender];
+            [[SEGAnalytics sharedAnalytics] track:@"Logged Incident"
+                                       properties:@{ @"id": incidence.uuid,
+                                                     @"name": incidence.type,
+                                                     @"time": incidence.formattedTime,
+                                                     @"latitude": incidence.latitude,
+                                                     @"longitude": incidence.longitude,
+                                                     @"notes": incidence.notes ? incidence.notes : [NSNull null] }];
+        }
     }];
     
 }

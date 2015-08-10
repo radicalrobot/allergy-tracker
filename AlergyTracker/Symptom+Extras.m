@@ -12,10 +12,7 @@
 
 -(void)awakeFromInsert {
     [super awakeFromInsert];
-    CFUUIDRef theUUID = CFUUIDCreate(NULL);
-    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-    CFRelease(theUUID);
-    self.symptomId = (__bridge_transfer NSString *)string;
+    self.symptomId = [[NSUUID UUID] UUIDString];
 }
 
 @end

@@ -10,6 +10,11 @@
 
 @implementation Incidence(Extras)
 
+-(void)awakeFromInsert {
+    [super awakeFromInsert];
+    self.uuid = [[NSUUID UUID] UUIDString];
+}
+
 -(void)setTime:(NSDate *)time {
     [self willChangeValueForKey:@"time"];
     [self setPrimitiveValue:time forKey:@"time"];

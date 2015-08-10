@@ -13,6 +13,8 @@
 #import "Symptom+Extras.h"
 #import "Interaction+Extras.h"
 
+#import <Analytics.h>
+
 @interface EditIncidenceViewController () <UITextViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UIDatePicker *incidentTime;
 @property (weak, nonatomic) IBOutlet UITextView *notes;
@@ -84,6 +86,7 @@
 }
 
 - (IBAction)save:(id)sender {
+    // now update
     self.incidence.time = self.incidentTime.date;
     self.incidence.notes = self.notes.text;
     if(selectedIncidenceName) {
@@ -92,9 +95,16 @@
     
     __weak typeof(self) weakself = self;
     [DataManager saveIncidence:self.incidence withCompletion:^(BOOL success, NSError *error) {
-        typeof(self) localself = weakself;
+        typeof(weakself) localself = weakself;
         if(success) {
             [localself.navigationController popViewControllerAnimated:YES];
+            [[SEGAnalytics sharedAnalytics] track:@"Edited Incidence"
+                                       properties:@{ @"id": localself.incidence.uuid,
+                                                     @"name": localself.incidence.type,
+                                                     @"time": localself.incidence.formattedTime,
+                                                     @"latitude": localself.incidence.latitude,
+                                                     @"longitude": localself.incidence.longitude,
+                                                     @"notes": localself.incidence.notes ? localself.incidence.notes : [NSNull null] }];
         }
         else {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Problem Saving" message:@"We had a problem saving your changes, please try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -122,11 +132,19 @@
     [self.scrollView scrollRectToVisible:CGRectMake(0, 0, 10, 10) animated:YES];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[SEGAnalytics sharedAnalytics] screen:@"Edit Incidence"
+                                properties:nil];
+}
+
 -(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [self.incidence.managedObjectContext refreshObject:self.incidence mergeChanges:NO];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillChangeFrameNotification
                                                   object:nil];

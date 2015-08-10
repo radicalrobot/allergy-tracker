@@ -14,6 +14,7 @@
 #import "UIView+FrameAccessors.h"
 
 #import <MagicalRecord/CoreData+MagicalRecord.h>
+#import <Analytics.h>
 
 @interface SettingsTableViewController () {
     BOOL isFirstRun;
@@ -54,6 +55,9 @@ static NSString * const CellIdentifier = @"SettingsCell";
     self.tableView.tableHeaderView = self.choices;
     
     maxNumberOfSelectedAllergens = floor((self.view.width - 44) / 44);
+    
+    [[SEGAnalytics sharedAnalytics] screen:@"Settings"
+                                properties:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,6 +86,9 @@ static NSString * const CellIdentifier = @"SettingsCell";
             {
                 Symptom *symptom = [self.symptoms[cellIndex.row] MR_inContext:localContext];
                 symptom.selected = @(switchView.on);
+                [[SEGAnalytics sharedAnalytics] track:@"Updated Symptoms"
+                                           properties:@{ @"name": symptom.name,
+                                                         @"on": symptom.selected }];
                 break;
             }
             case 1:{
@@ -95,6 +102,9 @@ static NSString * const CellIdentifier = @"SettingsCell";
                     }
                 }
                 allergen.selected = @(switchView.on);
+                [[SEGAnalytics sharedAnalytics] track:@"Updated Allergens"
+                                           properties:@{ @"name": allergen.name,
+                                                         @"on": allergen.selected }];
                 break;
             }
             default:
