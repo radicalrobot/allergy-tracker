@@ -129,6 +129,7 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
         __block NSNumber *lat, *lon;
         [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
             Incidence *incidence = self.events[indexPath.row];
+            uuid = incidence.uuid;
             name = incidence.type;
             time = incidence.formattedTime;
             notes = incidence.notes;
