@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>5FD0DC35-2581-4F89-8ABD-5FFAA0D2E480</string>
 	<key>IDESourceControlProjectName</key>
-	<string>AllergyTracker</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>C7438D573B9DABFF478F644C2D6E7C8F840717DF</key>
 		<string>https://github.com/radicalrobot/allergy-tracker.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>AllergyTracker.xcodeproj</string>
+	<string>AllergyTracker.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>C7438D573B9DABFF478F644C2D6E7C8F840717DF</key>
