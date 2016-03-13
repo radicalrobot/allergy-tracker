@@ -13,8 +13,9 @@
 #import "DataManager.h"
 #import "UIView+FrameAccessors.h"
 
-#import <MagicalRecord/CoreData+MagicalRecord.h>
+#import <MagicalRecord/MagicalRecord.h>
 #import <Analytics.h>
+#import "MagicalRecord+BackgroundTask.h"
 
 @interface SettingsTableViewController () {
     BOOL isFirstRun;
@@ -79,7 +80,7 @@ static NSString * const CellIdentifier = @"SettingsCell";
     SettingTableViewCell *settingCell = (SettingTableViewCell*)[[switchView superview] superview];
     NSIndexPath *cellIndex = [self.tableView indexPathForCell:settingCell];
     
-    [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
+    [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
         
         switch (self.choices.selectedSegmentIndex) {
             case 0:
@@ -110,7 +111,7 @@ static NSString * const CellIdentifier = @"SettingsCell";
             default:
                 break;
         }
-    } completion:^(BOOL success, NSError *error) {
+    } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
         if([DataManager numberOfSelectedSymptoms] > 0){
             self.closeButton.enabled = YES;
         }
@@ -118,8 +119,6 @@ static NSString * const CellIdentifier = @"SettingsCell";
             self.closeButton.enabled = NO;
         }
     }];
-    
-    
 }
 
 #pragma mark - Table view data source

@@ -10,7 +10,7 @@
 
 #import "Incidence.h"
 #import "Interaction.h"
-#import <MagicalRecord/CoreData+MagicalRecord.h>
+#import <MagicalRecord/MagicalRecord.h>
 
 
 @interface DataManager : NSObject

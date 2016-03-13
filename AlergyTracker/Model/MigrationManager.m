@@ -8,8 +8,9 @@
 
 #import "MigrationManager.h"
 
-#import <MagicalRecord/CoreData+MagicalRecord.h>
+#import <MagicalRecord/MagicalRecord.h>
 #import "Incidence+Extras.h"
+#import "MagicalRecord+BackgroundTask.h"
 
 @implementation MigrationManager
 
@@ -26,7 +27,7 @@
 -(void)migrateFromVersion:(NSString *)version {
     NSArray *actions = [Incidence MR_findAll];
     
-    [MagicalRecord saveUsingCurrentThreadContextWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+    [MagicalRecord saveOnBackgroundThreadWithBlockAndWait:^(NSManagedObjectContext *localContext) {
         Incidence *localIncidence;
         for(Incidence *incidence in actions) {
             localIncidence = [incidence MR_inContext:localContext];

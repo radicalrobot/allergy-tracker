@@ -18,8 +18,9 @@
 
 #import "UIView+FrameAccessors.h"
 #import "UIColor+Utilities.h"
+#import "MagicalRecord+BackgroundTask.h"
 
-#import <MagicalRecord/CoreData+MagicalRecord.h>
+#import <MagicalRecord/MagicalRecord.h>
 #import "UIButton+Badge.h"
 
 #import <AudioToolbox/AudioServices.h>
@@ -164,22 +165,10 @@ static UIColor* badgeColor;
 
 -(void)logIncidenceForSymptom:(Symptom*)symptom {
     CLLocation *currentLocation = [RRLocationManager currentLocation];
-    __block Incidence *incidence;
-    [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
-        incidence = [Incidence MR_createInContext:localContext];
-        incidence.latitude = @(currentLocation.coordinate.latitude);
-        incidence.longitude = @(currentLocation.coordinate.longitude);
-        incidence.time = [NSDate date];
-        incidence.type = symptom.name;
-    } completion:^(BOOL success, NSError *error) {
-        [[SEGAnalytics sharedAnalytics] track:@"Logged Incident"
-                                   properties:@{ @"id": incidence.uuid,
-                                                 @"name": incidence.type,
-                                                 @"time": incidence.formattedTime,
-                                                 @"latitude": incidence.latitude,
-                                                 @"longitude": incidence.longitude,
-                                                 @"notes": incidence.notes ? incidence.notes : [NSNull null] }];
-    }];
+    NSDate *now = [NSDate date];
+    NSNumber *latitude = @(currentLocation.coordinate.latitude);
+    NSNumber *longitude = @(currentLocation.coordinate.latitude);
+    [self createIncident:now latitude:latitude longitude:longitude type:symptom.name onSuccess:nil];
 }
 
 - (IBAction)actionTaken:(id)sender {
@@ -193,28 +182,50 @@ static UIColor* badgeColor;
         incidenceType = allergen.name;
     }
     __weak typeof(self) weakself = self;
-    __block Incidence *incidence = nil;
     CLLocation *currentLocation = [RRLocationManager currentLocation];
-    [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
-        incidence = [Incidence MR_createInContext:localContext];
-        incidence.latitude = @(currentLocation.coordinate.latitude);
-        incidence.longitude = @(currentLocation.coordinate.longitude);
-        incidence.time = [NSDate date];
+    NSDate *now = [NSDate date];
+    
+    NSNumber *latitude = @(currentLocation.coordinate.latitude);
+    NSNumber *longitude = @(currentLocation.coordinate.latitude);
+    [self createIncident:now latitude:latitude longitude:longitude type:incidenceType onSuccess:^{
+        typeof(weakself) localself = weakself;
+        [localself updateAllergen:sender];
+    }];
+}
+
+-(void) createIncident: (NSDate*) now latitude:(NSNumber*) latitude longitude:(NSNumber*) longitude type:(NSString*) incidenceType onSuccess:(void (^)())successBlock {
+    [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext *localContext) {
+        Incidence *incidence = [Incidence MR_createEntityInContext:localContext];
+        incidence.latitude = latitude;
+        incidence.longitude = longitude;
+        incidence.time = now;
         incidence.type = incidenceType;
     } completion:^(BOOL success, NSError *error) {
-        if(success){
-            typeof(weakself) localself = weakself;
-            [localself updateAllergen:sender];
+        if(success) {
+            if(successBlock) {
+                successBlock();
+            }
+            Incidence *newlyCreatedIncidence = [Incidence MR_findFirstByAttribute:@"time" withValue:now];
+            
             [[SEGAnalytics sharedAnalytics] track:@"Logged Incident"
-                                       properties:@{ @"id": incidence.uuid,
-                                                     @"name": incidence.type,
-                                                     @"time": incidence.formattedTime,
-                                                     @"latitude": incidence.latitude,
-                                                     @"longitude": incidence.longitude,
-                                                     @"notes": incidence.notes ? incidence.notes : [NSNull null] }];
+                                       properties:@{ @"id": newlyCreatedIncidence.uuid,
+                                                     @"name": newlyCreatedIncidence.type,
+                                                     @"time": newlyCreatedIncidence.formattedTime,
+                                                     @"latitude": newlyCreatedIncidence.latitude,
+                                                     @"longitude": newlyCreatedIncidence.longitude,
+                                                     @"notes": newlyCreatedIncidence.notes ? newlyCreatedIncidence.notes : [NSNull null],
+                                                     @"writeSuccess": @(success)}];
+        } else {
+            [[SEGAnalytics sharedAnalytics] track:@"Logged Incident"
+                                       properties:@{ @"id": [NSNull null],
+                                                     @"name": incidenceType,
+                                                     @"time": now,
+                                                     @"latitude": latitude,
+                                                     @"longitude": longitude,
+                                                     @"notes": [NSNull null],
+                                                     @"writeSuccess": @(success)}];
         }
     }];
-    
 }
 
 #pragma mark - UICollectionView methods
