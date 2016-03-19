@@ -251,14 +251,15 @@ static UIColor* badgeColor;
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if(cellSize.width == CGSizeZero.width && cellSize.height == CGSizeZero.height) {
+        CGFloat collectionViewHeight = self.collectionView.bounds.size.height - (self.navigationController.navigationBar.bounds.size.height + (2 * CELL_SPACING));
         if(self.selectedSymptoms.count == 1) {
-            cellSize = CGSizeMake(self.collectionView.width - (2 * CELL_SPACING), self.collectionView.height - CELL_SPACING);
+            cellSize = CGSizeMake(self.collectionView.width - (2 * CELL_SPACING), collectionViewHeight - CELL_SPACING);
         }
         else {
             CGFloat width = ((collectionView.width - CELL_SPACING) / 2) - CELL_SPACING;
             NSInteger spaces = [self.selectedSymptoms count] * CELL_SPACING;
             NSInteger numberOfRows = ceilf(self.selectedSymptoms.count / 2.0);
-            CGFloat height = MAX(MINIMUM_CELL_HEIGHT, (collectionView.height - spaces) / numberOfRows);
+            CGFloat height = MAX(MINIMUM_CELL_HEIGHT, (collectionViewHeight - spaces) / numberOfRows);
             
             cellSize = CGSizeMake(width, height);
         }
