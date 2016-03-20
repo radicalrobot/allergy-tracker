@@ -12,6 +12,9 @@
 #import "RRLocationManager.h"
 #import "EditIncidenceViewController.h"
 #import "NSDate+Utilities.h"
+#import "SummaryHeaderView.h"
+#import "Symptom+Extras.h"
+#import "Interaction+Extras.h"
 
 #import <MagicalRecord/MagicalRecord.h>
 #import <Analytics.h>
@@ -22,6 +25,8 @@
 
 @property (nonatomic, strong) NSArray *events;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (weak, nonatomic) IBOutlet UIView *summaryHeaderView;
+@property (nonatomic, strong) SummaryHeaderView *summaryView;
 
 @end
 
@@ -32,12 +37,6 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,9 +46,25 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     if(!_currentDate){
         _currentDate = [NSDate date];
     }
+    if(!_summaryView){
+        NSArray *selectedSymptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+        NSArray *selectedInteractions = [Interaction MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+        _summaryView = [[SummaryHeaderView alloc] initWithSymptoms:selectedSymptoms interactions:selectedInteractions forDate:_currentDate];
+        [_summaryView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        _summaryHeaderView.clipsToBounds = YES;
+        [_summaryHeaderView addSubview:_summaryView];
+        [_summaryView.topAnchor constraintEqualToAnchor:_summaryHeaderView.topAnchor].active = true;
+        [_summaryView.leftAnchor constraintEqualToAnchor:_summaryHeaderView.leftAnchor].active = true;
+        [_summaryView.rightAnchor constraintEqualToAnchor:_summaryHeaderView.rightAnchor].active = true;
+        [_summaryView.bottomAnchor constraintEqualToAnchor:_summaryHeaderView.bottomAnchor].active = true;
+    } else {
+        _summaryView.date = _currentDate;
+    }
+    
     [self eventsForTheDay:_currentDate];
     
     NSDateFormatter *formatter = [NSDateFormatter new];

@@ -36,6 +36,7 @@
 		BEB01FC71B1224CD0009F20B /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB01FC61B1224CD0009F20B /* UIColor+Utilities.m */; };
 		BEB01FCA1B122FD80009F20B /* IncidencePagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB01FC91B122FD80009F20B /* IncidencePagingViewController.m */; };
 		BEBCAA211C960E5900B3CDE3 /* MagicalRecord+BackgroundTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BEBCAA201C960E5900B3CDE3 /* MagicalRecord+BackgroundTask.m */; };
+		BEBCAA241C9D7DD600B3CDE3 /* SummaryHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEBCAA231C9D7DD600B3CDE3 /* SummaryHeaderView.m */; };
 		BEC1B7D91AC5C787001EE74C /* Incidence+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BEC1B7D81AC5C787001EE74C /* Incidence+Extras.m */; };
 		BEE0EF7F1ABF5F9D00D710FB /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF7E1ABF5F9D00D710FB /* SettingTableViewCell.m */; };
 		BEE0EF881ABF65FB00D710FB /* Symptom.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF871ABF65FB00D710FB /* Symptom.m */; };
@@ -112,6 +113,8 @@
 		BEB01FC91B122FD80009F20B /* IncidencePagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncidencePagingViewController.m; sourceTree = "<group>"; };
 		BEBCAA1F1C960E5900B3CDE3 /* MagicalRecord+BackgroundTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MagicalRecord+BackgroundTask.h"; path = "Extensions/MagicalRecord+BackgroundTask.h"; sourceTree = "<group>"; };
 		BEBCAA201C960E5900B3CDE3 /* MagicalRecord+BackgroundTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MagicalRecord+BackgroundTask.m"; path = "Extensions/MagicalRecord+BackgroundTask.m"; sourceTree = "<group>"; };
+		BEBCAA221C9D7DD600B3CDE3 /* SummaryHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SummaryHeaderView.h; path = Views/SummaryHeaderView.h; sourceTree = "<group>"; };
+		BEBCAA231C9D7DD600B3CDE3 /* SummaryHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SummaryHeaderView.m; path = Views/SummaryHeaderView.m; sourceTree = "<group>"; };
 		BEC1B7D71AC5C787001EE74C /* Incidence+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Incidence+Extras.h"; path = "Model/Incidence+Extras.h"; sourceTree = "<group>"; };
 		BEC1B7D81AC5C787001EE74C /* Incidence+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Incidence+Extras.m"; path = "Model/Incidence+Extras.m"; sourceTree = "<group>"; };
 		BEC1B7DA1AC5C9B7001EE74C /* AllergyTracker 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AllergyTracker 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -293,6 +296,8 @@
 				BE4F51741B09FAD000039E6C /* UIView+FrameAccessors.m */,
 				BE4F517F1B0A468900039E6C /* ScrollableToolbarView.h */,
 				BE4F51801B0A468900039E6C /* ScrollableToolbarView.m */,
+				BEBCAA221C9D7DD600B3CDE3 /* SummaryHeaderView.h */,
+				BEBCAA231C9D7DD600B3CDE3 /* SummaryHeaderView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -487,6 +492,7 @@
 				BE4F51751B09FAD000039E6C /* UIView+FrameAccessors.m in Sources */,
 				BEB01FC31B1221F20009F20B /* NSDate+Utilities.m in Sources */,
 				BEB01FBB1B1220150009F20B /* TriangleView.m in Sources */,
+				BEBCAA241C9D7DD600B3CDE3 /* SummaryHeaderView.m in Sources */,
 				BE4F51781B0A1BEB00039E6C /* EditIncidenceViewController.m in Sources */,
 				BEB01FBE1B1220870009F20B /* BorderedView.m in Sources */,
 				BE8C6BDE1AA77606005FC2FB /* IncidenceTableViewController.m in Sources */,
@@ -578,7 +584,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -614,7 +620,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
