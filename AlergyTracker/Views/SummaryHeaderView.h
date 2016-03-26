@@ -14,8 +14,9 @@
 @property (nonatomic, strong) NSArray* interactions;
 @property (nonatomic, strong) NSDate* date;
 
+@property (nonatomic) CGFloat maxRowHeight;
 @property (nonatomic) int maxNumberOfCellsInRow;
 
--(instancetype) initWithSymptoms: (NSArray*) symptoms interactions: (NSArray*) interactions forDate:(NSDate*)date;
+//-(instancetype) initWithSymptoms: (NSArray*) symptoms interactions: (NSArray*) interactions forDate:(NSDate*)date;
 
 @end

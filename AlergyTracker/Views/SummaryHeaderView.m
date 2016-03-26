@@ -23,30 +23,24 @@
 
 @implementation SummaryHeaderView
 
--(instancetype)initWithSymptoms:(NSArray*) symptoms interactions:(NSArray *)interactions forDate:(NSDate*)date {
-    if(self = [super initWithFrame:CGRectZero]) {
-        self.interactions = interactions;
-        self.symptoms = symptoms;
-        self.summaryViews = [NSMutableArray array];
-        self.maxNumberOfCellsInRow = 4;
-        self.date = date;
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self commonInit];
     }
     return self;
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-    }
-    return self;
+-(void) commonInit {
+    self.summaryViews = [NSMutableArray array];
+    self.maxNumberOfCellsInRow = 4;
 }
 
 -(void)layoutSubviews {
     [super layoutSubviews];
     
-    int numberOfRows = ceil((CGFloat)_summaryViews.count / (CGFloat)_maxNumberOfCellsInRow);
     CGFloat width = self.bounds.size.width / MIN(_summaryViews.count, _maxNumberOfCellsInRow);
-    CGFloat height = self.bounds.size.height / numberOfRows;
     
     int currentRow = 0;
     int currentCell = 0;
@@ -54,8 +48,8 @@
         if(!view.superview) {
             [self addSubview:view];
         }
-        [view.topAnchor constraintEqualToAnchor:self.topAnchor constant:height * currentRow].active = true;
-        [view.heightAnchor constraintEqualToConstant:height].active = true;
+        [view.topAnchor constraintEqualToAnchor:self.topAnchor constant:_maxRowHeight * currentRow].active = true;
+        [view.heightAnchor constraintEqualToConstant:_maxRowHeight].active = true;
         [view.widthAnchor constraintEqualToConstant:width].active = true;
         [view.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:width * currentCell].active = true;
         [view updateConstraints];
@@ -65,6 +59,10 @@
             currentCell = 0;
         }
     }
+    int numberOfRows = ceil((CGFloat)_summaryViews.count / (CGFloat)_maxNumberOfCellsInRow);
+    CGRect newFrame = self.frame;
+    newFrame.size.height = numberOfRows * _maxRowHeight;
+    self.frame = newFrame;
 }
 
 -(void)setDate:(NSDate *)date {

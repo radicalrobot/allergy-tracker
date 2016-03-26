@@ -173,7 +173,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="JS1-30-pfb">
                             <connections>
-                                <action selector="addCustomSetting:" destination="WYq-qL-Znu" id="awX-zR-Ymj"/>
+                                <action selector="addCustomSetting:" destination="WYq-qL-Znu" id="21Q-p9-MF6"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -189,18 +189,18 @@
         <scene sceneID="qlh-cC-jPC">
             <objects>
                 <tableViewController storyboardIdentifier="IncidenceTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0o1-JN-zMK" customClass="IncidenceTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bWc-Mu-ilU">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bWc-Mu-ilU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="gOy-sX-BuQ">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="152"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="infinite" id="1rb-V5-JaJ" customClass="SummaryHeaderView">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="IncidenceCell" textLabel="eMZ-pj-TKi" detailTextLabel="DgC-Mj-ZmE" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="ibk-v8-MOb">
-                                <rect key="frame" x="0.0" y="174" width="600" height="60"/>
+                                <rect key="frame" x="0.0" y="82" width="600" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ibk-v8-MOb" id="G4O-zo-Of9">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="59.5"/>
@@ -237,7 +237,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="summaryHeaderView" destination="gOy-sX-BuQ" id="9eI-Oc-3ab"/>
+                        <outlet property="summaryView" destination="1rb-V5-JaJ" id="FIz-31-Vhw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IfI-Qb-XuT" userLabel="First Responder" sceneMemberID="firstResponder"/>

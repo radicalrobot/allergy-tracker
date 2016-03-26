@@ -25,8 +25,7 @@
 
 @property (nonatomic, strong) NSArray *events;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
-@property (weak, nonatomic) IBOutlet UIView *summaryHeaderView;
-@property (nonatomic, strong) SummaryHeaderView *summaryView;
+@property (nonatomic, weak) IBOutlet SummaryHeaderView *summaryView;
 
 @end
 
@@ -50,21 +49,15 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
     if(!_currentDate){
         _currentDate = [NSDate date];
     }
-    if(!_summaryView){
-        NSArray *selectedSymptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
-        NSArray *selectedInteractions = [Interaction MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
-        _summaryView = [[SummaryHeaderView alloc] initWithSymptoms:selectedSymptoms interactions:selectedInteractions forDate:_currentDate];
-        [_summaryView setTranslatesAutoresizingMaskIntoConstraints:NO];
-        _summaryHeaderView.clipsToBounds = YES;
-        [_summaryHeaderView addSubview:_summaryView];
-        [_summaryView.topAnchor constraintEqualToAnchor:_summaryHeaderView.topAnchor].active = true;
-        [_summaryView.leftAnchor constraintEqualToAnchor:_summaryHeaderView.leftAnchor].active = true;
-        [_summaryView.rightAnchor constraintEqualToAnchor:_summaryHeaderView.rightAnchor].active = true;
-        [_summaryView.bottomAnchor constraintEqualToAnchor:_summaryHeaderView.bottomAnchor].active = true;
-        _summaryView.frame = _summaryHeaderView.bounds;
-    } else {
-        _summaryView.date = _currentDate;
-    }
+    
+    NSArray *selectedSymptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+    NSArray *selectedInteractions = [Interaction MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+    _summaryView.interactions = selectedInteractions;
+    _summaryView.symptoms = selectedSymptoms;
+    _summaryView.date = _currentDate;
+    _summaryView.maxRowHeight = 60;
+    _summaryView.maxNumberOfCellsInRow = 4;
+    _summaryView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 60);
     
     [self eventsForTheDay:_currentDate];
     
