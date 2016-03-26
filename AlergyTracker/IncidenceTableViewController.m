@@ -61,6 +61,7 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
         [_summaryView.leftAnchor constraintEqualToAnchor:_summaryHeaderView.leftAnchor].active = true;
         [_summaryView.rightAnchor constraintEqualToAnchor:_summaryHeaderView.rightAnchor].active = true;
         [_summaryView.bottomAnchor constraintEqualToAnchor:_summaryHeaderView.bottomAnchor].active = true;
+        _summaryView.frame = _summaryHeaderView.bounds;
     } else {
         _summaryView.date = _currentDate;
     }

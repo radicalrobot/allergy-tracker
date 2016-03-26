@@ -45,7 +45,7 @@
     [super layoutSubviews];
     
     int numberOfRows = ceil((CGFloat)_summaryViews.count / (CGFloat)_maxNumberOfCellsInRow);
-    CGFloat width = self.bounds.size.width / _maxNumberOfCellsInRow;
+    CGFloat width = self.bounds.size.width / MIN(_summaryViews.count, _maxNumberOfCellsInRow);
     CGFloat height = self.bounds.size.height / numberOfRows;
     
     int currentRow = 0;
