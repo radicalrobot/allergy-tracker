@@ -166,9 +166,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="0cK-T2-UuU">
-                        <barButtonItem key="rightBarButtonItem" title="Close" id="UTC-ze-CMm">
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="UTC-ze-CMm">
                             <connections>
                                 <action selector="closeView:" destination="WYq-qL-Znu" id="KDg-bf-loa"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="JS1-30-pfb">
+                            <connections>
+                                <action selector="addCustomSetting:" destination="WYq-qL-Znu" id="awX-zR-Ymj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -178,7 +183,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bvn-fa-9eP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1882" y="997"/>
+            <point key="canvasLocation" x="1861" y="997"/>
         </scene>
         <!--Incidence Table View Controller-->
         <scene sceneID="qlh-cC-jPC">

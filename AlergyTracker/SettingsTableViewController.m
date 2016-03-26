@@ -75,6 +75,65 @@ static NSString * const CellIdentifier = @"SettingsCell";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)addCustomSetting:(id)sender {
+    NSLog(@"adding a custom setting");
+    
+    NSString *type = self.choices.selectedSegmentIndex == 0 ? @"Symptom" : @"Allergen";
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Add a new %@", type ]
+                                                                   message: [NSString stringWithFormat:@"Enter the name of the %@ you would like to add", type]
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField)
+     {
+         textField.placeholder = type;
+         [textField addTarget:self
+                       action:@selector(alertTextFieldDidChange:)
+             forControlEvents:UIControlEventEditingChanged];
+     }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style: UIAlertActionStyleCancel
+                                                         handler:nil];
+    UIAlertAction *createAction = [UIAlertAction actionWithTitle:@"Create" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *settingName = alert.textFields.firstObject;
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+            switch(self.choices.selectedSegmentIndex) {
+                case 0: {
+                    Symptom *newSymptom = [Symptom MR_createEntityInContext: localContext];
+                    newSymptom.name = settingName.text;
+                    break;
+                }
+                case 1: {
+                    Interaction *newAllergen = [Interaction MR_createEntityInContext:localContext];
+                    newAllergen.name = settingName.text;
+                }
+                    break;
+                default:
+                    break;
+            }
+        } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
+            if(!contextDidSave){
+                NSLog(@"Unable to save new %@: %@", type, error);
+            }
+            [self.tableView reloadData];
+        }];
+    }];
+    createAction.enabled = NO;
+    [alert addAction:cancelAction];
+    [alert addAction:createAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)alertTextFieldDidChange:(UITextField *)sender
+{
+    UIAlertController *alertController = (UIAlertController *)self.presentedViewController;
+    if (alertController)
+    {
+        UITextField *settingName = alertController.textFields.firstObject;
+        UIAlertAction *okAction = alertController.actions.lastObject;
+        okAction.enabled = settingName.text.length > 1;
+    }
+}
+
 - (IBAction)settingChanged:(id)sender {
     UISwitch *switchView = sender;
     SettingTableViewCell *settingCell = (SettingTableViewCell*)[[switchView superview] superview];
