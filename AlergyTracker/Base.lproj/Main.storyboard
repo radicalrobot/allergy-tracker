@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6EY-2h-87B">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -458,9 +457,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="a62-I6-ioc">
-                        <barButtonItem key="rightBarButtonItem" title="Close" id="FDY-4g-vSx">
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="FDY-4g-vSx">
                             <connections>
                                 <action selector="close:" destination="bBX-nk-vPO" id="J4J-aJ-sh2"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="FF0-G2-Rhm">
+                            <connections>
+                                <action selector="addNewInteraction:" destination="bBX-nk-vPO" id="MZN-pz-UN0"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

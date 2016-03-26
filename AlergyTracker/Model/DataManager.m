@@ -27,6 +27,10 @@
 +(void)saveIncidence:(Incidence *)incidence withCompletion:(MRSaveCompletionHandler)completion {
     [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext *localContext) {
         Incidence *localIncidence = [incidence MR_inContext:localContext];
+        if(!localIncidence) {
+            localIncidence = [Incidence MR_createEntityInContext:localContext];
+            localIncidence.type = incidence.type;
+        }
         localIncidence.notes = incidence.notes;
         localIncidence.time = incidence.time;
     } completion:completion];
@@ -35,6 +39,19 @@
 +(NSInteger)numberOfIncidentsWithName:(NSString*)name betweenDate:(NSDate*)startDate endDate:(NSDate*)endDate {
     return [Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=%@", startDate, endDate,name]].integerValue;
     
+}
+
++(NSArray *)allIncidents {
+    NSMutableArray *results = [NSMutableArray array];
+    NSArray *allInteractions = [Interaction MR_findAllSortedBy:@"name" ascending:YES];
+    [allInteractions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [results addObject:((Interaction*)obj).name];
+    }];
+    NSArray *allSymptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES];
+    [allSymptoms enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [results addObject:((Symptom*)obj).name];
+    }];
+    return results;
 }
 
 +(NSArray *)companionItemsForIncidenceWithName:(NSString *)name {
