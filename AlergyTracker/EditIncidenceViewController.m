@@ -12,6 +12,7 @@
 #import "DataManager.h"
 #import "Symptom+Extras.h"
 #import "Interaction+Extras.h"
+#import "QuickActions.h"
 
 #import <Analytics.h>
 
@@ -122,6 +123,8 @@
                                                  @"notes": localself.incidence.notes ? localself.incidence.notes : [NSNull null],
                                                  @"writeSuccess": @(success)}];
         if(success) {
+            NSArray *top2Incidents = [Incidence getTopIncidentsWithLimit:2];
+            [QuickActions addTopIncidents: top2Incidents];
             [localself.navigationController popViewControllerAnimated:YES];
         }
         else {

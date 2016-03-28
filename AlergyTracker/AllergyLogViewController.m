@@ -15,6 +15,7 @@
 #import "Symptom+Extras.h"
 #import "IncidentCollectionViewCell.h"
 #import "ScrollableToolbarView.h"
+#import "QuickActions.h"
 
 #import "UIView+FrameAccessors.h"
 #import "UIColor+Utilities.h"
@@ -70,7 +71,13 @@ static UIColor* badgeColor;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateViewStatus) name:@"NewIncidenceCreated" object:nil];
     [self updateViewStatus];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NewIncidenceCreated" object:nil];
 }
 
 -(void)applicationDidEnterForeground:(NSNotification*)notification {
@@ -207,6 +214,9 @@ static UIColor* badgeColor;
             }
             Incidence *newlyCreatedIncidence = [Incidence MR_findFirstByAttribute:@"time" withValue:now];
             
+            NSArray *top2Incidents = [Incidence getTopIncidentsWithLimit:2];
+            [QuickActions addTopIncidents: top2Incidents];
+            
             [[SEGAnalytics sharedAnalytics] track:@"Logged Incident"
                                        properties:@{ @"id": newlyCreatedIncidence.uuid,
                                                      @"name": newlyCreatedIncidence.type,
@@ -214,7 +224,7 @@ static UIColor* badgeColor;
                                                      @"latitude": newlyCreatedIncidence.latitude,
                                                      @"longitude": newlyCreatedIncidence.longitude,
                                                      @"notes": newlyCreatedIncidence.notes ? newlyCreatedIncidence.notes : [NSNull null],
-                                                     @"writeSuccess": @(success)}];
+                                                    @"writeSuccess": @(success)}];
         } else {
             [[SEGAnalytics sharedAnalytics] track:@"Logged Incident"
                                        properties:@{ @"id": [NSNull null],

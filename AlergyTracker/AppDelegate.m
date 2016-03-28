@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "RRLocationManager.h"
 #import "DataManager.h"
+#import "Incidence+Extras.h"
+#import "QuickActions.h"
 
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -31,6 +33,12 @@
     
     [RRLocationManager start];
     
+    if([[launchOptions allKeys] containsObject:UIApplicationLaunchOptionsShortcutItemKey]) {
+        UIApplicationShortcutItem *shortcutItem = launchOptions[UIApplicationLaunchOptionsShortcutItemKey];
+        [QuickActions handleShortcut:shortcutItem];
+        return NO;
+    }
+    
     return YES;
 }
 
@@ -46,10 +54,13 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    NSArray *top2Incidents = [Incidence getTopIncidentsWithLimit:2];
+    [QuickActions addTopIncidents: top2Incidents];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -58,5 +69,8 @@
     [DataManager cleanup];
 }
 
+-(void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+    completionHandler([QuickActions handleShortcut:shortcutItem]);
+}
 
 @end

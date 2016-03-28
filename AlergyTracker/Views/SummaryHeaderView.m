@@ -40,6 +40,8 @@
 -(void)layoutSubviews {
     [super layoutSubviews];
     
+    [self setupSummaryViews];
+    
     CGFloat width = self.bounds.size.width / MIN(_summaryViews.count, _maxNumberOfCellsInRow);
     
     int currentRow = 0;
@@ -65,13 +67,8 @@
     self.frame = newFrame;
 }
 
--(void)setDate:(NSDate *)date {
-    _date = date;
-    
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    _dayStart = [calendar dateBySettingHour:0  minute:0  second:0  ofDate:date options:0];
-    _dayEnd   = [calendar dateBySettingHour:23 minute:59 second:59 ofDate:date options:0];
-    
+-(void)setupSummaryViews {
+    [_summaryViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [_summaryViews removeAllObjects];
     
     for(Symptom *symptom in _symptoms) {
@@ -87,8 +84,15 @@
             [_summaryViews addObject:[self summaryViewWithTitle:interaction.name numberOfIncidents:numberOfIncidents]];
         }
     }
-    
     [self setNeedsLayout];
+}
+
+-(void)setDate:(NSDate *)date {
+    _date = date;
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    _dayStart = [calendar dateBySettingHour:0  minute:0  second:0  ofDate:date options:0];
+    _dayEnd   = [calendar dateBySettingHour:23 minute:59 second:59 ofDate:date options:0];
 }
 
 -(UIView*)summaryViewWithTitle:(NSString*)title numberOfIncidents:(NSNumber*)numberOfIncidents {

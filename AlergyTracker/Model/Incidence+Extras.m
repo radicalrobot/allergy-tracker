@@ -7,6 +7,10 @@
 //
 
 #import "Incidence+Extras.h"
+#import <MagicalRecord/MagicalRecord.h>
+#import "Symptom+Extras.h"
+#import "Interaction+Extras.h"
+#import "NSNumber+Utilities.h"
 
 @implementation Incidence(Extras)
 
@@ -28,6 +32,28 @@
     NSMutableString *formattedTime = [NSMutableString stringWithString:[timeFormatter stringFromDate:time]];
     [formattedTime insertString:@":" atIndex:formattedTime.length-2];
     [self setFormattedTime:formattedTime];
+}
+
++(NSArray *)getTopIncidents {
+    NSArray *alltypes = [[Symptom MR_findAll] arrayByAddingObjectsFromArray:[Interaction MR_findAll]];
+    NSMutableDictionary *topIncidents = [NSMutableDictionary dictionary];
+    for(NSObject *type in alltypes) {
+        NSString *name;
+        if([type isKindOfClass:[Symptom class]]) {
+            name = ((Symptom*)type).name;
+        } else {
+            name = ((Interaction*)type).name;
+        }
+        topIncidents[name] = @([Incidence MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"type=%@", name]]);
+    }
+    return [[topIncidents allKeys] sortedArrayUsingComparator:^NSComparisonResult(NSString* key1, NSString* key2) {
+        return [topIncidents[key1] reverseCompare: topIncidents[key2]];
+    }];
+}
+
++(NSArray *)getTopIncidentsWithLimit:(int)limit {
+    NSArray *topInteractions = [self getTopIncidents];
+    return [topInteractions subarrayWithRange:NSMakeRange(0, limit)];
 }
 
 @end

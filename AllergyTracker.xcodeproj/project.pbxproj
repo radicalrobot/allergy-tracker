@@ -35,6 +35,8 @@
 		BEB01FC41B1221F20009F20B /* NSDateFormatter+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB01FC21B1221F20009F20B /* NSDateFormatter+Utilities.m */; };
 		BEB01FC71B1224CD0009F20B /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB01FC61B1224CD0009F20B /* UIColor+Utilities.m */; };
 		BEB01FCA1B122FD80009F20B /* IncidencePagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB01FC91B122FD80009F20B /* IncidencePagingViewController.m */; };
+		BEB8430C1CA968B700398332 /* QuickActions.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB8430B1CA968B700398332 /* QuickActions.m */; };
+		BEB8430F1CA9A0AB00398332 /* NSNumber+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB8430E1CA9A0AB00398332 /* NSNumber+Utilities.m */; };
 		BEBCAA211C960E5900B3CDE3 /* MagicalRecord+BackgroundTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BEBCAA201C960E5900B3CDE3 /* MagicalRecord+BackgroundTask.m */; };
 		BEBCAA241C9D7DD600B3CDE3 /* SummaryHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEBCAA231C9D7DD600B3CDE3 /* SummaryHeaderView.m */; };
 		BEC1B7D91AC5C787001EE74C /* Incidence+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BEC1B7D81AC5C787001EE74C /* Incidence+Extras.m */; };
@@ -111,6 +113,10 @@
 		BEB01FC61B1224CD0009F20B /* UIColor+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Utilities.m"; sourceTree = "<group>"; };
 		BEB01FC81B122FD80009F20B /* IncidencePagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncidencePagingViewController.h; sourceTree = "<group>"; };
 		BEB01FC91B122FD80009F20B /* IncidencePagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncidencePagingViewController.m; sourceTree = "<group>"; };
+		BEB8430A1CA968B700398332 /* QuickActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickActions.h; sourceTree = "<group>"; };
+		BEB8430B1CA968B700398332 /* QuickActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickActions.m; sourceTree = "<group>"; };
+		BEB8430D1CA9A0AB00398332 /* NSNumber+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSNumber+Utilities.h"; path = "Extensions/NSNumber+Utilities.h"; sourceTree = "<group>"; };
+		BEB8430E1CA9A0AB00398332 /* NSNumber+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSNumber+Utilities.m"; path = "Extensions/NSNumber+Utilities.m"; sourceTree = "<group>"; };
 		BEBCAA1F1C960E5900B3CDE3 /* MagicalRecord+BackgroundTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MagicalRecord+BackgroundTask.h"; path = "Extensions/MagicalRecord+BackgroundTask.h"; sourceTree = "<group>"; };
 		BEBCAA201C960E5900B3CDE3 /* MagicalRecord+BackgroundTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MagicalRecord+BackgroundTask.m"; path = "Extensions/MagicalRecord+BackgroundTask.m"; sourceTree = "<group>"; };
 		BEBCAA221C9D7DD600B3CDE3 /* SummaryHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SummaryHeaderView.h; path = Views/SummaryHeaderView.h; sourceTree = "<group>"; };
@@ -249,6 +255,10 @@
 				BE2D74261AC1B47E000C5815 /* Model */,
 				BEBCAA1F1C960E5900B3CDE3 /* MagicalRecord+BackgroundTask.h */,
 				BEBCAA201C960E5900B3CDE3 /* MagicalRecord+BackgroundTask.m */,
+				BEB8430A1CA968B700398332 /* QuickActions.h */,
+				BEB8430B1CA968B700398332 /* QuickActions.m */,
+				BEB8430D1CA9A0AB00398332 /* NSNumber+Utilities.h */,
+				BEB8430E1CA9A0AB00398332 /* NSNumber+Utilities.m */,
 			);
 			path = AlergyTracker;
 			sourceTree = "<group>";
@@ -478,6 +488,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEB8430F1CA9A0AB00398332 /* NSNumber+Utilities.m in Sources */,
 				BEB01FB21B121ED10009F20B /* PagingViewController.m in Sources */,
 				BEB01FB51B121FC40009F20B /* PagingHeaderView.m in Sources */,
 				BEB01FC41B1221F20009F20B /* NSDateFormatter+Utilities.m in Sources */,
@@ -503,6 +514,7 @@
 				BE8C6BAB1AA6BCCD005FC2FB /* main.m in Sources */,
 				BEE0EF8E1AC0455D00D710FB /* IncidentCollectionViewCell.m in Sources */,
 				BE4F51811B0A468900039E6C /* ScrollableToolbarView.m in Sources */,
+				BEB8430C1CA968B700398332 /* QuickActions.m in Sources */,
 				BE4703DB1AB13FDC001AF1E8 /* Interaction+Extras.m in Sources */,
 				BE4703DE1AB14187001AF1E8 /* Symptom+Extras.m in Sources */,
 				BE2D74291AC1B4BD000C5815 /* MigrationManager.m in Sources */,
@@ -566,6 +578,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -609,7 +622,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -634,6 +648,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -643,6 +658,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.radicalrobot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = AllergyTracker;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -652,6 +668,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -661,6 +678,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.radicalrobot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = AllergyTracker;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

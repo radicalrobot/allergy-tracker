@@ -10,4 +10,7 @@
 
 @interface Incidence(Extras)
 
++(NSArray*)getTopIncidents;
++(NSArray*)getTopIncidentsWithLimit:(int)limit;
+
 @end

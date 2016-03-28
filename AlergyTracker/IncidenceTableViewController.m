@@ -15,6 +15,7 @@
 #import "SummaryHeaderView.h"
 #import "Symptom+Extras.h"
 #import "Interaction+Extras.h"
+#import "QuickActions.h"
 
 #import <MagicalRecord/MagicalRecord.h>
 #import <Analytics.h>
@@ -34,10 +35,6 @@
 static NSString * const kSegueIdentifier = @"EditIncidenceSegue";
 static NSString * const kCellIdentifier = @"IncidenceCell";
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -45,6 +42,8 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"NewIncidenceCreated" object:nil];
     
     if(!_currentDate){
         _currentDate = [NSDate date];
@@ -67,6 +66,22 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
     
     [[SEGAnalytics sharedAnalytics] track:@"View Incidences"
                                properties:@{ @"date": self.navigationItem.title }];
+    
+    [self reload];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NewIncidenceCreated" object:nil];
+}
+
+-(void)reload {
+    NSArray *selectedSymptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+    NSArray *selectedInteractions = [Interaction MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+    _summaryView.interactions = selectedInteractions;
+    _summaryView.symptoms = selectedSymptoms;
+    [_summaryView setNeedsLayout];
     
     [self.tableView reloadData];
 }
@@ -152,6 +167,11 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
             if(success){
                 [self eventsForTheDay:_currentDate];
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                
+                NSArray *top2Incidents = [Incidence getTopIncidentsWithLimit:2];
+                [QuickActions addTopIncidents: top2Incidents];
+                
+                [self reload];
             }
             [[SEGAnalytics sharedAnalytics] track:@"Delete Incidence"
                                        properties:@{ @"id": uuid,
