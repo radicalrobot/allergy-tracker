@@ -10,6 +10,10 @@
 
 @implementation Symptom (Extras)
 
+-(NSString*)displayName {
+    return [self.name capitalizedStringWithLocale:[NSLocale currentLocale]];
+}
+
 -(void)awakeFromInsert {
     [super awakeFromInsert];
     self.symptomId = [[NSUUID UUID] UUIDString];

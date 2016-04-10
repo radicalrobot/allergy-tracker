@@ -10,6 +10,10 @@
 
 @implementation Interaction (Extras)
 
+-(NSString*)displayName {
+    return [self.name capitalizedStringWithLocale:[NSLocale currentLocale]];
+}
+
 -(void)awakeFromInsert {
     [super awakeFromInsert];
     self.interactionId = [[NSUUID UUID] UUIDString];

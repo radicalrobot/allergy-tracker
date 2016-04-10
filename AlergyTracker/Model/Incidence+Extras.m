@@ -14,6 +14,10 @@
 
 @implementation Incidence(Extras)
 
+-(NSString*)displayName {
+    return [self.type capitalizedStringWithLocale:[NSLocale currentLocale]];
+}
+
 -(void)awakeFromInsert {
     [super awakeFromInsert];
     self.uuid = [[NSUUID UUID] UUIDString];
@@ -53,6 +57,9 @@
 
 +(NSArray *)getTopIncidentsWithLimit:(int)limit {
     NSArray *topInteractions = [self getTopIncidents];
+    if(limit > topInteractions.count) {
+        return topInteractions;
+    }
     return [topInteractions subarrayWithRange:NSMakeRange(0, limit)];
 }
 

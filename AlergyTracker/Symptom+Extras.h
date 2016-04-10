@@ -10,4 +10,6 @@
 
 @interface Symptom (Extras)
 
+@property (nonnull, readonly) NSString *displayName;
+
 @end

@@ -175,7 +175,7 @@ static UIColor* badgeColor;
     NSDate *now = [NSDate date];
     NSNumber *latitude = @(currentLocation.coordinate.latitude);
     NSNumber *longitude = @(currentLocation.coordinate.latitude);
-    [self createIncident:now latitude:latitude longitude:longitude type:symptom.name onSuccess:nil];
+    [self createIncident:now latitude:latitude longitude:longitude type:symptom.displayName onSuccess:nil];
 }
 
 - (IBAction)actionTaken:(id)sender {
@@ -251,7 +251,7 @@ static UIColor* badgeColor;
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     Symptom *selectedSymptom = self.selectedSymptoms[indexPath.row];
     IncidentCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellIdentifier forIndexPath:indexPath];
-    cell.symptomNameLabel.text = selectedSymptom.name;
+    cell.symptomNameLabel.text = selectedSymptom.displayName;
     cell.incidenceCountLabel.text = [[Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=[c]%@", _dayStart, _dayEnd, selectedSymptom.name]] stringValue];
     
     return cell;

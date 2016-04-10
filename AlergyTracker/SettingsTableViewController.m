@@ -39,9 +39,7 @@ static NSString * const CellIdentifier = @"SettingsCell";
     
     isFirstRun = [DataManager isFirstRun];
     
-    self.symptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES];
-    
-    self.allergens = [Interaction MR_findAllSortedBy:@"name" ascending:YES];
+    [self updateOptions];
     
     self.navigationItem.title = isFirstRun ? @"Setup" : @"Settings";
     
@@ -59,6 +57,15 @@ static NSString * const CellIdentifier = @"SettingsCell";
     
     [[SEGAnalytics sharedAnalytics] screen:@"Settings"
                                 properties:nil];
+}
+
+-(void)updateOptions {
+    NSArray *symptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES];
+    
+     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+    self.symptoms = [symptoms sortedArrayUsingDescriptors:@[sort]];
+    
+    self.allergens = [Interaction MR_findAllSortedBy:@"name" ascending:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -114,7 +121,11 @@ static NSString * const CellIdentifier = @"SettingsCell";
             if(!contextDidSave){
                 NSLog(@"Unable to save new %@: %@", type, error);
             }
-            [self.tableView reloadData];
+            
+            [self updateOptions];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
         }];
     }];
     createAction.enabled = NO;
@@ -215,13 +226,13 @@ static NSString * const CellIdentifier = @"SettingsCell";
         case 0:
         {
             Symptom *symptom = self.symptoms[indexPath.row];
-            cell.settingNameLabel.text = symptom.name;
+            cell.settingNameLabel.text = [symptom.displayName capitalizedStringWithLocale:[NSLocale currentLocale]];
             cell.settingSwitch.on = [symptom.selected boolValue];
             break;
         }
         case 1:{
             Interaction *allergen = self.allergens[indexPath.row];
-            cell.settingNameLabel.text = allergen.name;
+            cell.settingNameLabel.text = allergen.displayName;
             cell.settingSwitch.on = [allergen.selected boolValue];
             break;
         }

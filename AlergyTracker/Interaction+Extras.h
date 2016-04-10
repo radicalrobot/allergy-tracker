@@ -10,4 +10,6 @@
 
 @interface Interaction (Extras)
 
+@property (nonatomic, readonly) NSString* displayName;
+
 @end

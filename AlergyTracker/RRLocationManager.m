@@ -70,7 +70,7 @@
     NSNumber *latitude = @(currentLocation.coordinate.latitude);
     NSNumber *longitude = @(currentLocation.coordinate.latitude);
     
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+    [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext *localContext) {
         Incidence *location = [Incidence MR_createEntityInContext:localContext];
         location.latitude = latitude;
         location.longitude = longitude;
