@@ -100,7 +100,7 @@ static UIColor* badgeColor;
 }
 
 -(void)updateSymptoms {
-    self.selectedSymptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+    self.selectedSymptoms = [Symptom alphabeticacisedSymptomsSelected:YES];
     [self.collectionView reloadData];
 }
 

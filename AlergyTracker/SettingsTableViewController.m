@@ -60,11 +60,7 @@ static NSString * const CellIdentifier = @"SettingsCell";
 }
 
 -(void)updateOptions {
-    NSArray *symptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES];
-    
-     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
-    self.symptoms = [symptoms sortedArrayUsingDescriptors:@[sort]];
-    
+    self.symptoms = [Symptom alphabeticacisedSymptomsSelected:NO];
     self.allergens = [Interaction MR_findAllSortedBy:@"name" ascending:YES];
 }
 
