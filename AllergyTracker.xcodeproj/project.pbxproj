@@ -658,7 +658,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.radicalrobot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = AllergyTracker;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6fd6ae8a-5c6f-42d0-bf29-e416de8494fa";
 			};
 			name = Debug;
 		};
@@ -678,7 +678,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.radicalrobot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = AllergyTracker;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "c2699b5c-821f-403d-ad6b-f3fd588ab64d";
 			};
 			name = Release;
 		};
