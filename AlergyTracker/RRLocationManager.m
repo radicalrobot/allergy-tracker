@@ -51,6 +51,8 @@
         [manager.locationManager requestAlwaysAuthorization];
     }
     [manager.locationManager startMonitoringSignificantLocationChanges];
+    manager.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    manager.locationManager.distanceFilter = 100;
 }
 
 +(CLLocation*)currentLocation {
@@ -68,7 +70,7 @@
     CLLocation *currentLocation = [locations lastObject];
     NSDate *time = currentLocation.timestamp;
     NSNumber *latitude = @(currentLocation.coordinate.latitude);
-    NSNumber *longitude = @(currentLocation.coordinate.latitude);
+    NSNumber *longitude = @(currentLocation.coordinate.longitude);
     
     [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext *localContext) {
         Incidence *location = [Incidence MR_createEntityInContext:localContext];
