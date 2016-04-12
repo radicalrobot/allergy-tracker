@@ -1,0 +1,16 @@
+Allergy App Things to Do
+
+D * Summary in log view 
+D * Add new interaction from log view (according to day)
+D * Add custom symptom
+D * Add custom allergen
+* Map in detail view
+* Ability to change/name location
+* 3D Touch actions
+  * Quick action for 4 most logged things
+  * Preview of summary for each symptom
+  * Preview of summary for each allergen
+* Go To Date
+* create server to receive data
+* Push data to server
+* Add ability to send copy of DB via email
