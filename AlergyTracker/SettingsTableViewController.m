@@ -13,7 +13,9 @@
 #import "DataManager.h"
 #import "UIView+FrameAccessors.h"
 
-#import <MagicalRecord/CoreData+MagicalRecord.h>
+#import <MagicalRecord/MagicalRecord.h>
+#import <Analytics.h>
+#import "MagicalRecord+BackgroundTask.h"
 
 @interface SettingsTableViewController () {
     BOOL isFirstRun;
@@ -37,9 +39,7 @@ static NSString * const CellIdentifier = @"SettingsCell";
     
     isFirstRun = [DataManager isFirstRun];
     
-    self.symptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES];
-    
-    self.allergens = [Interaction MR_findAllSortedBy:@"name" ascending:YES];
+    [self updateOptions];
     
     self.navigationItem.title = isFirstRun ? @"Setup" : @"Settings";
     
@@ -54,6 +54,14 @@ static NSString * const CellIdentifier = @"SettingsCell";
     self.tableView.tableHeaderView = self.choices;
     
     maxNumberOfSelectedAllergens = floor((self.view.width - 44) / 44);
+    
+    [[SEGAnalytics sharedAnalytics] screen:@"Settings"
+                                properties:nil];
+}
+
+-(void)updateOptions {
+    self.symptoms = [Symptom alphabeticacisedSymptomsSelected:NO];
+    self.allergens = [Interaction MR_findAllSortedBy:@"name" ascending:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,18 +78,84 @@ static NSString * const CellIdentifier = @"SettingsCell";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)addCustomSetting:(id)sender {
+    NSLog(@"adding a custom setting");
+    
+    NSString *type = self.choices.selectedSegmentIndex == 0 ? @"Symptom" : @"Allergen";
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Add a new %@", type ]
+                                                                   message: [NSString stringWithFormat:@"Enter the name of the %@ you would like to add", type]
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField)
+     {
+         textField.placeholder = type;
+         [textField addTarget:self
+                       action:@selector(alertTextFieldDidChange:)
+             forControlEvents:UIControlEventEditingChanged];
+     }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style: UIAlertActionStyleCancel
+                                                         handler:nil];
+    UIAlertAction *createAction = [UIAlertAction actionWithTitle:@"Create" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *settingName = alert.textFields.firstObject;
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+            switch(self.choices.selectedSegmentIndex) {
+                case 0: {
+                    Symptom *newSymptom = [Symptom MR_createEntityInContext: localContext];
+                    newSymptom.name = settingName.text;
+                    break;
+                }
+                case 1: {
+                    Interaction *newAllergen = [Interaction MR_createEntityInContext:localContext];
+                    newAllergen.name = settingName.text;
+                }
+                    break;
+                default:
+                    break;
+            }
+        } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
+            if(!contextDidSave){
+                NSLog(@"Unable to save new %@: %@", type, error);
+            }
+            
+            [self updateOptions];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }];
+    }];
+    createAction.enabled = NO;
+    [alert addAction:cancelAction];
+    [alert addAction:createAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)alertTextFieldDidChange:(UITextField *)sender
+{
+    UIAlertController *alertController = (UIAlertController *)self.presentedViewController;
+    if (alertController)
+    {
+        UITextField *settingName = alertController.textFields.firstObject;
+        UIAlertAction *okAction = alertController.actions.lastObject;
+        okAction.enabled = settingName.text.length > 1;
+    }
+}
+
 - (IBAction)settingChanged:(id)sender {
     UISwitch *switchView = sender;
     SettingTableViewCell *settingCell = (SettingTableViewCell*)[[switchView superview] superview];
     NSIndexPath *cellIndex = [self.tableView indexPathForCell:settingCell];
     
-    [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
+    [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
         
         switch (self.choices.selectedSegmentIndex) {
             case 0:
             {
                 Symptom *symptom = [self.symptoms[cellIndex.row] MR_inContext:localContext];
                 symptom.selected = @(switchView.on);
+                [[SEGAnalytics sharedAnalytics] track:@"Updated Symptoms"
+                                           properties:@{ @"name": symptom.name,
+                                                         @"on": symptom.selected }];
                 break;
             }
             case 1:{
@@ -89,18 +163,27 @@ static NSString * const CellIdentifier = @"SettingsCell";
                 if(switchView.on){
                     NSInteger numberOfSelectedAllergens = [self.allergens filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"selected=YES"]].count;
                     if(numberOfSelectedAllergens >= maxNumberOfSelectedAllergens){
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Max number of allergens reached" message:[NSString stringWithFormat:@"You may ony track up to %ld allergens at a time",(long)maxNumberOfSelectedAllergens] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                        [alert show];
+                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Max number of allergens reached"
+                                                                                       message:@"You may ony track up to %ld allergens at a time"
+                                                                                preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK"
+                                                                               style: UIAlertActionStyleCancel
+                                                                             handler:nil];
+                        [alert addAction:cancelAction];
+                        [self presentViewController:alert animated:YES completion:nil];
                         switchView.on = NO;
                     }
                 }
                 allergen.selected = @(switchView.on);
+                [[SEGAnalytics sharedAnalytics] track:@"Updated Allergens"
+                                           properties:@{ @"name": allergen.name,
+                                                         @"on": allergen.selected }];
                 break;
             }
             default:
                 break;
         }
-    } completion:^(BOOL success, NSError *error) {
+    } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
         if([DataManager numberOfSelectedSymptoms] > 0){
             self.closeButton.enabled = YES;
         }
@@ -108,8 +191,6 @@ static NSString * const CellIdentifier = @"SettingsCell";
             self.closeButton.enabled = NO;
         }
     }];
-    
-    
 }
 
 #pragma mark - Table view data source
@@ -141,13 +222,13 @@ static NSString * const CellIdentifier = @"SettingsCell";
         case 0:
         {
             Symptom *symptom = self.symptoms[indexPath.row];
-            cell.settingNameLabel.text = symptom.name;
+            cell.settingNameLabel.text = [symptom.displayName capitalizedStringWithLocale:[NSLocale currentLocale]];
             cell.settingSwitch.on = [symptom.selected boolValue];
             break;
         }
         case 1:{
             Interaction *allergen = self.allergens[indexPath.row];
-            cell.settingNameLabel.text = allergen.name;
+            cell.settingNameLabel.text = allergen.displayName;
             cell.settingSwitch.on = [allergen.selected boolValue];
             break;
         }

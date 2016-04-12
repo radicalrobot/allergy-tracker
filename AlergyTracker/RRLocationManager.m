@@ -7,9 +7,12 @@
 //
 
 #import "RRLocationManager.h"
-#import <MagicalRecord/CoreData+MagicalRecord.h>
+#import <MagicalRecord/MagicalRecord.h>
 
 #import "Incidence+Extras.h"
+#import "MagicalRecord+BackgroundTask.h"
+
+#import <Analytics.h>
 
 @interface RRLocationManager ()
 
@@ -48,6 +51,8 @@
         [manager.locationManager requestAlwaysAuthorization];
     }
     [manager.locationManager startMonitoringSignificantLocationChanges];
+    manager.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    manager.locationManager.distanceFilter = 100;
 }
 
 +(CLLocation*)currentLocation {
@@ -63,14 +68,39 @@
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     
     CLLocation *currentLocation = [locations lastObject];
-    __block Incidence *location;
-    [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
-        location = [Incidence MR_createEntity];
-        location.latitude = @(currentLocation.coordinate.latitude);
-        location.longitude = @(currentLocation.coordinate.longitude);
-        location.time = currentLocation.timestamp;
+    NSDate *time = currentLocation.timestamp;
+    NSNumber *latitude = @(currentLocation.coordinate.latitude);
+    NSNumber *longitude = @(currentLocation.coordinate.longitude);
+    
+    [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext *localContext) {
+        Incidence *location = [Incidence MR_createEntityInContext:localContext];
+        location.latitude = latitude;
+        location.longitude = longitude;
+        location.time = time;
         location.type = @"location";
-    } completion:nil];
+    } completion:^(BOOL success, NSError *error) {
+        if(success) {
+            Incidence *newlyCreatedIncidence = [Incidence MR_findFirstByAttribute:@"time" withValue:time];
+            
+            [[SEGAnalytics sharedAnalytics] track:@"Logged Location Change"
+                                       properties:@{ @"id": newlyCreatedIncidence.uuid,
+                                                     @"name": newlyCreatedIncidence.type,
+                                                     @"time": newlyCreatedIncidence.formattedTime,
+                                                     @"latitude": newlyCreatedIncidence.latitude,
+                                                     @"longitude": newlyCreatedIncidence.longitude,
+                                                     @"notes": newlyCreatedIncidence.notes ? newlyCreatedIncidence.notes : [NSNull null],
+                                                     @"writeSuccess": @(success)}];
+        } else {
+            [[SEGAnalytics sharedAnalytics] track:@"Logged Location Change"
+                                       properties:@{ @"id": [NSNull null],
+                                                     @"name": @"location",
+                                                     @"time": time,
+                                                     @"latitude": latitude,
+                                                     @"longitude": longitude,
+                                                     @"notes": [NSNull null],
+                                                     @"writeSuccess": @(success)}];
+        }
+    }];
 }
 
 @end

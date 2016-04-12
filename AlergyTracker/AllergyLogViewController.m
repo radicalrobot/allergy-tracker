@@ -15,14 +15,17 @@
 #import "Symptom+Extras.h"
 #import "IncidentCollectionViewCell.h"
 #import "ScrollableToolbarView.h"
+#import "QuickActions.h"
 
 #import "UIView+FrameAccessors.h"
 #import "UIColor+Utilities.h"
+#import "MagicalRecord+BackgroundTask.h"
 
-#import <MagicalRecord/CoreData+MagicalRecord.h>
+#import <MagicalRecord/MagicalRecord.h>
 #import "UIButton+Badge.h"
 
 #import <AudioToolbox/AudioServices.h>
+#import <Analytics.h>
 
 #define CELL_SPACING 5
 #define MINIMUM_CELL_HEIGHT 100
@@ -68,7 +71,13 @@ static UIColor* badgeColor;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateViewStatus) name:@"NewIncidenceCreated" object:nil];
     [self updateViewStatus];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NewIncidenceCreated" object:nil];
 }
 
 -(void)applicationDidEnterForeground:(NSNotification*)notification {
@@ -76,6 +85,8 @@ static UIColor* badgeColor;
 }
 
 -(void)updateViewStatus {
+    [[SEGAnalytics sharedAnalytics] screen:@"Allergy Log"
+                                properties:nil];
     if([DataManager isFirstRun]){
         [self performSegueWithIdentifier:kSettingsSegue sender:self];
     }
@@ -89,7 +100,7 @@ static UIColor* badgeColor;
 }
 
 -(void)updateSymptoms {
-    self.selectedSymptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+    self.selectedSymptoms = [Symptom alphabeticacisedSymptomsSelected:YES];
     [self.collectionView reloadData];
 }
 
@@ -161,14 +172,10 @@ static UIColor* badgeColor;
 
 -(void)logIncidenceForSymptom:(Symptom*)symptom {
     CLLocation *currentLocation = [RRLocationManager currentLocation];
-    __block Incidence *incidence;
-    [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
-        incidence = [Incidence MR_createInContext:localContext];
-        incidence.latitude = @(currentLocation.coordinate.latitude);
-        incidence.longitude = @(currentLocation.coordinate.longitude);
-        incidence.time = [NSDate date];
-        incidence.type = symptom.name;
-    } completion:nil];
+    NSDate *now = [NSDate date];
+    NSNumber *latitude = @(currentLocation.coordinate.latitude);
+    NSNumber *longitude = @(currentLocation.coordinate.latitude);
+    [self createIncident:now latitude:latitude longitude:longitude type:symptom.displayName onSuccess:nil];
 }
 
 - (IBAction)actionTaken:(id)sender {
@@ -183,17 +190,52 @@ static UIColor* badgeColor;
     }
     __weak typeof(self) weakself = self;
     CLLocation *currentLocation = [RRLocationManager currentLocation];
-    [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
-        Incidence *incidence = [Incidence MR_createInContext:localContext];
-        incidence.latitude = @(currentLocation.coordinate.latitude);
-        incidence.longitude = @(currentLocation.coordinate.longitude);
-        incidence.time = [NSDate date];
-        incidence.type = incidenceType;
-    } completion:^(BOOL success, NSError *error) {
+    NSDate *now = [NSDate date];
+    
+    NSNumber *latitude = @(currentLocation.coordinate.latitude);
+    NSNumber *longitude = @(currentLocation.coordinate.latitude);
+    [self createIncident:now latitude:latitude longitude:longitude type:incidenceType onSuccess:^{
         typeof(weakself) localself = weakself;
         [localself updateAllergen:sender];
     }];
-    
+}
+
+-(void) createIncident: (NSDate*) now latitude:(NSNumber*) latitude longitude:(NSNumber*) longitude type:(NSString*) incidenceType onSuccess:(void (^)())successBlock {
+    [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext *localContext) {
+        Incidence *incidence = [Incidence MR_createEntityInContext:localContext];
+        incidence.latitude = latitude;
+        incidence.longitude = longitude;
+        incidence.time = now;
+        incidence.type = incidenceType;
+    } completion:^(BOOL success, NSError *error) {
+        if(success) {
+            if(successBlock) {
+                successBlock();
+            }
+            Incidence *newlyCreatedIncidence = [Incidence MR_findFirstByAttribute:@"time" withValue:now];
+            
+            NSArray *top2Incidents = [Incidence getTopIncidentsWithLimit:2];
+            [QuickActions addTopIncidents: top2Incidents];
+            
+            [[SEGAnalytics sharedAnalytics] track:@"Logged Incident"
+                                       properties:@{ @"id": newlyCreatedIncidence.uuid,
+                                                     @"name": newlyCreatedIncidence.type,
+                                                     @"time": newlyCreatedIncidence.formattedTime,
+                                                     @"latitude": newlyCreatedIncidence.latitude,
+                                                     @"longitude": newlyCreatedIncidence.longitude,
+                                                     @"notes": newlyCreatedIncidence.notes ? newlyCreatedIncidence.notes : [NSNull null],
+                                                    @"writeSuccess": @(success)}];
+        } else {
+            [[SEGAnalytics sharedAnalytics] track:@"Logged Incident"
+                                       properties:@{ @"id": [NSNull null],
+                                                     @"name": incidenceType,
+                                                     @"time": now,
+                                                     @"latitude": latitude,
+                                                     @"longitude": longitude,
+                                                     @"notes": [NSNull null],
+                                                     @"writeSuccess": @(success)}];
+        }
+    }];
 }
 
 #pragma mark - UICollectionView methods
@@ -209,7 +251,7 @@ static UIColor* badgeColor;
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     Symptom *selectedSymptom = self.selectedSymptoms[indexPath.row];
     IncidentCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellIdentifier forIndexPath:indexPath];
-    cell.symptomNameLabel.text = selectedSymptom.name;
+    cell.symptomNameLabel.text = selectedSymptom.displayName;
     cell.incidenceCountLabel.text = [[Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=[c]%@", _dayStart, _dayEnd, selectedSymptom.name]] stringValue];
     
     return cell;
@@ -219,14 +261,15 @@ static UIColor* badgeColor;
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if(cellSize.width == CGSizeZero.width && cellSize.height == CGSizeZero.height) {
+        CGFloat collectionViewHeight = self.collectionView.bounds.size.height - (self.navigationController.navigationBar.bounds.size.height + (2 * CELL_SPACING));
         if(self.selectedSymptoms.count == 1) {
-            cellSize = CGSizeMake(self.collectionView.width - (2 * CELL_SPACING), self.collectionView.height - CELL_SPACING);
+            cellSize = CGSizeMake(self.collectionView.width - (2 * CELL_SPACING), collectionViewHeight - CELL_SPACING);
         }
         else {
             CGFloat width = ((collectionView.width - CELL_SPACING) / 2) - CELL_SPACING;
             NSInteger spaces = [self.selectedSymptoms count] * CELL_SPACING;
             NSInteger numberOfRows = ceilf(self.selectedSymptoms.count / 2.0);
-            CGFloat height = MAX(MINIMUM_CELL_HEIGHT, (collectionView.height - spaces) / numberOfRows);
+            CGFloat height = MAX(MINIMUM_CELL_HEIGHT, (collectionViewHeight - spaces) / numberOfRows);
             
             cellSize = CGSizeMake(width, height);
         }

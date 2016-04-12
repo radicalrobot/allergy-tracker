@@ -10,12 +10,13 @@
 
 @implementation Interaction (Extras)
 
+-(NSString*)displayName {
+    return [self.name capitalizedStringWithLocale:[NSLocale currentLocale]];
+}
+
 -(void)awakeFromInsert {
     [super awakeFromInsert];
-    CFUUIDRef theUUID = CFUUIDCreate(NULL);
-    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-    CFRelease(theUUID);
-    self.interactionId = (__bridge_transfer NSString *)string;
+    self.interactionId = [[NSUUID UUID] UUIDString];
 }
 
 @end

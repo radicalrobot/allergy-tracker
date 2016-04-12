@@ -10,7 +10,7 @@
 
 #import "Incidence.h"
 #import "Interaction.h"
-#import <MagicalRecord/CoreData+MagicalRecord.h>
+#import <MagicalRecord/MagicalRecord.h>
 
 
 @interface DataManager : NSObject
@@ -23,6 +23,7 @@
 +(NSInteger)numberOfIncidentsWithName:(NSString*)name betweenDate:(NSDate*)startDate endDate:(NSDate*)endDate;
 +(NSInteger)numberOfSelectedSymptoms;
 
++(NSArray *)allIncidents;
 +(NSArray*)companionItemsForIncidenceWithName:(NSString*)name;
 
 +(void)saveIncidence:(Incidence*)incidence withCompletion:(MRSaveCompletionHandler)completion;

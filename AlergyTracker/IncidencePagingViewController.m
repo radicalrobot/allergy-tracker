@@ -11,6 +11,8 @@
 #import "NSDate+Utilities.h"
 #import "EditIncidenceViewController.h"
 
+#import <Analytics.h>
+
 @interface IncidencePagingViewController ()
 
 @property (nonatomic, strong) IncidenceTableViewController *currentController;
@@ -26,6 +28,8 @@ static NSString * const kSegueIdentifier = @"EditIncidenceSegue";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[SEGAnalytics sharedAnalytics] screen:@"Incidence Table"
+                                properties:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,6 +41,10 @@ static NSString * const kSegueIdentifier = @"EditIncidenceSegue";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)addNewInteraction:(id)sender {
+    NSLog(@"Add new interaction");
+    [self performSegueWithIdentifier:kSegueIdentifier sender:nil];
+}
 #pragma mark - PagingViewControllerDelegate
 
 -(UIView *)viewForPageAtIndex:(NSInteger)index {
@@ -73,9 +81,13 @@ static NSString * const kSegueIdentifier = @"EditIncidenceSegue";
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if([segue.identifier isEqualToString:kSegueIdentifier]) {
-        Incidence *selectedIncidence = (Incidence*)sender;
         EditIncidenceViewController *eivc = (EditIncidenceViewController*)segue.destinationViewController;
-        eivc.incidence = selectedIncidence;
+        if([sender isKindOfClass:[Incidence class]]) {
+            Incidence *selectedIncidence = (Incidence*)sender;
+            eivc.incidence = selectedIncidence;
+        } else {
+            eivc.incidenceDate = self.currentController.currentDate;
+        }
     }
 }
 

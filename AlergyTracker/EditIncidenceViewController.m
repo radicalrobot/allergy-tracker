@@ -12,6 +12,9 @@
 #import "DataManager.h"
 #import "Symptom+Extras.h"
 #import "Interaction+Extras.h"
+#import "QuickActions.h"
+
+#import <Analytics.h>
 
 @interface EditIncidenceViewController () <UITextViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UIDatePicker *incidentTime;
@@ -36,29 +39,37 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.incidentTime.date = self.incidence.time;
-    
-    self.notes.text = self.incidence.notes;
+    self.notes.layer.borderColor = [UIColor blackColor].CGColor;
     self.notes.layer.borderWidth = 1.0f;
-    self.notes.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    self.notes.delegate = self;
-    UIToolbar *notesToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 40)];
-    notesToolbar.backgroundColor = [UIColor whiteColor];
-    UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(closeKeyboard:)];
-    notesToolbar.items= @[spacer, close];
-    self.notes.inputAccessoryView = notesToolbar;
     
-    self.incidenceTypePickerView.clipsToBounds = NO;
-    
-    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.incidenceTypePickerView.bounds];
-    self.incidenceTypePickerView.layer.masksToBounds = NO;
-    self.incidenceTypePickerView.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.incidenceTypePickerView.layer.shadowOffset = CGSizeMake(5.0f, 0.0f);
-    self.incidenceTypePickerView.layer.shadowOpacity = 0.5f;
-    self.incidenceTypePickerView.layer.shadowPath = shadowPath.CGPath;
-    
-    [self.incidenceTypeButton setTitle:[self.incidence.type capitalizedString] forState:UIControlStateNormal];
+    if(self.incidence){
+        self.incidentTime.date = self.incidence.time;
+        self.notes.text = self.incidence.notes;
+        self.notes.layer.borderWidth = 1.0f;
+        self.notes.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        self.notes.delegate = self;
+        UIToolbar *notesToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 40)];
+        notesToolbar.backgroundColor = [UIColor whiteColor];
+        UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(closeKeyboard:)];
+        notesToolbar.items= @[spacer, close];
+        self.notes.inputAccessoryView = notesToolbar;
+        
+        self.incidenceTypePickerView.clipsToBounds = NO;
+        
+        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.incidenceTypePickerView.bounds];
+        self.incidenceTypePickerView.layer.masksToBounds = NO;
+        self.incidenceTypePickerView.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.incidenceTypePickerView.layer.shadowOffset = CGSizeMake(5.0f, 0.0f);
+        self.incidenceTypePickerView.layer.shadowOpacity = 0.5f;
+        self.incidenceTypePickerView.layer.shadowPath = shadowPath.CGPath;
+        
+        [self.incidenceTypeButton setTitle:[self.incidence.type capitalizedString] forState:UIControlStateNormal];
+    } else {
+        self.incidentTime.date = self.incidenceDate;
+        [self.incidenceTypeButton setTitle:@"Choose incident type" forState:UIControlStateNormal];
+        self.notes.text = nil;
+    }
     
     self.scrollView.contentSize = (CGSize){1.0, 1.0};
     
@@ -68,7 +79,11 @@
 
 -(NSArray *)pickerData {
     if(!_pickerData) {
-        _pickerData = [DataManager companionItemsForIncidenceWithName:self.incidence.type];
+        if(self.incidence){
+            _pickerData = [DataManager companionItemsForIncidenceWithName:self.incidence.type];
+        } else {
+            _pickerData = [DataManager allIncidents];
+        }
     }
     
     return _pickerData;
@@ -76,7 +91,9 @@
 
 - (IBAction)incidenceTypeTapped:(id)sender {
     NSLog(@"incidenceTypeTapped");
-    [self.incidenceTypePicker selectRow:[self.pickerData indexOfObject:self.incidence.type] inComponent:0 animated:NO];
+    if(self.incidence) {
+        [self.incidenceTypePicker selectRow:[self.pickerData indexOfObject:self.incidence.type] inComponent:0 animated:NO];
+    }
     [self.incidencePickerViewVerticalLayoutConstraint setConstant:-self.incidenceTypePickerView.height];
     [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.view layoutIfNeeded];
@@ -84,6 +101,10 @@
 }
 
 - (IBAction)save:(id)sender {
+    // now update
+    if(!self.incidence) {
+        self.incidence = [Incidence MR_createEntity];
+    }
     self.incidence.time = self.incidentTime.date;
     self.incidence.notes = self.notes.text;
     if(selectedIncidenceName) {
@@ -92,13 +113,29 @@
     
     __weak typeof(self) weakself = self;
     [DataManager saveIncidence:self.incidence withCompletion:^(BOOL success, NSError *error) {
-        typeof(self) localself = weakself;
+        typeof(weakself) localself = weakself;
+        [[SEGAnalytics sharedAnalytics] track:@"Edited Incidence"
+                                   properties:@{ @"id": localself.incidence.uuid,
+                                                 @"name": localself.incidence.type,
+                                                 @"time": localself.incidence.formattedTime,
+                                                 @"latitude": localself.incidence.latitude,
+                                                 @"longitude": localself.incidence.longitude,
+                                                 @"notes": localself.incidence.notes ? localself.incidence.notes : [NSNull null],
+                                                 @"writeSuccess": @(success)}];
         if(success) {
+            NSArray *top2Incidents = [Incidence getTopIncidentsWithLimit:2];
+            [QuickActions addTopIncidents: top2Incidents];
             [localself.navigationController popViewControllerAnimated:YES];
         }
         else {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Problem Saving" message:@"We had a problem saving your changes, please try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alertView show];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Problem Saving"
+                                                                           message:@"We had a problem saving your changes, please try again"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK"
+                                                                   style: UIAlertActionStyleCancel
+                                                                 handler:nil];
+            [alert addAction:cancelAction];
+            [self presentViewController:alert animated:YES completion:nil];
         }
     }];
 }
@@ -122,11 +159,26 @@
     [self.scrollView scrollRectToVisible:CGRectMake(0, 0, 10, 10) animated:YES];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if(self.incidence){
+        [[SEGAnalytics sharedAnalytics] screen:@"Edit Incidence"
+                                properties:nil];
+    } else {
+        [[SEGAnalytics sharedAnalytics] screen:@"Add New Incidence"
+                                    properties:nil];
+    }
+}
+
 -(void)viewWillDisappear:(BOOL)animated {
-    [self.incidence.managedObjectContext refreshObject:self.incidence mergeChanges:NO];
+    [super viewWillDisappear:animated];
+    if(self.incidence) {
+        [self.incidence.managedObjectContext refreshObject:self.incidence mergeChanges:NO];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillChangeFrameNotification
                                                   object:nil];

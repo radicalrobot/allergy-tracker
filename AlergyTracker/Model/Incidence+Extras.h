@@ -10,4 +10,9 @@
 
 @interface Incidence(Extras)
 
+@property (nonatomic, readonly) NSString * displayName;
+
++(NSArray*)getTopIncidents;
++(NSArray*)getTopIncidentsWithLimit:(int)limit;
+
 @end

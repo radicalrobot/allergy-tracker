@@ -6,3 +6,4 @@ pod "MagicalRecord"
 pod 'UIBarButtonItem-Badge', :git => 'https://github.com/mikeMTOL/UIBarButtonItem-Badge'
 pod 'Fabric'
 pod 'Crashlytics'
+pod 'Analytics/Segmentio'

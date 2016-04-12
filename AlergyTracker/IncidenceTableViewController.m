@@ -12,13 +12,21 @@
 #import "RRLocationManager.h"
 #import "EditIncidenceViewController.h"
 #import "NSDate+Utilities.h"
+#import "SummaryHeaderView.h"
+#import "Symptom+Extras.h"
+#import "Interaction+Extras.h"
+#import "QuickActions.h"
 
-#import <MagicalRecord/CoreData+MagicalRecord.h>
+#import <MagicalRecord/MagicalRecord.h>
+#import <Analytics.h>
+
+#import "MagicalRecord+BackgroundTask.h"
 
 @interface IncidenceTableViewController ()
 
 @property (nonatomic, strong) NSArray *events;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, weak) IBOutlet SummaryHeaderView *summaryView;
 
 @end
 
@@ -27,16 +35,6 @@
 static NSString * const kSegueIdentifier = @"EditIncidenceSegue";
 static NSString * const kCellIdentifier = @"IncidenceCell";
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -44,13 +42,47 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"NewIncidenceCreated" object:nil];
+    
     if(!_currentDate){
         _currentDate = [NSDate date];
     }
+    
+    NSArray *selectedSymptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+    NSArray *selectedInteractions = [Interaction MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+    _summaryView.interactions = selectedInteractions;
+    _summaryView.symptoms = selectedSymptoms;
+    _summaryView.date = _currentDate;
+    _summaryView.maxRowHeight = 60;
+    _summaryView.maxNumberOfCellsInRow = 4;
+    _summaryView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 60);
+    
     [self eventsForTheDay:_currentDate];
+    
     NSDateFormatter *formatter = [NSDateFormatter new];
     formatter.dateFormat = @"EEE, MMM dd, YYYY";
     self.navigationItem.title = [formatter stringFromDate:_currentDate];
+    
+    [[SEGAnalytics sharedAnalytics] track:@"View Incidences"
+                               properties:@{ @"date": self.navigationItem.title }];
+    
+    [self reload];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NewIncidenceCreated" object:nil];
+}
+
+-(void)reload {
+    NSArray *selectedSymptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+    NSArray *selectedInteractions = [Interaction MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+    _summaryView.interactions = selectedInteractions;
+    _summaryView.symptoms = selectedSymptoms;
+    [_summaryView setNeedsLayout];
+    
     [self.tableView reloadData];
 }
 
@@ -119,13 +151,36 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
-            
-            Incidence *incidence = self.events[indexPath.row];
-            [incidence MR_deleteEntity];
+        __block NSString *uuid, *name, *time, *notes;
+        __block NSNumber *lat, *lon;
+        Incidence *incidence = self.events[indexPath.row];
+        uuid = incidence.uuid;
+        name = incidence.type;
+        time = incidence.formattedTime;
+        notes = incidence.notes;
+        lat = incidence.latitude;
+        lon = incidence.longitude;
+        [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext *localContext) {
+            Incidence *localIncidence = [incidence MR_inContext:localContext];
+            [localIncidence MR_deleteEntityInContext:localContext];
         } completion:^(BOOL success, NSError *error) {
-            [self eventsForTheDay:_currentDate];
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            if(success){
+                [self eventsForTheDay:_currentDate];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                
+                NSArray *top2Incidents = [Incidence getTopIncidentsWithLimit:2];
+                [QuickActions addTopIncidents: top2Incidents];
+                
+                [self reload];
+            }
+            [[SEGAnalytics sharedAnalytics] track:@"Delete Incidence"
+                                       properties:@{ @"id": uuid,
+                                                     @"name": name,
+                                                     @"time": time,
+                                                     @"latitude": lat,
+                                                     @"longitude": lon,
+                                                     @"notes": notes ? notes : [NSNull null],
+                                                     @"writeSuccess": @(success)}];
         }];
     }
 }

@@ -10,6 +10,7 @@
 
 #import "MigrationManager.h"
 #import "Symptom+Extras.h"
+#import "MagicalRecord+BackgroundTask.h"
 
 
 @implementation DataManager
@@ -24,16 +25,33 @@
 }
 
 +(void)saveIncidence:(Incidence *)incidence withCompletion:(MRSaveCompletionHandler)completion {
-    [MagicalRecord saveUsingCurrentThreadContextWithBlock:^(NSManagedObjectContext *localContext) {
+    [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext *localContext) {
         Incidence *localIncidence = [incidence MR_inContext:localContext];
+        if(!localIncidence) {
+            localIncidence = [Incidence MR_createEntityInContext:localContext];
+            localIncidence.type = incidence.type;
+        }
         localIncidence.notes = incidence.notes;
         localIncidence.time = incidence.time;
     } completion:completion];
 }
 
 +(NSInteger)numberOfIncidentsWithName:(NSString*)name betweenDate:(NSDate*)startDate endDate:(NSDate*)endDate {
-    return [Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=%@", startDate, endDate,name]].integerValue;
+    return [Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=%@", startDate, endDate,name] inContext:[NSManagedObjectContext MR_context]].integerValue;
     
+}
+
++(NSArray *)allIncidents {
+    NSMutableArray *results = [NSMutableArray array];
+    NSArray *allInteractions = [Interaction MR_findAllSortedBy:@"name" ascending:YES];
+    [allInteractions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [results addObject:((Interaction*)obj).name];
+    }];
+    NSArray *allSymptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES];
+    [allSymptoms enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [results addObject:((Symptom*)obj).name];
+    }];
+    return results;
 }
 
 +(NSArray *)companionItemsForIncidenceWithName:(NSString *)name {
@@ -105,21 +123,19 @@
                               @"Dust",
                               @"Alcohol"];
     
-    __block Symptom *symptom;
-    __block Interaction *interaction;
-    [MagicalRecord saveUsingCurrentThreadContextWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+    [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext *localContext) {
         for(NSString *symptomName in symptoms) {
-            symptom = [Symptom MR_findFirstByAttribute:@"name" withValue:symptomName inContext:localContext];
+            Symptom *symptom = [Symptom MR_findFirstByAttribute:@"name" withValue:symptomName inContext:localContext];
             if(!symptom){
-                symptom = [Symptom MR_createInContext:localContext];
+                symptom = [Symptom MR_createEntityInContext:localContext];
                 symptom.name = symptomName;
             }
         }
         
         for(NSString *interactionName in interactions) {
-            interaction = [Interaction MR_findFirstByAttribute:@"name" withValue:interactionName inContext:localContext];
+            Interaction *interaction = [Interaction MR_findFirstByAttribute:@"name" withValue:interactionName inContext:localContext];
             if(!interaction){
-                interaction = [Interaction MR_createInContext:localContext];
+                interaction = [Interaction MR_createEntityInContext:localContext];
                 interaction.name = interactionName;
             }
         }

@@ -7,15 +7,28 @@
 //
 
 #import "Symptom+Extras.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 @implementation Symptom (Extras)
 
+-(NSString*)displayName {
+    return [self.name capitalizedStringWithLocale:[NSLocale currentLocale]];
+}
+
 -(void)awakeFromInsert {
     [super awakeFromInsert];
-    CFUUIDRef theUUID = CFUUIDCreate(NULL);
-    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-    CFRelease(theUUID);
-    self.symptomId = (__bridge_transfer NSString *)string;
+    self.symptomId = [[NSUUID UUID] UUIDString];
+}
+
++(NSArray *)alphabeticacisedSymptomsSelected:(bool) selected {
+    NSPredicate *predicate = nil;
+    if(selected) {
+        predicate = [NSPredicate predicateWithFormat:@"selected=1"];
+    }
+    NSArray *symptoms = [Symptom MR_findAllWithPredicate:predicate];
+    
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+    return [symptoms sortedArrayUsingDescriptors:@[sort]];
 }
 
 @end

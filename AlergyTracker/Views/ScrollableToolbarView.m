@@ -16,13 +16,17 @@
     [super layoutSubviews];
     
     CGFloat x = 6;
+    CGFloat buttonWidth = 44;
+    
+    CGFloat totalWidth = MAX(self.items.count * buttonWidth, self.bounds.size.width);
+    CGFloat xIncrement = totalWidth / self.items.count;
     
     for(UIButton *button in self.items){
         button.x = x;
         if(!button.superview){
             [self addSubview:button];
         }
-        x += 44;
+        x += xIncrement;
     }
 }
 

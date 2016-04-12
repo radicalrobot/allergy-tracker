@@ -13,5 +13,6 @@
 @interface EditIncidenceViewController : UIViewController
 
 @property (nonatomic, strong) Incidence *incidence;
+@property (nonatomic, strong) NSDate *incidenceDate;
 
 @end
