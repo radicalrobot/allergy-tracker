@@ -1,9 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '9.0'
 xcodeproj 'AllergyTracker.xcodeproj'
 
-pod "MagicalRecord"
-pod 'UIBarButtonItem-Badge', :git => 'https://github.com/mikeMTOL/UIBarButtonItem-Badge'
-pod 'Fabric'
-pod 'Crashlytics'
-pod 'Analytics/Segmentio'
+target 'AllergyTracker' do
+    pod "MagicalRecord"
+    pod 'UIBarButtonItem-Badge', :git => 'https://github.com/mikeMTOL/UIBarButtonItem-Badge'
+    pod 'Fabric'
+    pod 'Crashlytics'
+    pod 'Analytics/Segmentio'
+end

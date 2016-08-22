@@ -12,6 +12,6 @@
 
 @property (nonnull, readonly) NSString *displayName;
 
-+(NSArray*) alphabeticacisedSymptomsSelected:(bool) selected;
++(NSArray * _Nullable ) alphabeticacisedSymptomsSelected:(bool) selected;
 
 @end

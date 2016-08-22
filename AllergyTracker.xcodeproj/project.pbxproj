@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		332436354D0BC5F962E46BB8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE11A62584F48FFA2CA3071D /* libPods.a */; };
+		8F918415352B7E088636096C /* libPods-AllergyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8F69891AA792D7DF6A65680 /* libPods-AllergyTracker.a */; };
 		BE2D74291AC1B4BD000C5815 /* MigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2D74281AC1B4BD000C5815 /* MigrationManager.m */; };
 		BE4703D11AB137CA001AF1E8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703D01AB137CA001AF1E8 /* SettingsTableViewController.m */; };
 		BE4703DB1AB13FDC001AF1E8 /* Interaction+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */; };
@@ -58,8 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0E1AE1749BE60484F1851335 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		0E8EF7A72DDA1526C6E14D48 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		3ED0DE93C34AA9E91434EC3D /* Pods-AllergyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllergyTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AllergyTracker/Pods-AllergyTracker.debug.xcconfig"; sourceTree = "<group>"; };
+		9768065C30EDB4FF75373351 /* Pods-AllergyTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllergyTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-AllergyTracker/Pods-AllergyTracker.release.xcconfig"; sourceTree = "<group>"; };
 		BE2D74271AC1B4BD000C5815 /* MigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MigrationManager.h; path = Model/MigrationManager.h; sourceTree = "<group>"; };
 		BE2D74281AC1B4BD000C5815 /* MigrationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MigrationManager.m; path = Model/MigrationManager.m; sourceTree = "<group>"; };
 		BE4703CF1AB137CA001AF1E8 /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
@@ -136,7 +136,7 @@
 		BEE6C6391B77C79900C98433 /* Incidence+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Incidence+CoreDataProperties.h"; path = "Model/Incidence+CoreDataProperties.h"; sourceTree = "<group>"; };
 		BEE6C63A1B77C79900C98433 /* Incidence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Incidence.h; path = Model/Incidence.h; sourceTree = "<group>"; };
 		BEE6C63B1B77C79900C98433 /* Incidence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Incidence.m; path = Model/Incidence.m; sourceTree = "<group>"; };
-		EE11A62584F48FFA2CA3071D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8F69891AA792D7DF6A65680 /* libPods-AllergyTracker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AllergyTracker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,7 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE8C6BD51AA6C3F8005FC2FB /* CoreLocation.framework in Frameworks */,
-				332436354D0BC5F962E46BB8 /* libPods.a in Frameworks */,
+				8F918415352B7E088636096C /* libPods-AllergyTracker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				BE8C6BD41AA6C3F8005FC2FB /* CoreLocation.framework */,
-				EE11A62584F48FFA2CA3071D /* libPods.a */,
+				D8F69891AA792D7DF6A65680 /* libPods-AllergyTracker.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -224,8 +224,8 @@
 				BE8C6BA71AA6BCCD005FC2FB /* AlergyTracker */,
 				BE8C6BC41AA6BCCD005FC2FB /* AlergyTrackerTests */,
 				BE8C6BA61AA6BCCD005FC2FB /* Products */,
-				D65F7F297281124A029D93AA /* Pods */,
 				9AB225D17BCED72E11F1B7A6 /* Frameworks */,
+				CDCE8476E70D0EB6CF210710 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -312,11 +312,11 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		D65F7F297281124A029D93AA /* Pods */ = {
+		CDCE8476E70D0EB6CF210710 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0E8EF7A72DDA1526C6E14D48 /* Pods.debug.xcconfig */,
-				0E1AE1749BE60484F1851335 /* Pods.release.xcconfig */,
+				3ED0DE93C34AA9E91434EC3D /* Pods-AllergyTracker.debug.xcconfig */,
+				9768065C30EDB4FF75373351 /* Pods-AllergyTracker.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -328,13 +328,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BE8C6BCB1AA6BCCD005FC2FB /* Build configuration list for PBXNativeTarget "AllergyTracker" */;
 			buildPhases = (
-				F2B5D66BCF3372CBBFCF610E /* Check Pods Manifest.lock */,
+				87322B96F837E86C148EC385 /* [CP] Check Pods Manifest.lock */,
 				BE8C6BA11AA6BCCD005FC2FB /* Sources */,
 				BE8C6BA21AA6BCCD005FC2FB /* Frameworks */,
 				BE8C6BA31AA6BCCD005FC2FB /* Resources */,
-				C36CDC7628075243A163A3C1 /* Copy Pods Resources */,
 				BE4F51671B09E75100039E6C /* Fabric Integration */,
-				3935F3688CCFC7B167FF291A /* Embed Pods Frameworks */,
+				40BB3E7408260D135C629DD9 /* [CP] Embed Pods Frameworks */,
+				E0A2CC30A387BE597B04E307 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -422,19 +422,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3935F3688CCFC7B167FF291A /* Embed Pods Frameworks */ = {
+		40BB3E7408260D135C629DD9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AllergyTracker/Pods-AllergyTracker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		87322B96F837E86C148EC385 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		BE4F51671B09E75100039E6C /* Fabric Integration */ = {
@@ -451,34 +466,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 66bce3289ef695cfd11b64e231e1f47fe1efbcb3 ca9ea2511941b370ec60313bea88c09fc92a388ac7e40f9db93211ece05330a7";
 		};
-		C36CDC7628075243A163A3C1 /* Copy Pods Resources */ = {
+		E0A2CC30A387BE597B04E307 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F2B5D66BCF3372CBBFCF610E /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AllergyTracker/Pods-AllergyTracker-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -644,7 +644,7 @@
 		};
 		BE8C6BCC1AA6BCCD005FC2FB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E8EF7A72DDA1526C6E14D48 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 3ED0DE93C34AA9E91434EC3D /* Pods-AllergyTracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -658,17 +658,17 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.radicalrobot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = AllergyTracker;
-				PROVISIONING_PROFILE = "6fd6ae8a-5c6f-42d0-bf29-e416de8494fa";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
 		BE8C6BCD1AA6BCCD005FC2FB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E1AE1749BE60484F1851335 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 9768065C30EDB4FF75373351 /* Pods-AllergyTracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -678,7 +678,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.radicalrobot.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = AllergyTracker;
-				PROVISIONING_PROFILE = "c2699b5c-821f-403d-ad6b-f3fd588ab64d";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
