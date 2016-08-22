@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8F918415352B7E088636096C /* libPods-AllergyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8F69891AA792D7DF6A65680 /* libPods-AllergyTracker.a */; };
 		BE2D74291AC1B4BD000C5815 /* MigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2D74281AC1B4BD000C5815 /* MigrationManager.m */; };
+		BE34E8D41D6B448C00C43F22 /* RRDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE34E8D31D6B448C00C43F22 /* RRDataManager.m */; };
+		BE34E8D81D6B4BC100C43F22 /* iCloudDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE34E8D71D6B4BC100C43F22 /* iCloudDataManager.m */; };
 		BE4703D11AB137CA001AF1E8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703D01AB137CA001AF1E8 /* SettingsTableViewController.m */; };
 		BE4703DB1AB13FDC001AF1E8 /* Interaction+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */; };
 		BE4703DE1AB14187001AF1E8 /* Symptom+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */; };
@@ -63,7 +65,10 @@
 		9768065C30EDB4FF75373351 /* Pods-AllergyTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllergyTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-AllergyTracker/Pods-AllergyTracker.release.xcconfig"; sourceTree = "<group>"; };
 		BE2D74271AC1B4BD000C5815 /* MigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MigrationManager.h; path = Model/MigrationManager.h; sourceTree = "<group>"; };
 		BE2D74281AC1B4BD000C5815 /* MigrationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MigrationManager.m; path = Model/MigrationManager.m; sourceTree = "<group>"; };
-		BE34E8D21D6B41DB00C43F22 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManager.h; path = Model/DataManager.h; sourceTree = "<group>"; };
+		BE34E8D21D6B41DB00C43F22 /* RRDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RRDataManager.h; path = Model/RRDataManager.h; sourceTree = "<group>"; };
+		BE34E8D31D6B448C00C43F22 /* RRDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RRDataManager.m; path = Model/RRDataManager.m; sourceTree = "<group>"; };
+		BE34E8D61D6B4BC100C43F22 /* iCloudDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iCloudDataManager.h; path = Model/iCloudDataManager.h; sourceTree = "<group>"; };
+		BE34E8D71D6B4BC100C43F22 /* iCloudDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iCloudDataManager.m; path = Model/iCloudDataManager.m; sourceTree = "<group>"; };
 		BE4703CF1AB137CA001AF1E8 /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
 		BE4703D01AB137CA001AF1E8 /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		BE4703D91AB13FDC001AF1E8 /* Interaction+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Interaction+Extras.h"; sourceTree = "<group>"; };
@@ -177,32 +182,43 @@
 		BE2D74261AC1B47E000C5815 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BE34E8D51D6B4B4500C43F22 /* DataManagers */,
+				BEE6C63A1B77C79900C98433 /* Incidence.h */,
+				BEE6C63B1B77C79900C98433 /* Incidence.m */,
+				BEE6C6391B77C79900C98433 /* Incidence+CoreDataProperties.h */,
+				BEC1B7D71AC5C787001EE74C /* Incidence+Extras.h */,
+				BEC1B7D81AC5C787001EE74C /* Incidence+Extras.m */,
+				BEE0EF891ABF65FB00D710FB /* Interaction.h */,
+				BEE0EF8A1ABF65FB00D710FB /* Interaction.m */,
+				BE4703D91AB13FDC001AF1E8 /* Interaction+Extras.h */,
+				BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */,
+				BE2D74271AC1B4BD000C5815 /* MigrationManager.h */,
+				BE2D74281AC1B4BD000C5815 /* MigrationManager.m */,
 				BEB01FBF1B1221F20009F20B /* NSDate+Utilities.h */,
 				BEB01FC01B1221F20009F20B /* NSDate+Utilities.m */,
 				BEB01FC11B1221F20009F20B /* NSDateFormatter+Utilities.h */,
 				BEB01FC21B1221F20009F20B /* NSDateFormatter+Utilities.m */,
-				BE4703D91AB13FDC001AF1E8 /* Interaction+Extras.h */,
-				BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */,
-				BE4703DC1AB14187001AF1E8 /* Symptom+Extras.h */,
-				BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */,
-				BEE0EF891ABF65FB00D710FB /* Interaction.h */,
-				BEE0EF8A1ABF65FB00D710FB /* Interaction.m */,
 				BEE0EF861ABF65FB00D710FB /* Symptom.h */,
 				BEE0EF871ABF65FB00D710FB /* Symptom.m */,
-				BE2D74271AC1B4BD000C5815 /* MigrationManager.h */,
-				BE2D74281AC1B4BD000C5815 /* MigrationManager.m */,
-				BEC1B7D71AC5C787001EE74C /* Incidence+Extras.h */,
-				BEC1B7D81AC5C787001EE74C /* Incidence+Extras.m */,
-				BE34E8D21D6B41DB00C43F22 /* DataManager.h */,
-				BE4F51701B09EDD400039E6C /* LocalDataManager.h */,
-				BE4F51711B09EDD400039E6C /* LocalDataManager.m */,
+				BE4703DC1AB14187001AF1E8 /* Symptom+Extras.h */,
+				BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */,
 				BEB01FC51B1224CD0009F20B /* UIColor+Utilities.h */,
 				BEB01FC61B1224CD0009F20B /* UIColor+Utilities.m */,
-				BEE6C6391B77C79900C98433 /* Incidence+CoreDataProperties.h */,
-				BEE6C63A1B77C79900C98433 /* Incidence.h */,
-				BEE6C63B1B77C79900C98433 /* Incidence.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		BE34E8D51D6B4B4500C43F22 /* DataManagers */ = {
+			isa = PBXGroup;
+			children = (
+				BE4F51701B09EDD400039E6C /* LocalDataManager.h */,
+				BE4F51711B09EDD400039E6C /* LocalDataManager.m */,
+				BE34E8D21D6B41DB00C43F22 /* RRDataManager.h */,
+				BE34E8D31D6B448C00C43F22 /* RRDataManager.m */,
+				BE34E8D61D6B4BC100C43F22 /* iCloudDataManager.h */,
+				BE34E8D71D6B4BC100C43F22 /* iCloudDataManager.m */,
+			);
+			name = DataManagers;
 			sourceTree = "<group>";
 		};
 		BE4703D21AB137D7001AF1E8 /* View Controllers */ = {
@@ -514,6 +530,7 @@
 				BE4F51721B09EDD400039E6C /* LocalDataManager.m in Sources */,
 				BEE6C63C1B77C79900C98433 /* Incidence.m in Sources */,
 				BEE0EF7F1ABF5F9D00D710FB /* SettingTableViewCell.m in Sources */,
+				BE34E8D81D6B4BC100C43F22 /* iCloudDataManager.m in Sources */,
 				BEE0EF8B1ABF65FB00D710FB /* Interaction.m in Sources */,
 				BE4F51751B09FAD000039E6C /* UIView+FrameAccessors.m in Sources */,
 				BEB01FC31B1221F20009F20B /* NSDate+Utilities.m in Sources */,
@@ -524,6 +541,7 @@
 				BE8C6BDE1AA77606005FC2FB /* IncidenceTableViewController.m in Sources */,
 				BEE0EF881ABF65FB00D710FB /* Symptom.m in Sources */,
 				BEB01FC71B1224CD0009F20B /* UIColor+Utilities.m in Sources */,
+				BE34E8D41D6B448C00C43F22 /* RRDataManager.m in Sources */,
 				BE8C6BB11AA6BCCD005FC2FB /* AllergyTracker.xcdatamodeld in Sources */,
 				BE8C6BB41AA6BCCD005FC2FB /* AllergyLogViewController.m in Sources */,
 				BE8C6BAB1AA6BCCD005FC2FB /* main.m in Sources */,

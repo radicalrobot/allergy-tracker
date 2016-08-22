@@ -36,8 +36,7 @@ static NSString * const CellIdentifier = @"SettingsCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    isFirstRun = [LocalDataManager isFirstRun];
+    isFirstRun = [[RRDataManager currentDataManager] isFirstRun];
     
     [self updateOptions];
     
@@ -184,7 +183,7 @@ static NSString * const CellIdentifier = @"SettingsCell";
                 break;
         }
     } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
-        if([LocalDataManager numberOfSelectedSymptoms] > 0){
+        if([[RRDataManager currentDataManager] numberOfSelectedSymptoms] > 0){
             self.closeButton.enabled = YES;
         }
         else {

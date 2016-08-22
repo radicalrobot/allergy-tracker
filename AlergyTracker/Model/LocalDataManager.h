@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "DataManager.h"
+#import "RRDataManager.h"
 
 
 @interface LocalDataManager : NSObject<DataManager>

@@ -87,7 +87,7 @@ static UIColor* badgeColor;
 -(void)updateViewStatus {
     [[SEGAnalytics sharedAnalytics] screen:@"Allergy Log"
                                 properties:nil];
-    if([LocalDataManager isFirstRun]){
+    if([[RRDataManager currentDataManager] isFirstRun]){
         [self performSegueWithIdentifier:kSettingsSegue sender:self];
     }
     cellSize = CGSizeZero;
@@ -139,7 +139,7 @@ static UIColor* badgeColor;
     UIButton *button = sender;
     NSInteger numberOfIncidentsOfInteraction;
     if(button.tag == MEDICATION_TAG) {
-        numberOfIncidentsOfInteraction = [LocalDataManager numberOfIncidentsWithName:@"Medication" betweenDate:_dayStart endDate:_dayEnd];
+        numberOfIncidentsOfInteraction = [[RRDataManager currentDataManager] numberOfIncidentsWithName:@"Medication" betweenDate:_dayStart endDate:_dayEnd];
         button.badgeValue = [NSString stringWithFormat:@"%ld", (long)numberOfIncidentsOfInteraction];
         if(numberOfIncidentsOfInteraction > 0){
             [button setImage:[UIImage imageNamed:@"PillFilled"] forState:UIControlStateNormal];
@@ -150,7 +150,7 @@ static UIColor* badgeColor;
     }
     else {
         Interaction *allergen = self.selectedAllergens[button.tag];
-        numberOfIncidentsOfInteraction = [LocalDataManager numberOfIncidentsWithName:allergen.name betweenDate:_dayStart endDate:_dayEnd];
+        numberOfIncidentsOfInteraction = [[RRDataManager currentDataManager] numberOfIncidentsWithName:allergen.name betweenDate:_dayStart endDate:_dayEnd];
         
         button.badgeValue = [NSString stringWithFormat:@"%ld", (long)numberOfIncidentsOfInteraction];
         if(numberOfIncidentsOfInteraction > 0){

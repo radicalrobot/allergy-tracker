@@ -15,16 +15,16 @@
 
 @implementation LocalDataManager
 
-+(void)setup {
+-(void)setup {
     [MagicalRecord setupAutoMigratingCoreDataStack];
-    [[self class] setupData];
+    [self setupData];
 }
 
-+(void)cleanup {
+-(void)cleanup {
     [MagicalRecord cleanUp];
 }
 
-+(void)saveIncidence:(Incidence *)incidence withCompletion:(MRSaveCompletionHandler)completion {
+-(void)saveIncidence:(Incidence *)incidence withCompletion:(MRSaveCompletionHandler)completion {
     [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext *localContext) {
         Incidence *localIncidence = [incidence MR_inContext:localContext];
         if(!localIncidence) {
@@ -36,12 +36,12 @@
     } completion:completion];
 }
 
-+(NSInteger)numberOfIncidentsWithName:(NSString*)name betweenDate:(NSDate*)startDate endDate:(NSDate*)endDate {
+-(NSInteger)numberOfIncidentsWithName:(NSString*)name betweenDate:(NSDate*)startDate endDate:(NSDate*)endDate {
     return [Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=%@", startDate, endDate,name] inContext:[NSManagedObjectContext MR_context]].integerValue;
     
 }
 
-+(NSArray *)allIncidents {
+-(NSArray *)allIncidents {
     NSMutableArray *results = [NSMutableArray array];
     NSArray *allInteractions = [Interaction MR_findAllSortedBy:@"name" ascending:YES];
     [allInteractions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -54,7 +54,7 @@
     return results;
 }
 
-+(NSArray *)companionItemsForIncidenceWithName:(NSString *)name {
+-(NSArray *)companionItemsForIncidenceWithName:(NSString *)name {
     NSInteger numberOfOccurrances = [Interaction MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"name=%@", name]].integerValue;
     NSMutableArray *results = [NSMutableArray array];
     if(numberOfOccurrances > 0) {
@@ -75,16 +75,16 @@
     return results;
 }
 
-+(NSInteger)numberOfSelectedSymptoms {
+-(NSInteger)numberOfSelectedSymptoms {
     return [Symptom MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"selected=YES"]].integerValue;
 }
 
-+(BOOL)isFirstRun {
-    return [[self class] numberOfSelectedSymptoms] == 0;
+-(BOOL)isFirstRun {
+    return [self numberOfSelectedSymptoms] == 0;
 }
 
 
-+(void)setupData {
+-(void)setupData {
     NSArray *symptoms = @[@"wheezing",
                           @"vomiting",
                           @"hives",

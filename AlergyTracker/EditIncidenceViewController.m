@@ -80,9 +80,9 @@
 -(NSArray *)pickerData {
     if(!_pickerData) {
         if(self.incidence){
-            _pickerData = [LocalDataManager companionItemsForIncidenceWithName:self.incidence.type];
+            _pickerData = [[RRDataManager currentDataManager] companionItemsForIncidenceWithName:self.incidence.type];
         } else {
-            _pickerData = [LocalDataManager allIncidents];
+            _pickerData = [[RRDataManager currentDataManager] allIncidents];
         }
     }
     
@@ -112,7 +112,7 @@
     }
     
     __weak typeof(self) weakself = self;
-    [LocalDataManager saveIncidence:self.incidence withCompletion:^(BOOL success, NSError *error) {
+    [[RRDataManager currentDataManager] saveIncidence:self.incidence withCompletion:^(BOOL success, NSError *error) {
         typeof(weakself) localself = weakself;
         [[SEGAnalytics sharedAnalytics] track:@"Edited Incidence"
                                    properties:@{ @"id": localself.incidence.uuid,

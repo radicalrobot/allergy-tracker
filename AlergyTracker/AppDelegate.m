@@ -11,6 +11,7 @@
 #import "LocalDataManager.h"
 #import "Incidence+Extras.h"
 #import "QuickActions.h"
+#import "RRDataManager.h"
 
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -29,7 +30,9 @@
     [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"FoGKredUEwSGQq3SLZyBkKvcsO9PJV8e"]];
     [[SEGAnalytics sharedAnalytics] identify:[[[UIDevice currentDevice] identifierForVendor] UUIDString]
                                       traits:@{ @"name": [[UIDevice currentDevice] name]}];
-    [LocalDataManager setup];
+    
+    [RRDataManager setCurrentDataManager:[LocalDataManager new]];
+    [[RRDataManager currentDataManager] setup];
     
     [RRLocationManager start];
     
@@ -66,7 +69,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
-    [LocalDataManager cleanup];
+    [[RRDataManager currentDataManager] cleanup];
 }
 
 -(void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
