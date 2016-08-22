@@ -12,10 +12,9 @@
 #import "SettingTableViewCell.h"
 #import "LocalDataManager.h"
 #import "UIView+FrameAccessors.h"
+#import "RRDataManager.h"
 
-#import <MagicalRecord/MagicalRecord.h>
 #import <Analytics.h>
-#import "MagicalRecord+BackgroundTask.h"
 
 @interface SettingsTableViewController () {
     BOOL isFirstRun;
@@ -60,7 +59,7 @@ static NSString * const CellIdentifier = @"SettingsCell";
 
 -(void)updateOptions {
     self.symptoms = [Symptom alphabeticacisedSymptomsSelected:NO];
-    self.allergens = [Interaction MR_findAllSortedBy:@"name" ascending:YES];
+    self.allergens = [[RRDataManager currentDataManager] allInteractions];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -97,31 +96,19 @@ static NSString * const CellIdentifier = @"SettingsCell";
                                                          handler:nil];
     UIAlertAction *createAction = [UIAlertAction actionWithTitle:@"Create" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UITextField *settingName = alert.textFields.firstObject;
-        [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-            switch(self.choices.selectedSegmentIndex) {
-                case 0: {
-                    Symptom *newSymptom = [Symptom MR_createEntityInContext: localContext];
-                    newSymptom.name = settingName.text;
-                    break;
-                }
-                case 1: {
-                    Interaction *newAllergen = [Interaction MR_createEntityInContext:localContext];
-                    newAllergen.name = settingName.text;
-                }
-                    break;
-                default:
-                    break;
-            }
-        } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
-            if(!contextDidSave){
-                NSLog(@"Unable to save new %@: %@", type, error);
-            }
-            
-            [self updateOptions];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
-        }];
+        void (^successBlock)() = ^{
+            [self.tableView reloadData];
+        };
+        switch(self.choices.selectedSegmentIndex) {
+            case 0:
+                [[RRDataManager currentDataManager] createSymptom:settingName.text onSuccess:successBlock];
+                break;
+            case 1:
+                [[RRDataManager currentDataManager] createInteraction:settingName.text onSuccess:successBlock];
+                break;
+            default:
+                break;
+        }
     }];
     createAction.enabled = NO;
     [alert addAction:cancelAction];
@@ -144,52 +131,43 @@ static NSString * const CellIdentifier = @"SettingsCell";
     UISwitch *switchView = sender;
     SettingTableViewCell *settingCell = (SettingTableViewCell*)[[switchView superview] superview];
     NSIndexPath *cellIndex = [self.tableView indexPathForCell:settingCell];
-    
-    [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-        
-        switch (self.choices.selectedSegmentIndex) {
-            case 0:
-            {
-                Symptom *symptom = [self.symptoms[cellIndex.row] MR_inContext:localContext];
-                symptom.selected = @(switchView.on);
-                [[SEGAnalytics sharedAnalytics] track:@"Updated Symptoms"
-                                           properties:@{ @"name": symptom.name,
-                                                         @"on": symptom.selected }];
-                break;
-            }
-            case 1:{
-                Interaction *allergen = [self.allergens[cellIndex.row] MR_inContext:localContext];
-                if(switchView.on){
-                    NSInteger numberOfSelectedAllergens = [self.allergens filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"selected=YES"]].count;
-                    if(numberOfSelectedAllergens >= maxNumberOfSelectedAllergens){
-                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Max number of allergens reached"
-                                                                                       message:@"You may ony track up to %ld allergens at a time"
-                                                                                preferredStyle:UIAlertControllerStyleAlert];
-                        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK"
-                                                                               style: UIAlertActionStyleCancel
-                                                                             handler:nil];
-                        [alert addAction:cancelAction];
-                        [self presentViewController:alert animated:YES completion:nil];
-                        switchView.on = NO;
-                    }
-                }
-                allergen.selected = @(switchView.on);
-                [[SEGAnalytics sharedAnalytics] track:@"Updated Allergens"
-                                           properties:@{ @"name": allergen.name,
-                                                         @"on": allergen.selected }];
-                break;
-            }
-            default:
-                break;
-        }
-    } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
+    void (^successBlock)() = ^{
         if([[RRDataManager currentDataManager] numberOfSelectedSymptoms] > 0){
             self.closeButton.enabled = YES;
         }
         else {
             self.closeButton.enabled = NO;
         }
-    }];
+    };
+    
+    switch (self.choices.selectedSegmentIndex) {
+        case 0:
+        {
+            [[RRDataManager currentDataManager] updateSymptomSelection:self.symptoms[cellIndex.row] isSelected:@(switchView.on) onSuccess:successBlock];
+            break;
+        }
+        case 1:{
+            if(switchView.on){
+                NSInteger numberOfSelectedAllergens = [self.allergens filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"selected=YES"]].count;
+                if(numberOfSelectedAllergens >= maxNumberOfSelectedAllergens){
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Max number of allergens reached"
+                                                                                   message:@"You may ony track up to %ld allergens at a time"
+                                                                            preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK"
+                                                                           style: UIAlertActionStyleCancel
+                                                                         handler:nil];
+                    [alert addAction:cancelAction];
+                    [self presentViewController:alert animated:YES completion:nil];
+                    switchView.on = NO;
+                    break;
+                }
+            }
+            [[RRDataManager currentDataManager] updateInteractionSelection:self.allergens[cellIndex.row] isSelected:@(switchView.on) onSuccess:successBlock];
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 #pragma mark - Table view data source

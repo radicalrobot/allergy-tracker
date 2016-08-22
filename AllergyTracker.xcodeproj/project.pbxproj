@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8F918415352B7E088636096C /* libPods-AllergyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8F69891AA792D7DF6A65680 /* libPods-AllergyTracker.a */; };
-		BE2D74291AC1B4BD000C5815 /* MigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2D74281AC1B4BD000C5815 /* MigrationManager.m */; };
 		BE34E8D41D6B448C00C43F22 /* RRDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE34E8D31D6B448C00C43F22 /* RRDataManager.m */; };
 		BE34E8D81D6B4BC100C43F22 /* iCloudDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE34E8D71D6B4BC100C43F22 /* iCloudDataManager.m */; };
 		BE4703D11AB137CA001AF1E8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703D01AB137CA001AF1E8 /* SettingsTableViewController.m */; };
@@ -63,8 +62,6 @@
 /* Begin PBXFileReference section */
 		3ED0DE93C34AA9E91434EC3D /* Pods-AllergyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllergyTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AllergyTracker/Pods-AllergyTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		9768065C30EDB4FF75373351 /* Pods-AllergyTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllergyTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-AllergyTracker/Pods-AllergyTracker.release.xcconfig"; sourceTree = "<group>"; };
-		BE2D74271AC1B4BD000C5815 /* MigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MigrationManager.h; path = Model/MigrationManager.h; sourceTree = "<group>"; };
-		BE2D74281AC1B4BD000C5815 /* MigrationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MigrationManager.m; path = Model/MigrationManager.m; sourceTree = "<group>"; };
 		BE34E8D21D6B41DB00C43F22 /* RRDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RRDataManager.h; path = Model/RRDataManager.h; sourceTree = "<group>"; };
 		BE34E8D31D6B448C00C43F22 /* RRDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RRDataManager.m; path = Model/RRDataManager.m; sourceTree = "<group>"; };
 		BE34E8D61D6B4BC100C43F22 /* iCloudDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iCloudDataManager.h; path = Model/iCloudDataManager.h; sourceTree = "<group>"; };
@@ -192,8 +189,6 @@
 				BEE0EF8A1ABF65FB00D710FB /* Interaction.m */,
 				BE4703D91AB13FDC001AF1E8 /* Interaction+Extras.h */,
 				BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */,
-				BE2D74271AC1B4BD000C5815 /* MigrationManager.h */,
-				BE2D74281AC1B4BD000C5815 /* MigrationManager.m */,
 				BEB01FBF1B1221F20009F20B /* NSDate+Utilities.h */,
 				BEB01FC01B1221F20009F20B /* NSDate+Utilities.m */,
 				BEB01FC11B1221F20009F20B /* NSDateFormatter+Utilities.h */,
@@ -550,7 +545,6 @@
 				BEB8430C1CA968B700398332 /* QuickActions.m in Sources */,
 				BE4703DB1AB13FDC001AF1E8 /* Interaction+Extras.m in Sources */,
 				BE4703DE1AB14187001AF1E8 /* Symptom+Extras.m in Sources */,
-				BE2D74291AC1B4BD000C5815 /* MigrationManager.m in Sources */,
 				BEBCAA211C960E5900B3CDE3 /* MagicalRecord+BackgroundTask.m in Sources */,
 				BE8C6BD31AA6C3BB005FC2FB /* RRLocationManager.m in Sources */,
 			);

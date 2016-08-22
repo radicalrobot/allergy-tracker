@@ -10,7 +10,7 @@
 
 #import "Incidence.h"
 #import "Interaction.h"
-#import <MagicalRecord/MagicalRecord.h>
+#import "Symptom.h"
 
 @protocol DataManager <NSObject>
 
@@ -25,7 +25,23 @@
 -(NSArray *)allIncidents;
 -(NSArray*)companionItemsForIncidenceWithName:(NSString*)name;
 
--(void)saveIncidence:(Incidence*)incidence withCompletion:(MRSaveCompletionHandler)completion;
+-(void)saveIncidence:(Incidence*)incidence withCompletion:(void (^)(BOOL contextDidSave, NSError* error))completion;
+-(void)createIncident: (NSDate*) now latitude:(NSNumber*) latitude longitude:(NSNumber*) longitude type:(NSString*) incidenceType onSuccess:(void (^)(Incidence*))successBlock;
+-(Incidence*)createNewEmptyIncident;
+-(NSNumber*)numberOfIncidentsOfType:(NSString*)type;
+-(NSArray*)eventsForTheDay:(NSDate*) date;
+-(NSNumber*)numberOfEventsOfType:(NSString*)type between:(NSDate*)from and:(NSDate*)to;
+-(void)createLocation: (NSDate*) now latitude:(NSNumber*) latitude longitude:(NSNumber*) longitude onSuccess:(void (^)(Incidence*))successBlock;
+-(void) deleteIncidence: (Incidence*) incidence onSuccess:(void (^)())successBlock;
+-(NSArray*)allTypes;
+-(NSArray*)allInteractions;
+-(void)migrateFromVersion:(NSString *)version;
+-(void)createSymptom:(NSString*)symptom onSuccess:(void (^)())successBlock;
+-(void)updateSymptomSelection:(Symptom*)symptom isSelected:(BOOL)selected onSuccess:(void (^)())successBlock;
+-(NSArray*)selectedSymptoms;
+-(void)createInteraction:(NSString*)interaction onSuccess:(void (^)())successBlock;
+-(void)updateInteractionSelection:(Interaction*)Interaction isSelected:(BOOL)selected onSuccess:(void (^)())successBlock;
+-(NSArray*)selectedInteractions;
 
 @end
 

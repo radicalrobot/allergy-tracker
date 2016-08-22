@@ -12,7 +12,9 @@
 
 @interface iCloudDataManager()
 
+@property (nonatomic, strong) CKContainer *container;
 @property (nonatomic, strong) CKDatabase *publicDB;
+@property (nonatomic, strong) CKDatabase *privateDB;
 
 @end
 
@@ -31,7 +33,9 @@
 }
 
 -(void)setup {
-    _publicDB = [[CKContainer defaultContainer] publicCloudDatabase];
+    _container = [CKContainer defaultContainer];
+    _publicDB = [_container publicCloudDatabase];
+    _privateDB = [_container privateCloudDatabase];
 }
 
 -(NSInteger)numberOfIncidentsWithName:(NSString *)name betweenDate:(NSDate *)startDate endDate:(NSDate *)endDate {
@@ -44,10 +48,6 @@
 
 -(NSInteger)numberOfSelectedSymptoms {
     return 0;
-}
-
--(void)saveIncidence:(Incidence *)incidence withCompletion:(MRSaveCompletionHandler)completion {
-    
 }
 
 @end

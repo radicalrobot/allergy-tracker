@@ -7,7 +7,7 @@
 //
 
 #import "Incidence+Extras.h"
-#import <MagicalRecord/MagicalRecord.h>
+#import "RRDataManager.h"
 #import "Symptom+Extras.h"
 #import "Interaction+Extras.h"
 #import "NSNumber+Utilities.h"
@@ -39,7 +39,7 @@
 }
 
 +(NSArray *)getTopIncidents {
-    NSArray *alltypes = [[Symptom MR_findAll] arrayByAddingObjectsFromArray:[Interaction MR_findAll]];
+    NSArray *alltypes = [[RRDataManager currentDataManager] allTypes];
     NSMutableDictionary *topIncidents = [NSMutableDictionary dictionary];
     for(NSObject *type in alltypes) {
         NSString *name;
@@ -48,7 +48,7 @@
         } else {
             name = ((Interaction*)type).name;
         }
-        topIncidents[name] = @([Incidence MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"type=%@", name]]);
+        topIncidents[name] = [[RRDataManager currentDataManager] numberOfIncidentsOfType:name];
     }
     return [[topIncidents allKeys] sortedArrayUsingComparator:^NSComparisonResult(NSString* key1, NSString* key2) {
         return [topIncidents[key1] reverseCompare: topIncidents[key2]];

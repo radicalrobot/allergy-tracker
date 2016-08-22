@@ -103,7 +103,7 @@
 - (IBAction)save:(id)sender {
     // now update
     if(!self.incidence) {
-        self.incidence = [Incidence MR_createEntity];
+        self.incidence = [[RRDataManager currentDataManager] createNewEmptyIncident];
     }
     self.incidence.time = self.incidentTime.date;
     self.incidence.notes = self.notes.text;

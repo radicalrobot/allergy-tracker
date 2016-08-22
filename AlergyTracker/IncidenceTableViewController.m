@@ -16,11 +16,9 @@
 #import "Symptom+Extras.h"
 #import "Interaction+Extras.h"
 #import "QuickActions.h"
+#import "RRDataManager.h"
 
-#import <MagicalRecord/MagicalRecord.h>
 #import <Analytics.h>
-
-#import "MagicalRecord+BackgroundTask.h"
 
 @interface IncidenceTableViewController ()
 
@@ -49,8 +47,8 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
         _currentDate = [NSDate date];
     }
     
-    NSArray *selectedSymptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
-    NSArray *selectedInteractions = [Interaction MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+    NSArray *selectedSymptoms = [[RRDataManager currentDataManager] selectedSymptoms];
+    NSArray *selectedInteractions = [[RRDataManager currentDataManager] selectedInteractions];
     _summaryView.interactions = selectedInteractions;
     _summaryView.symptoms = selectedSymptoms;
     _summaryView.date = _currentDate;
@@ -58,7 +56,7 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
     _summaryView.maxNumberOfCellsInRow = 4;
     _summaryView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 60);
     
-    [self eventsForTheDay:_currentDate];
+    self.events = [[RRDataManager currentDataManager] eventsForTheDay:_currentDate];
     
     NSDateFormatter *formatter = [NSDateFormatter new];
     formatter.dateFormat = @"EEE, MMM dd, YYYY";
@@ -77,20 +75,13 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
 }
 
 -(void)reload {
-    NSArray *selectedSymptoms = [Symptom MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
-    NSArray *selectedInteractions = [Interaction MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+    NSArray *selectedSymptoms = [[RRDataManager currentDataManager] selectedSymptoms];
+    NSArray *selectedInteractions = [[RRDataManager currentDataManager] selectedInteractions];
     _summaryView.interactions = selectedInteractions;
     _summaryView.symptoms = selectedSymptoms;
     [_summaryView setNeedsLayout];
     
     [self.tableView reloadData];
-}
-
--(void)eventsForTheDay:(NSDate*) date{
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *from = [calendar dateBySettingHour:0  minute:0  second:0  ofDate:date options:0];
-    NSDate *to   = [calendar dateBySettingHour:23 minute:59 second:59 ofDate:date options:0];
-    self.events = [Incidence MR_findAllSortedBy:@"time" ascending:NO withPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@", from, to]];
 }
 
 -(NSDateFormatter *)dateFormatter {
@@ -150,37 +141,16 @@ static NSString * const kCellIdentifier = @"IncidenceCell";
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        __block NSString *uuid, *name, *time, *notes;
-        __block NSNumber *lat, *lon;
-        Incidence *incidence = self.events[indexPath.row];
-        uuid = incidence.uuid;
-        name = incidence.type;
-        time = incidence.formattedTime;
-        notes = incidence.notes;
-        lat = incidence.latitude;
-        lon = incidence.longitude;
-        [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext *localContext) {
-            Incidence *localIncidence = [incidence MR_inContext:localContext];
-            [localIncidence MR_deleteEntityInContext:localContext];
-        } completion:^(BOOL success, NSError *error) {
-            if(success){
-                [self eventsForTheDay:_currentDate];
-                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                
-                NSArray *top2Incidents = [Incidence getTopIncidentsWithLimit:2];
-                [QuickActions addTopIncidents: top2Incidents];
-                
-                [self reload];
-            }
-            [[SEGAnalytics sharedAnalytics] track:@"Delete Incidence"
-                                       properties:@{ @"id": uuid,
-                                                     @"name": name,
-                                                     @"time": time,
-                                                     @"latitude": lat,
-                                                     @"longitude": lon,
-                                                     @"notes": notes ? notes : [NSNull null],
-                                                     @"writeSuccess": @(success)}];
+        __weak typeof(self) weakself = self;
+        [[RRDataManager currentDataManager] deleteIncidence:self.events[indexPath.row] onSuccess:^{
+            typeof(weakself) strongself = weakself;
+            strongself.events = [[RRDataManager currentDataManager] eventsForTheDay:_currentDate];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            
+            NSArray *top2Incidents = [Incidence getTopIncidentsWithLimit:2];
+            [QuickActions addTopIncidents: top2Incidents];
+            
+            [strongself reload];
         }];
     }
 }
