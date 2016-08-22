@@ -8,7 +8,7 @@
 
 #import "QuickActions.h"
 #import "Incidence+Extras.h"
-#import "DataManager.h"
+#import "LocalDataManager.h"
 #import "RRLocationManager.h"
 
 #import <MagicalRecord/MagicalRecord.h>

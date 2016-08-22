@@ -10,7 +10,7 @@
 #import "Symptom+Extras.h"
 #import "Interaction+Extras.h"
 #import "SettingTableViewCell.h"
-#import "DataManager.h"
+#import "LocalDataManager.h"
 #import "UIView+FrameAccessors.h"
 
 #import <MagicalRecord/MagicalRecord.h>
@@ -37,7 +37,7 @@ static NSString * const CellIdentifier = @"SettingsCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    isFirstRun = [DataManager isFirstRun];
+    isFirstRun = [LocalDataManager isFirstRun];
     
     [self updateOptions];
     
@@ -184,7 +184,7 @@ static NSString * const CellIdentifier = @"SettingsCell";
                 break;
         }
     } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
-        if([DataManager numberOfSelectedSymptoms] > 0){
+        if([LocalDataManager numberOfSelectedSymptoms] > 0){
             self.closeButton.enabled = YES;
         }
         else {

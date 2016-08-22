@@ -6,14 +6,14 @@
 //  Copyright (c) 2015 Radical Robot. All rights reserved.
 //
 
-#import "DataManager.h"
+#import "LocalDataManager.h"
 
 #import "MigrationManager.h"
 #import "Symptom+Extras.h"
 #import "MagicalRecord+BackgroundTask.h"
 
 
-@implementation DataManager
+@implementation LocalDataManager
 
 +(void)setup {
     [MagicalRecord setupAutoMigratingCoreDataStack];

@@ -12,7 +12,7 @@
 		BE4703D11AB137CA001AF1E8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703D01AB137CA001AF1E8 /* SettingsTableViewController.m */; };
 		BE4703DB1AB13FDC001AF1E8 /* Interaction+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */; };
 		BE4703DE1AB14187001AF1E8 /* Symptom+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */; };
-		BE4F51721B09EDD400039E6C /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4F51711B09EDD400039E6C /* DataManager.m */; };
+		BE4F51721B09EDD400039E6C /* LocalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4F51711B09EDD400039E6C /* LocalDataManager.m */; };
 		BE4F51751B09FAD000039E6C /* UIView+FrameAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4F51741B09FAD000039E6C /* UIView+FrameAccessors.m */; };
 		BE4F51781B0A1BEB00039E6C /* EditIncidenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4F51771B0A1BEB00039E6C /* EditIncidenceViewController.m */; };
 		BE4F51811B0A468900039E6C /* ScrollableToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE4F51801B0A468900039E6C /* ScrollableToolbarView.m */; };
@@ -63,14 +63,15 @@
 		9768065C30EDB4FF75373351 /* Pods-AllergyTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllergyTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-AllergyTracker/Pods-AllergyTracker.release.xcconfig"; sourceTree = "<group>"; };
 		BE2D74271AC1B4BD000C5815 /* MigrationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MigrationManager.h; path = Model/MigrationManager.h; sourceTree = "<group>"; };
 		BE2D74281AC1B4BD000C5815 /* MigrationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MigrationManager.m; path = Model/MigrationManager.m; sourceTree = "<group>"; };
+		BE34E8D21D6B41DB00C43F22 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManager.h; path = Model/DataManager.h; sourceTree = "<group>"; };
 		BE4703CF1AB137CA001AF1E8 /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
 		BE4703D01AB137CA001AF1E8 /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		BE4703D91AB13FDC001AF1E8 /* Interaction+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Interaction+Extras.h"; sourceTree = "<group>"; };
 		BE4703DA1AB13FDC001AF1E8 /* Interaction+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Interaction+Extras.m"; sourceTree = "<group>"; };
 		BE4703DC1AB14187001AF1E8 /* Symptom+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Symptom+Extras.h"; sourceTree = "<group>"; };
 		BE4703DD1AB14187001AF1E8 /* Symptom+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Symptom+Extras.m"; sourceTree = "<group>"; };
-		BE4F51701B09EDD400039E6C /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManager.h; path = Model/DataManager.h; sourceTree = "<group>"; };
-		BE4F51711B09EDD400039E6C /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = Model/DataManager.m; sourceTree = "<group>"; };
+		BE4F51701B09EDD400039E6C /* LocalDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalDataManager.h; path = Model/LocalDataManager.h; sourceTree = "<group>"; };
+		BE4F51711B09EDD400039E6C /* LocalDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocalDataManager.m; path = Model/LocalDataManager.m; sourceTree = "<group>"; };
 		BE4F51731B09FAD000039E6C /* UIView+FrameAccessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+FrameAccessors.h"; path = "Views/UIView+FrameAccessors.h"; sourceTree = "<group>"; };
 		BE4F51741B09FAD000039E6C /* UIView+FrameAccessors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+FrameAccessors.m"; path = "Views/UIView+FrameAccessors.m"; sourceTree = "<group>"; };
 		BE4F51761B0A1BEB00039E6C /* EditIncidenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditIncidenceViewController.h; sourceTree = "<group>"; };
@@ -192,8 +193,9 @@
 				BE2D74281AC1B4BD000C5815 /* MigrationManager.m */,
 				BEC1B7D71AC5C787001EE74C /* Incidence+Extras.h */,
 				BEC1B7D81AC5C787001EE74C /* Incidence+Extras.m */,
-				BE4F51701B09EDD400039E6C /* DataManager.h */,
-				BE4F51711B09EDD400039E6C /* DataManager.m */,
+				BE34E8D21D6B41DB00C43F22 /* DataManager.h */,
+				BE4F51701B09EDD400039E6C /* LocalDataManager.h */,
+				BE4F51711B09EDD400039E6C /* LocalDataManager.m */,
 				BEB01FC51B1224CD0009F20B /* UIColor+Utilities.h */,
 				BEB01FC61B1224CD0009F20B /* UIColor+Utilities.m */,
 				BEE6C6391B77C79900C98433 /* Incidence+CoreDataProperties.h */,
@@ -509,7 +511,7 @@
 				BEC1B7D91AC5C787001EE74C /* Incidence+Extras.m in Sources */,
 				BEB01FCA1B122FD80009F20B /* IncidencePagingViewController.m in Sources */,
 				BE8C6BAE1AA6BCCD005FC2FB /* AppDelegate.m in Sources */,
-				BE4F51721B09EDD400039E6C /* DataManager.m in Sources */,
+				BE4F51721B09EDD400039E6C /* LocalDataManager.m in Sources */,
 				BEE6C63C1B77C79900C98433 /* Incidence.m in Sources */,
 				BEE0EF7F1ABF5F9D00D710FB /* SettingTableViewCell.m in Sources */,
 				BEE0EF8B1ABF65FB00D710FB /* Interaction.m in Sources */,

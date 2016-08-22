@@ -2,8 +2,8 @@
 //  DataManager.h
 //  AllergyTracker
 //
-//  Created by Emily Toop on 18/05/2015.
-//  Copyright (c) 2015 Radical Robot. All rights reserved.
+//  Created by Emily Toop on 22/08/2016.
+//  Copyright © 2016 Radical Robot. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -12,8 +12,7 @@
 #import "Interaction.h"
 #import <MagicalRecord/MagicalRecord.h>
 
-
-@interface DataManager : NSObject
+@protocol DataManager <NSObject>
 
 +(void)setup;
 +(void)cleanup;

@@ -9,7 +9,7 @@
 #import "EditIncidenceViewController.h"
 
 #import "UIView+FrameAccessors.h"
-#import "DataManager.h"
+#import "LocalDataManager.h"
 #import "Symptom+Extras.h"
 #import "Interaction+Extras.h"
 #import "QuickActions.h"
@@ -80,9 +80,9 @@
 -(NSArray *)pickerData {
     if(!_pickerData) {
         if(self.incidence){
-            _pickerData = [DataManager companionItemsForIncidenceWithName:self.incidence.type];
+            _pickerData = [LocalDataManager companionItemsForIncidenceWithName:self.incidence.type];
         } else {
-            _pickerData = [DataManager allIncidents];
+            _pickerData = [LocalDataManager allIncidents];
         }
     }
     
@@ -112,7 +112,7 @@
     }
     
     __weak typeof(self) weakself = self;
-    [DataManager saveIncidence:self.incidence withCompletion:^(BOOL success, NSError *error) {
+    [LocalDataManager saveIncidence:self.incidence withCompletion:^(BOOL success, NSError *error) {
         typeof(weakself) localself = weakself;
         [[SEGAnalytics sharedAnalytics] track:@"Edited Incidence"
                                    properties:@{ @"id": localself.incidence.uuid,
