@@ -40,6 +40,7 @@
 		BEBCAA211C960E5900B3CDE3 /* MagicalRecord+BackgroundTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BEBCAA201C960E5900B3CDE3 /* MagicalRecord+BackgroundTask.m */; };
 		BEBCAA241C9D7DD600B3CDE3 /* SummaryHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEBCAA231C9D7DD600B3CDE3 /* SummaryHeaderView.m */; };
 		BEC1B7D91AC5C787001EE74C /* Incidence+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = BEC1B7D81AC5C787001EE74C /* Incidence+Extras.m */; };
+		BED55CA01D6B36EF00002A61 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BED55C9F1D6B36EF00002A61 /* CloudKit.framework */; };
 		BEE0EF7F1ABF5F9D00D710FB /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF7E1ABF5F9D00D710FB /* SettingTableViewCell.m */; };
 		BEE0EF881ABF65FB00D710FB /* Symptom.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF871ABF65FB00D710FB /* Symptom.m */; };
 		BEE0EF8B1ABF65FB00D710FB /* Interaction.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE0EF8A1ABF65FB00D710FB /* Interaction.m */; };
@@ -124,6 +125,8 @@
 		BEC1B7D71AC5C787001EE74C /* Incidence+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Incidence+Extras.h"; path = "Model/Incidence+Extras.h"; sourceTree = "<group>"; };
 		BEC1B7D81AC5C787001EE74C /* Incidence+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Incidence+Extras.m"; path = "Model/Incidence+Extras.m"; sourceTree = "<group>"; };
 		BEC1B7DA1AC5C9B7001EE74C /* AllergyTracker 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "AllergyTracker 2.xcdatamodel"; sourceTree = "<group>"; };
+		BED55C9C1D69FEFA00002A61 /* AllergyTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AllergyTracker.entitlements; sourceTree = "<group>"; };
+		BED55C9F1D6B36EF00002A61 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		BEE0EF7D1ABF5F9D00D710FB /* SettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingTableViewCell.h; path = Views/SettingTableViewCell.h; sourceTree = "<group>"; };
 		BEE0EF7E1ABF5F9D00D710FB /* SettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingTableViewCell.m; path = Views/SettingTableViewCell.m; sourceTree = "<group>"; };
 		BEE0EF861ABF65FB00D710FB /* Symptom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Symptom.h; sourceTree = "<group>"; };
@@ -144,6 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BED55CA01D6B36EF00002A61 /* CloudKit.framework in Frameworks */,
 				BE8C6BD51AA6C3F8005FC2FB /* CoreLocation.framework in Frameworks */,
 				8F918415352B7E088636096C /* libPods-AllergyTracker.a in Frameworks */,
 			);
@@ -162,6 +166,7 @@
 		9AB225D17BCED72E11F1B7A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BED55C9F1D6B36EF00002A61 /* CloudKit.framework */,
 				BE8C6BD41AA6C3F8005FC2FB /* CoreLocation.framework */,
 				D8F69891AA792D7DF6A65680 /* libPods-AllergyTracker.a */,
 			);
@@ -221,8 +226,9 @@
 		BE8C6B9C1AA6BCCD005FC2FB = {
 			isa = PBXGroup;
 			children = (
-				BE8C6BA71AA6BCCD005FC2FB /* AlergyTracker */,
-				BE8C6BC41AA6BCCD005FC2FB /* AlergyTrackerTests */,
+				BED55C9C1D69FEFA00002A61 /* AllergyTracker.entitlements */,
+				BE8C6BA71AA6BCCD005FC2FB /* AllergyTracker */,
+				BE8C6BC41AA6BCCD005FC2FB /* AllergyTrackerTests */,
 				BE8C6BA61AA6BCCD005FC2FB /* Products */,
 				9AB225D17BCED72E11F1B7A6 /* Frameworks */,
 				CDCE8476E70D0EB6CF210710 /* Pods */,
@@ -238,7 +244,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BE8C6BA71AA6BCCD005FC2FB /* AlergyTracker */ = {
+		BE8C6BA71AA6BCCD005FC2FB /* AllergyTracker */ = {
 			isa = PBXGroup;
 			children = (
 				BEE0EF7C1ABF5F3E00D710FB /* Views */,
@@ -260,6 +266,7 @@
 				BEB8430D1CA9A0AB00398332 /* NSNumber+Utilities.h */,
 				BEB8430E1CA9A0AB00398332 /* NSNumber+Utilities.m */,
 			);
+			name = AllergyTracker;
 			path = AlergyTracker;
 			sourceTree = "<group>";
 		};
@@ -272,12 +279,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		BE8C6BC41AA6BCCD005FC2FB /* AlergyTrackerTests */ = {
+		BE8C6BC41AA6BCCD005FC2FB /* AllergyTrackerTests */ = {
 			isa = PBXGroup;
 			children = (
 				BE8C6BC71AA6BCCD005FC2FB /* AlergyTrackerTests.m */,
 				BE8C6BC51AA6BCCD005FC2FB /* Supporting Files */,
 			);
+			name = AllergyTrackerTests;
 			path = AlergyTrackerTests;
 			sourceTree = "<group>";
 		};
@@ -375,6 +383,11 @@
 					BE8C6BA41AA6BCCD005FC2FB = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = QQNE32V93Y;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					BE8C6BC01AA6BCCD005FC2FB = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -647,6 +660,7 @@
 			baseConfigurationReference = 3ED0DE93C34AA9E91434EC3D /* Pods-AllergyTracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AllergyTracker.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -667,6 +681,7 @@
 			baseConfigurationReference = 9768065C30EDB4FF75373351 /* Pods-AllergyTracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AllergyTracker.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
