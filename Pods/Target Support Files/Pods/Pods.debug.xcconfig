@@ -1,6 +1,0 @@
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Crashlytics/iOS" "${PODS_ROOT}/Fabric/iOS"
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1 ANALYTICS_VERSION=2.0.17
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Analytics" "${PODS_ROOT}/Headers/Public/Crashlytics" "${PODS_ROOT}/Headers/Public/Fabric" "${PODS_ROOT}/Headers/Public/MagicalRecord" "${PODS_ROOT}/Headers/Public/TRVSDictionaryWithCaseInsensitivity" "${PODS_ROOT}/Headers/Public/UIBarButtonItem-Badge"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Analytics" -isystem "${PODS_ROOT}/Headers/Public/Crashlytics" -isystem "${PODS_ROOT}/Headers/Public/Fabric" -isystem "${PODS_ROOT}/Headers/Public/MagicalRecord" -isystem "${PODS_ROOT}/Headers/Public/TRVSDictionaryWithCaseInsensitivity" -isystem "${PODS_ROOT}/Headers/Public/UIBarButtonItem-Badge"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"Analytics" -l"MagicalRecord" -l"TRVSDictionaryWithCaseInsensitivity" -l"UIBarButtonItem-Badge" -l"c++" -l"z" -framework "CoreData" -framework "Crashlytics" -framework "Fabric" -framework "Security" -framework "SystemConfiguration" -framework "UIKit" -weak_framework "CoreBluetooth" -weak_framework "CoreLocation" -weak_framework "SystemConfiguration"
-PODS_ROOT = ${SRCROOT}/Pods
