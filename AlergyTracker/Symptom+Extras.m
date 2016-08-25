@@ -7,7 +7,7 @@
 //
 
 #import "Symptom+Extras.h"
-#import <MagicalRecord/MagicalRecord.h>
+#import "RRDataManager.h"
 
 @implementation Symptom (Extras)
 
@@ -25,8 +25,7 @@
     if(selected) {
         predicate = [NSPredicate predicateWithFormat:@"selected=1"];
     }
-    NSArray *symptoms = [Symptom MR_findAllWithPredicate:predicate];
-    
+    NSArray *symptoms = [[RRDataManager currentDataManager] selectedSymptoms];
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
     return [symptoms sortedArrayUsingDescriptors:@[sort]];
 }

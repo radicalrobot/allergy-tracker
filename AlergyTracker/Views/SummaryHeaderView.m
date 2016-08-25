@@ -10,7 +10,7 @@
 #import "Interaction+Extras.h"
 #import "Incidence+Extras.h"
 #import "Symptom+Extras.h"
-#import <MagicalRecord/MagicalRecord.h>
+#import "RRDataManager.h"
 
 @interface SummaryHeaderView () {
     NSDate *_dayStart;
@@ -72,14 +72,14 @@
     [_summaryViews removeAllObjects];
     
     for(Symptom *symptom in _symptoms) {
-        NSNumber *numberOfIncidents = [Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=[c]%@", _dayStart, _dayEnd, symptom.name]];
+        NSNumber *numberOfIncidents = [[RRDataManager currentDataManager] numberOfEventsOfType:symptom.name between:_dayStart and:_dayEnd];
         if(numberOfIncidents.intValue > 0) {
             [_summaryViews addObject:[self summaryViewWithTitle:symptom.name numberOfIncidents:numberOfIncidents]];
         }
     }
     
     for(Interaction *interaction in _interactions) {
-        NSNumber *numberOfIncidents = [Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=[c]%@", _dayStart, _dayEnd, interaction.name]];
+        NSNumber *numberOfIncidents = [[RRDataManager currentDataManager] numberOfEventsOfType:interaction.name between:_dayStart and:_dayEnd];
         if(numberOfIncidents.intValue > 0) {
             [_summaryViews addObject:[self summaryViewWithTitle:interaction.name numberOfIncidents:numberOfIncidents]];
         }
