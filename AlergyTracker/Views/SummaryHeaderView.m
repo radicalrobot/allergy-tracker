@@ -42,29 +42,33 @@
     
     [self setupSummaryViews];
     
-    CGFloat width = self.bounds.size.width / MIN(_summaryViews.count, _maxNumberOfCellsInRow);
-    
-    int currentRow = 0;
-    int currentCell = 0;
-    for(UIView *view in _summaryViews) {
-        if(!view.superview) {
-            [self addSubview:view];
+    if(_summaryViews.count > 0) {
+        CGFloat width = self.bounds.size.width / MIN(_summaryViews.count, _maxNumberOfCellsInRow);
+        
+        int currentRow = 0;
+        int currentCell = 0;
+        for(UIView *view in _summaryViews) {
+            if(!view.superview) {
+                [self addSubview:view];
+            }
+            [view.topAnchor constraintEqualToAnchor:self.topAnchor constant:_maxRowHeight * currentRow].active = true;
+            [view.heightAnchor constraintEqualToConstant:_maxRowHeight].active = true;
+            [view.widthAnchor constraintEqualToConstant:width].active = true;
+            [view.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:width * currentCell].active = true;
+            [view updateConstraints];
+            currentCell++;
+            if(currentCell == _maxNumberOfCellsInRow) {
+                currentRow++;
+                currentCell = 0;
+            }
         }
-        [view.topAnchor constraintEqualToAnchor:self.topAnchor constant:_maxRowHeight * currentRow].active = true;
-        [view.heightAnchor constraintEqualToConstant:_maxRowHeight].active = true;
-        [view.widthAnchor constraintEqualToConstant:width].active = true;
-        [view.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:width * currentCell].active = true;
-        [view updateConstraints];
-        currentCell++;
-        if(currentCell == _maxNumberOfCellsInRow) {
-            currentRow++;
-            currentCell = 0;
-        }
+        int numberOfRows = ceil((CGFloat)_summaryViews.count / (CGFloat)_maxNumberOfCellsInRow);
+        CGRect newFrame = self.frame;
+        newFrame.size.height = numberOfRows * _maxRowHeight;
+        self.frame = newFrame;
+    } else {
+        self.frame = CGRectZero;
     }
-    int numberOfRows = ceil((CGFloat)_summaryViews.count / (CGFloat)_maxNumberOfCellsInRow);
-    CGRect newFrame = self.frame;
-    newFrame.size.height = numberOfRows * _maxRowHeight;
-    self.frame = newFrame;
 }
 
 -(void)setupSummaryViews {
@@ -84,7 +88,10 @@
             [_summaryViews addObject:[self summaryViewWithTitle:interaction.name numberOfIncidents:numberOfIncidents]];
         }
     }
-    [self setNeedsLayout];
+    NSNumber *numberOfMedications = [[RRDataManager currentDataManager] numberOfEventsOfType:@"Medication" between:_dayStart and:_dayEnd];
+    if(numberOfMedications.intValue > 0) {
+        [_summaryViews addObject:[self summaryViewWithTitle:@"Medication" numberOfIncidents:numberOfMedications]];
+    }
 }
 
 -(void)setDate:(NSDate *)date {
