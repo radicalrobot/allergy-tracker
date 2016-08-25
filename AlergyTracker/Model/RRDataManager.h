@@ -35,6 +35,7 @@
 -(void) deleteIncidence: (Incidence*) incidence onSuccess:(void (^)())successBlock;
 -(NSArray*)allTypes;
 -(NSArray*)allInteractions;
+-(NSArray*)allSymptoms;
 -(void)migrateFromVersion:(NSString *)version;
 -(void)createSymptom:(NSString*)symptom onSuccess:(void (^)())successBlock;
 -(void)updateSymptomSelection:(Symptom*)symptom isSelected:(BOOL)selected onSuccess:(void (^)())successBlock;

@@ -253,8 +253,13 @@
 }
 
 -(NSArray *)allTypes {
-    return [[Symptom MR_findAll] arrayByAddingObjectsFromArray:[Interaction MR_findAll]];
+    return [[self allSymptoms] arrayByAddingObjectsFromArray:[self allInteractions]];
 }
+
+-(NSArray *)allSymptoms {
+    return [Symptom  MR_findAllSortedBy:@"name" ascending:YES];
+}
+
 -(NSArray *)allInteractions {
     return [Interaction MR_findAllSortedBy:@"name" ascending:YES];
 }

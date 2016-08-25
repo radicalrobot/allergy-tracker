@@ -58,7 +58,7 @@ static NSString * const CellIdentifier = @"SettingsCell";
 }
 
 -(void)updateOptions {
-    self.symptoms = [Symptom alphabeticacisedSymptomsSelected:NO];
+    self.symptoms = [Symptom alphabetisedSymptomsSelected:NO];
     self.allergens = [[RRDataManager currentDataManager] allInteractions];
 }
 

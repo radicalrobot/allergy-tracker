@@ -98,7 +98,7 @@ static UIColor* badgeColor;
 }
 
 -(void)updateSymptoms {
-    self.selectedSymptoms = [Symptom alphabeticacisedSymptomsSelected:YES];
+    self.selectedSymptoms = [Symptom alphabetisedSymptomsSelected:YES];
     [self.collectionView reloadData];
 }
 
