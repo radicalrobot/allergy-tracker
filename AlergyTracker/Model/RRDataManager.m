@@ -20,6 +20,13 @@ static id<DataManager> currentDataManager;
 
 +(void)setCurrentDataManager:(id<DataManager>)manager {
     currentDataManager = manager;
+    if(!currentDataManager.initialized) {
+        [currentDataManager setup];
+    }
+}
+
++(BOOL)ready {
+    return currentDataManager.initialized;
 }
 
 @end

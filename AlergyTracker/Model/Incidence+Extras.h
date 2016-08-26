@@ -8,11 +8,15 @@
 
 #import "Incidence.h"
 
+#import <CloudKit/CloudKit.h>
+
 @interface Incidence(Extras)
 
 @property (nonatomic, readonly) NSString * displayName;
 
 +(NSArray*)getTopIncidents;
 +(NSArray*)getTopIncidentsWithLimit:(int)limit;
+
+-(CKRecord *)cloudKitRecord;
 
 @end

@@ -14,6 +14,9 @@
 
 @protocol DataManager <NSObject>
 
+@required
+@property(nonatomic, assign) BOOL initialized;
+
 -(void)setup;
 -(void)cleanup;
 
@@ -37,11 +40,11 @@
 -(NSArray*)allInteractions;
 -(NSArray*)allSymptoms;
 -(void)migrateFromVersion:(NSString *)version;
--(void)createSymptom:(NSString*)symptom onSuccess:(void (^)())successBlock;
+-(void)createSymptom:(NSString *)symptom onSuccess:(void (^)(Symptom* newSymptom))successBlock;
 -(void)updateSymptomSelection:(Symptom*)symptom isSelected:(BOOL)selected onSuccess:(void (^)())successBlock;
 -(NSArray*)selectedSymptoms;
--(void)createInteraction:(NSString*)interaction onSuccess:(void (^)())successBlock;
--(void)updateInteractionSelection:(Interaction*)Interaction isSelected:(BOOL)selected onSuccess:(void (^)())successBlock;
+-(void)createInteraction:(NSString*)interaction onSuccess:(void (^)(Interaction* newInteraction))successBlock;
+-(void)updateInteractionSelection:(Interaction*)interaction isSelected:(BOOL)selected onSuccess:(void (^)())successBlock;
 -(NSArray*)selectedInteractions;
 
 @end
@@ -50,5 +53,6 @@
 
 +(id<DataManager>)currentDataManager;
 +(void)setCurrentDataManager:(id<DataManager>)manager;
++(BOOL)ready;
 
 @end

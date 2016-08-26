@@ -19,4 +19,11 @@
     self.interactionId = [[NSUUID UUID] UUIDString];
 }
 
+-(CKRecord *)cloudKitRecord {
+    CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:self.interactionId];
+    CKRecord *record = [[CKRecord alloc] initWithRecordType:@"Interaction" recordID:recordID];
+    record[@"Name"] = self.name;
+    return record;
+}
+
 @end

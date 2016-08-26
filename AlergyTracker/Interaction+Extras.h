@@ -8,8 +8,12 @@
 
 #import "Interaction.h"
 
+#import <CloudKit/CloudKit.h>
+
 @interface Interaction (Extras)
 
 @property (nonatomic, readonly) NSString* displayName;
+
+-(CKRecord *)cloudKitRecord;
 
 @end

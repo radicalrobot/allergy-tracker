@@ -17,9 +17,21 @@
 
 @implementation LocalDataManager
 
+@synthesize initialized;
+
+-(instancetype)init {
+    if(self = [super init]) {
+        self.initialized = NO;
+    }
+
+    return self;
+}
+
 -(void)setup {
+    NSLog(@"Setting up local data manager");
     [MagicalRecord setupAutoMigratingCoreDataStack];
     [self setupData];
+    self.initialized = YES;
 }
 
 -(void)cleanup {
@@ -292,17 +304,25 @@
     }];
 }
 
--(void)createSymptom:(NSString *)symptom onSuccess:(void (^)())successBlock  {
+-(void)createSymptom:(NSString *)symptom onSuccess:(void (^)(Symptom* newSymptom))successBlock  {
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
         Symptom *newSymptom = [Symptom MR_createEntityInContext: localContext];
         newSymptom.name = symptom;
     } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
         if(!contextDidSave){
             NSLog(@"Unable to save new Setting: %@", error);
+        }else {
+            Symptom *newlyCreatedSymptom = [Symptom MR_findFirstByAttribute:@"name" withValue:symptom];
+            if(successBlock) {
+                successBlock(newlyCreatedSymptom);
+            }
         }
-        if(successBlock) {
-            successBlock();
-        }
+    }];
+}
+
+-(void)updateSymptom:(Symptom *)symptom {
+    [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+        [symptom MR_inContext:localContext];
     }];
 }
 
@@ -326,7 +346,7 @@
     return [Symptom MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
 }
 
--(void)createInteraction:(NSString *)interaction onSuccess:(void (^)())successBlock  {
+-(void)createInteraction:(NSString *)interaction onSuccess:(void (^)(Interaction *newInteraction))successBlock  {
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
         Interaction *newAllergen = [Interaction MR_createEntityInContext:localContext];
         newAllergen.name = interaction;
@@ -334,9 +354,20 @@
         if(!contextDidSave){
             NSLog(@"Unable to save new Interaction: %@", error);
         }
-        if(successBlock) {
-            successBlock();
+        if(!contextDidSave){
+            NSLog(@"Unable to save new Setting: %@", error);
+        }else {
+            Interaction *newlyCreatedInteraction = [Interaction MR_findFirstByAttribute:@"name" withValue:interaction];
+            if(successBlock) {
+                successBlock(newlyCreatedInteraction);
+            }
         }
+    }];
+}
+
+-(void)updateInteraction:(Interaction *)interaction {
+    [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+        [interaction MR_inContext:localContext];
     }];
 }
 

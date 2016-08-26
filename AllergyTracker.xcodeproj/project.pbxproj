@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7BB0D2751D7087C40078A666 /* CloudKitSyncSymptomOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0D2741D7087C40078A666 /* CloudKitSyncSymptomOperation.m */; };
+		7BB0D2781D708C840078A666 /* CloudKitSyncInteractionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB0D2771D708C840078A666 /* CloudKitSyncInteractionOperation.m */; };
 		8F918415352B7E088636096C /* libPods-AllergyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8F69891AA792D7DF6A65680 /* libPods-AllergyTracker.a */; };
 		BE34E8D41D6B448C00C43F22 /* RRDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE34E8D31D6B448C00C43F22 /* RRDataManager.m */; };
 		BE34E8D81D6B4BC100C43F22 /* iCloudDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BE34E8D71D6B4BC100C43F22 /* iCloudDataManager.m */; };
@@ -61,6 +63,10 @@
 
 /* Begin PBXFileReference section */
 		3ED0DE93C34AA9E91434EC3D /* Pods-AllergyTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllergyTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AllergyTracker/Pods-AllergyTracker.debug.xcconfig"; sourceTree = "<group>"; };
+		7BB0D2731D7087C40078A666 /* CloudKitSyncSymptomOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CloudKitSyncSymptomOperation.h; path = Model/Sync/CloudKitSyncSymptomOperation.h; sourceTree = "<group>"; };
+		7BB0D2741D7087C40078A666 /* CloudKitSyncSymptomOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CloudKitSyncSymptomOperation.m; path = Model/Sync/CloudKitSyncSymptomOperation.m; sourceTree = "<group>"; };
+		7BB0D2761D708C840078A666 /* CloudKitSyncInteractionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CloudKitSyncInteractionOperation.h; path = Model/Sync/CloudKitSyncInteractionOperation.h; sourceTree = "<group>"; };
+		7BB0D2771D708C840078A666 /* CloudKitSyncInteractionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CloudKitSyncInteractionOperation.m; path = Model/Sync/CloudKitSyncInteractionOperation.m; sourceTree = "<group>"; };
 		9768065C30EDB4FF75373351 /* Pods-AllergyTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllergyTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-AllergyTracker/Pods-AllergyTracker.release.xcconfig"; sourceTree = "<group>"; };
 		BE34E8D21D6B41DB00C43F22 /* RRDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RRDataManager.h; path = Model/RRDataManager.h; sourceTree = "<group>"; };
 		BE34E8D31D6B448C00C43F22 /* RRDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RRDataManager.m; path = Model/RRDataManager.m; sourceTree = "<group>"; };
@@ -166,6 +172,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7BB0D2791D708C8B0078A666 /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				7BB0D2731D7087C40078A666 /* CloudKitSyncSymptomOperation.h */,
+				7BB0D2741D7087C40078A666 /* CloudKitSyncSymptomOperation.m */,
+				7BB0D2761D708C840078A666 /* CloudKitSyncInteractionOperation.h */,
+				7BB0D2771D708C840078A666 /* CloudKitSyncInteractionOperation.m */,
+			);
+			name = Sync;
+			sourceTree = "<group>";
+		};
 		9AB225D17BCED72E11F1B7A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +229,7 @@
 				BE34E8D31D6B448C00C43F22 /* RRDataManager.m */,
 				BE34E8D61D6B4BC100C43F22 /* iCloudDataManager.h */,
 				BE34E8D71D6B4BC100C43F22 /* iCloudDataManager.m */,
+				7BB0D2791D708C8B0078A666 /* Sync */,
 			);
 			name = DataManagers;
 			sourceTree = "<group>";
@@ -396,6 +414,7 @@
 					BE8C6BA41AA6BCCD005FC2FB = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = QQNE32V93Y;
+						DevelopmentTeamName = "Emily Toop";
 						SystemCapabilities = {
 							com.apple.iCloud = {
 								enabled = 1;
@@ -519,6 +538,7 @@
 				BEB01FB51B121FC40009F20B /* PagingHeaderView.m in Sources */,
 				BEB01FC41B1221F20009F20B /* NSDateFormatter+Utilities.m in Sources */,
 				BE4703D11AB137CA001AF1E8 /* SettingsTableViewController.m in Sources */,
+				7BB0D2751D7087C40078A666 /* CloudKitSyncSymptomOperation.m in Sources */,
 				BEC1B7D91AC5C787001EE74C /* Incidence+Extras.m in Sources */,
 				BEB01FCA1B122FD80009F20B /* IncidencePagingViewController.m in Sources */,
 				BE8C6BAE1AA6BCCD005FC2FB /* AppDelegate.m in Sources */,
@@ -528,6 +548,7 @@
 				BE34E8D81D6B4BC100C43F22 /* iCloudDataManager.m in Sources */,
 				BEE0EF8B1ABF65FB00D710FB /* Interaction.m in Sources */,
 				BE4F51751B09FAD000039E6C /* UIView+FrameAccessors.m in Sources */,
+				7BB0D2781D708C840078A666 /* CloudKitSyncInteractionOperation.m in Sources */,
 				BEB01FC31B1221F20009F20B /* NSDate+Utilities.m in Sources */,
 				BEB01FBB1B1220150009F20B /* TriangleView.m in Sources */,
 				BEBCAA241C9D7DD600B3CDE3 /* SummaryHeaderView.m in Sources */,

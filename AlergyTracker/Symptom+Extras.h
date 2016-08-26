@@ -8,10 +8,14 @@
 
 #import "Symptom.h"
 
+#import <CloudKit/CloudKit.h>
+
 @interface Symptom (Extras)
 
 @property (nonnull, readonly) NSString *displayName;
 
 +(NSArray * _Nullable ) alphabetisedSymptomsSelected:(bool) selected;
+
+-(CKRecord* _Nonnull )cloudKitRecord;
 
 @end

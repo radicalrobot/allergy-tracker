@@ -26,4 +26,11 @@
     return [symptoms sortedArrayUsingDescriptors:@[sort]];
 }
 
+-(CKRecord *)cloudKitRecord {
+    CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:self.symptomId];
+    CKRecord *record = [[CKRecord alloc] initWithRecordType:@"Symptom" recordID:recordID];
+    record[@"Name"] = self.name;
+    return record;
+}
+
 @end

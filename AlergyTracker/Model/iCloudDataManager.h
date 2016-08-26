@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 
 #import "RRDataManager.h"
+#import "LocalDataManager.h"
 
 @interface iCloudDataManager : NSObject<DataManager>
+
+-(instancetype)initWithLocalDataManager:(LocalDataManager*)localManager;
 
 @end

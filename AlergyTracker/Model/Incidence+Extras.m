@@ -12,6 +12,8 @@
 #import "Interaction+Extras.h"
 #import "NSNumber+Utilities.h"
 
+#import <CoreLocation/CoreLocation.h>
+
 @implementation Incidence(Extras)
 
 -(NSString*)displayName {
@@ -61,6 +63,20 @@
         return topInteractions;
     }
     return [topInteractions subarrayWithRange:NSMakeRange(0, limit)];
+}
+
+
+
+-(CKRecord *)cloudKitRecord {
+    CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:self.uuid];
+    CKRecord *record = [[CKRecord alloc] initWithRecordType:@"Incidence" recordID:recordID];
+    record[@"FormattedTime"] = self.formattedTime;
+    record[@"Location"] = [[CLLocation alloc] initWithLatitude:self.latitude.doubleValue longitude:self.longitude.doubleValue];
+    record[@"Notes"] = self.notes;
+    record[@"Time"] = self.time;
+    record[@"Type"] = self.type;
+    record[@"UUID"] = self.uuid;
+    return record;
 }
 
 @end

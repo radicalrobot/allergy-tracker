@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "RRLocationManager.h"
 #import "LocalDataManager.h"
+#import "iCloudDataManager.h"
 #import "Incidence+Extras.h"
 #import "QuickActions.h"
 #import "RRDataManager.h"
@@ -16,6 +17,7 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import <Analytics.h>
+#import <CloudKit/CloudKit.h>
 
 @interface AppDelegate ()
 
@@ -30,9 +32,7 @@
     [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"FoGKredUEwSGQq3SLZyBkKvcsO9PJV8e"]];
     [[SEGAnalytics sharedAnalytics] identify:[[[UIDevice currentDevice] identifierForVendor] UUIDString]
                                       traits:@{ @"name": [[UIDevice currentDevice] name]}];
-    
-    [RRDataManager setCurrentDataManager:[LocalDataManager new]];
-    [[RRDataManager currentDataManager] setup];
+    [self setupDB];
     
     [RRLocationManager start];
     
@@ -43,6 +43,26 @@
     }
     
     return YES;
+}
+
+-(void)setupDB {
+    [RRDataManager setCurrentDataManager:[LocalDataManager new]];
+    [[CKContainer defaultContainer] accountStatusWithCompletionHandler:^(CKAccountStatus accountStatus, NSError *error) {
+        if (accountStatus == CKAccountStatusNoAccount) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sign in to iCloud"
+                                                                           message:@"Sign in to your iCloud account to write records. On the Home screen, launch Settings, tap iCloud, and enter your Apple ID. Turn iCloud Drive on. If you don't have an iCloud account, tap Create a new Apple ID."
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Okay"
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:nil]];
+            UINavigationController *rootVC = (UINavigationController*)self.window.rootViewController;
+            [rootVC.topViewController presentViewController:alert animated:YES completion:nil];
+        }
+        else {
+            iCloudDataManager *iCloudManager = [[iCloudDataManager alloc] initWithLocalDataManager:[RRDataManager currentDataManager]];
+            [RRDataManager setCurrentDataManager:iCloudManager];
+        }
+    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
