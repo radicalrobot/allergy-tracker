@@ -27,6 +27,10 @@
 }
 
 -(CKRecord *)cloudKitRecord {
+    if(!self.symptomId) {
+        self.symptomId = [[NSUUID UUID] UUIDString];
+        [[RRDataManager currentDataManager] updateSymptom:self];
+    }
     CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:self.symptomId];
     CKRecord *record = [[CKRecord alloc] initWithRecordType:@"Symptom" recordID:recordID];
     record[@"Name"] = self.name;

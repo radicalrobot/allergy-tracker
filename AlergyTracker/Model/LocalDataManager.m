@@ -55,7 +55,7 @@
     
 }
 
--(NSArray *)allIncidents {
+-(NSArray *)allIncidentNames {
     NSMutableArray *results = [NSMutableArray array];
     NSArray *allInteractions = [Interaction MR_findAllSortedBy:@"name" ascending:YES];
     [allInteractions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -65,6 +65,7 @@
     [allSymptoms enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [results addObject:((Symptom*)obj).name];
     }];
+    [results addObject:@"Medication"];
     return results;
 }
 
@@ -268,6 +269,10 @@
     return [[self allSymptoms] arrayByAddingObjectsFromArray:[self allInteractions]];
 }
 
+-(NSArray *)allIncidents {
+    return [Incidence MR_findAllSortedBy:@"time" ascending:YES];
+}
+
 -(NSArray *)allSymptoms {
     return [Symptom  MR_findAllSortedBy:@"name" ascending:YES];
 }
@@ -346,6 +351,10 @@
     return [Symptom MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
 }
 
+-(Symptom *)symptomWithID:(NSString *)symptomID {
+    return [[Symptom MR_findByAttribute:@"symptomId" withValue:symptomID] firstObject];
+}
+
 -(void)createInteraction:(NSString *)interaction onSuccess:(void (^)(Interaction *newInteraction))successBlock  {
     [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
         Interaction *newAllergen = [Interaction MR_createEntityInContext:localContext];
@@ -371,10 +380,16 @@
     }];
 }
 
+-(Interaction *)interactionWithID:(NSString *)interactionID {
+    return [[Interaction MR_findByAttribute:@"interactionId" withValue:interactionID] firstObject];
+}
+
 -(void)updateInteractionSelection:(Interaction *)interaction isSelected:(BOOL)selected onSuccess:(void (^)())successBlock {
     [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
         Interaction *localInteraction = [interaction MR_inContext:localContext];
+        NSLog(@"Before save %@ is %@", localInteraction.name, localInteraction.selected.boolValue ? @"Selected" : @"Not Selected");
         localInteraction.selected = @(selected);
+        NSLog(@"After save %@ is %@", localInteraction.name, localInteraction.selected.boolValue ? @"Selected" : @"Not Selected");
         [[SEGAnalytics sharedAnalytics] track:@"Updated Interactions"
                                    properties:@{ @"name": localInteraction.name,
                                                  @"on": localInteraction.selected }];

@@ -7,6 +7,7 @@
 //
 
 #import "Interaction+Extras.h"
+#import "RRDataManager.h"
 
 @implementation Interaction (Extras)
 
@@ -20,6 +21,11 @@
 }
 
 -(CKRecord *)cloudKitRecord {
+
+    if(!self.interactionId) {
+        self.interactionId = [[NSUUID UUID] UUIDString];
+        [[RRDataManager currentDataManager] updateInteraction:self];
+    }
     CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:self.interactionId];
     CKRecord *record = [[CKRecord alloc] initWithRecordType:@"Interaction" recordID:recordID];
     record[@"Name"] = self.name;

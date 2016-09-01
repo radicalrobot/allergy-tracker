@@ -13,7 +13,7 @@
 
 @interface LocalDataManager : NSObject<DataManager>
 
--(void)updateInteraction:(Interaction*)interaction;
--(void)updateSymptom:(Symptom*)symptom;
+-(Symptom*)symptomWithID:(NSString*)symptomID;
+-(Interaction*)interactionWithID:(NSString*)interactionID;
 
 @end

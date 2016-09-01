@@ -82,7 +82,7 @@
         if(self.incidence){
             _pickerData = [[RRDataManager currentDataManager] companionItemsForIncidenceWithName:self.incidence.type];
         } else {
-            _pickerData = [[RRDataManager currentDataManager] allIncidents];
+            _pickerData = [[RRDataManager currentDataManager] allIncidentNames];
         }
     }
     

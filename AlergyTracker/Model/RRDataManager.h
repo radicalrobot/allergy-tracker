@@ -25,11 +25,13 @@
 -(NSInteger)numberOfIncidentsWithName:(NSString*)name betweenDate:(NSDate*)startDate endDate:(NSDate*)endDate;
 -(NSInteger)numberOfSelectedSymptoms;
 
--(NSArray *)allIncidents;
+-(NSArray *)allIncidentNames;
 -(NSArray*)companionItemsForIncidenceWithName:(NSString*)name;
 
 -(void)saveIncidence:(Incidence*)incidence withCompletion:(void (^)(BOOL contextDidSave, NSError* error))completion;
 -(void)createIncident: (NSDate*) now latitude:(NSNumber*) latitude longitude:(NSNumber*) longitude type:(NSString*) incidenceType onSuccess:(void (^)(Incidence*))successBlock;
+-(NSArray*)allIncidents;
+
 -(Incidence*)createNewEmptyIncident;
 -(NSNumber*)numberOfIncidentsOfType:(NSString*)type;
 -(NSArray*)eventsForTheDay:(NSDate*) date;
@@ -42,9 +44,11 @@
 -(void)migrateFromVersion:(NSString *)version;
 -(void)createSymptom:(NSString *)symptom onSuccess:(void (^)(Symptom* newSymptom))successBlock;
 -(void)updateSymptomSelection:(Symptom*)symptom isSelected:(BOOL)selected onSuccess:(void (^)())successBlock;
+-(void)updateSymptom:(Symptom*)symptom;
 -(NSArray*)selectedSymptoms;
 -(void)createInteraction:(NSString*)interaction onSuccess:(void (^)(Interaction* newInteraction))successBlock;
 -(void)updateInteractionSelection:(Interaction*)interaction isSelected:(BOOL)selected onSuccess:(void (^)())successBlock;
+-(void)updateInteraction:(Interaction *)interaction;
 -(NSArray*)selectedInteractions;
 
 @end

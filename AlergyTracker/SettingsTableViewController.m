@@ -143,11 +143,12 @@ static NSString * const CellIdentifier = @"SettingsCell";
     switch (self.choices.selectedSegmentIndex) {
         case 0:
         {
-            [[RRDataManager currentDataManager] updateSymptomSelection:self.symptoms[cellIndex.row] isSelected:@(switchView.on) onSuccess:successBlock];
+            [[RRDataManager currentDataManager] updateSymptomSelection:self.symptoms[cellIndex.row] isSelected:switchView.on onSuccess:successBlock];
             break;
         }
         case 1:{
-            if(switchView.on){
+            BOOL isSelected = switchView.on;
+            if(isSelected){
                 NSInteger numberOfSelectedAllergens = [self.allergens filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"selected=YES"]].count;
                 if(numberOfSelectedAllergens >= maxNumberOfSelectedAllergens){
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Max number of allergens reached"
@@ -162,7 +163,7 @@ static NSString * const CellIdentifier = @"SettingsCell";
                     break;
                 }
             }
-            [[RRDataManager currentDataManager] updateInteractionSelection:self.allergens[cellIndex.row] isSelected:@(switchView.on) onSuccess:successBlock];
+            [[RRDataManager currentDataManager] updateInteractionSelection:self.allergens[cellIndex.row] isSelected:isSelected onSuccess:successBlock];
             break;
         }
         default:

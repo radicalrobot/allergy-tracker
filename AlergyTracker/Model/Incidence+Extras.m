@@ -68,7 +68,12 @@
 
 
 -(CKRecord *)cloudKitRecord {
-    CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:self.uuid];
+    if(!self.uuid) {
+        self.uuid = [[NSUUID UUID] UUIDString];
+        [[RRDataManager currentDataManager] saveIncidence:self withCompletion:nil];
+    }
+    NSString *recordName = self.uuid;
+    CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:recordName];
     CKRecord *record = [[CKRecord alloc] initWithRecordType:@"Incidence" recordID:recordID];
     record[@"FormattedTime"] = self.formattedTime;
     record[@"Location"] = [[CLLocation alloc] initWithLatitude:self.latitude.doubleValue longitude:self.longitude.doubleValue];

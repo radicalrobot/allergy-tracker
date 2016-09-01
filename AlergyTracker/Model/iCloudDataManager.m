@@ -10,8 +10,6 @@
 #import "Symptom+Extras.h"
 #import "Interaction+Extras.h"
 #import "Incidence+Extras.h"
-#import "CloudKitSyncSymptomOperation.h"
-#import "CloudKitSyncInteractionOperation.h"
 
 #import <UIKit/UIKit.h>
 #import <CloudKit/CloudKit.h>
@@ -81,17 +79,13 @@
             if(!appDeviceID || appDeviceID.length == 0) {
                 // perform a DB Sync
                 // update user
-                record[@"AppDeviceID"] = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-                [strongself.publicDB saveRecord:record completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
-                    NSLog(@"saved user record");
-                }];
-                [strongself syncItems];
+                [strongself syncItemsForUserRecord: record];
             }
         }];
     }];
 }
 
--(void) syncItems {
+-(void) syncItemsForUserRecord:(CKRecord*) record {
     NSOperationQueue *operationQueue = [NSOperationQueue new];
     operationQueue.name = @"CloudKit Sync queue";
     operationQueue.maxConcurrentOperationCount = 5;
@@ -101,48 +95,171 @@
     [self syncInteractions:operationQueue];
     // update incidents
     [self syncIncidents:operationQueue];
-    [operationQueue ]
+
+    __weak typeof(self)weakself = self;
+    [operationQueue addOperationWithBlock:^{
+        typeof(weakself) strongself = weakself;
+        record[@"AppDeviceID"] = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        [strongself.publicDB saveRecord:record completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+            NSLog(@"saved user record");
+        }];
+    }];
 }
 
 -(void)syncSymptoms: (NSOperationQueue*) queue {
     NSArray *symptoms = [_localDB allSymptoms];
+    __weak typeof(self) weakself = self;
     for(Symptom *symptom in symptoms) {
-        [queue addOperation:[[CloudKitSyncSymptomOperation alloc] initWithSymptom:symptom forUserRecord:self.userRecordID inContainer:self.container withLocalDB:self.localDB]];
+        CKRecord *record = [symptom cloudKitRecord];
+        NSString *symptomID = symptom.symptomId;
+        NSString *symptomName = symptom.name;
+        NSOperation *symptomSyncOp = [NSBlockOperation blockOperationWithBlock:^{
+            typeof(weakself) strongself = weakself;
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name = %@", symptomName];
+            CKQuery *query = [[CKQuery alloc] initWithRecordType:@"Symptom" predicate:predicate];
+            [strongself.publicDB performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+                if (error) {
+                    if(error.code == CKErrorUnknownItem) {
+                        [strongself.privateDB saveRecord:record completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+                            NSLog(@"synced symptom record %@", record[@"Name"]);
+                        }];
+                    } else {
+                        // Error handling for failed fetch from public database
+                        NSLog(@"Error fetching symptom %@! %@", record[@"Name"], error);
+                    }
+                } else {
+                    if( [results count] == 0) {
+                        [strongself.privateDB saveRecord:record completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+                            NSLog(@"synced symptom record %@", record[@"Name"]);
+                        }];
+                    } else {
+                        CKRecord *fetchedRecord = [results firstObject];
+                        if(fetchedRecord && ![fetchedRecord[@"name"] isEqualToString: symptomID]) {
+                            Symptom *localSymptom = [strongself.localDB symptomWithID:symptomID];
+                            localSymptom.symptomId = fetchedRecord[@"name"];
+                            [strongself.localDB updateSymptom:localSymptom];
+                        }
+                    }
+                }
+            }];
+        }];
+
+        if(symptom.selected.boolValue) {
+            NSOperation *selectedSymptomSyncOp = [NSBlockOperation blockOperationWithBlock:^{
+                typeof(weakself) strongself = weakself;
+                CKRecord* selectedSymptomRecord = [[CKRecord alloc] initWithRecordType:@"SelectedSymptoms"];
+                selectedSymptomRecord[@"Symptom"] = [[CKReference alloc] initWithRecordID:[[CKRecordID alloc] initWithRecordName:symptomID] action:CKReferenceActionNone];
+                selectedSymptomRecord[@"User"] = [[CKReference alloc] initWithRecordID:_userRecordID action:CKReferenceActionNone];
+                [strongself.privateDB saveRecord:selectedSymptomRecord completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+                    if(error) {
+                        NSLog(@"Failed to save selected Symptom %@", error);
+                    } else {
+                        NSLog(@"synced selected Symptom record %@", symptom.name);
+                    }
+                }];
+            }];
+
+            [symptomSyncOp addDependency:selectedSymptomSyncOp];
+            [queue addOperations:@[symptomSyncOp, selectedSymptomSyncOp] waitUntilFinished:NO];
+        } else {
+            [queue addOperation:symptomSyncOp];
+        }
     }
 }
 
 -(void)syncInteractions: (NSOperationQueue*) queue {
-    NSArray *interactions = [_localDB allSymptoms];
+    NSArray *interactions = [_localDB allInteractions];
+    __weak typeof(self) weakself = self;
     for(Interaction *interaction in interactions) {
-        [queue addOperation:[[CloudKitSyncInteractionOperation alloc] initWithInteraction:interaction forUserRecord:self.userRecordID inContainer:self.container withLocalDB:self.localDB]];
+        CKRecord *record = [interaction cloudKitRecord];
+        NSString *interactionID = interaction.interactionId;
+        NSString *interactionName = interaction.name;
+        NSOperation *interactionSyncOp = [NSBlockOperation blockOperationWithBlock:^{
+            typeof(weakself) strongself = weakself;
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Name = %@", interactionName];
+            CKQuery *query = [[CKQuery alloc] initWithRecordType:@"Interaction" predicate:predicate];
+            [strongself.publicDB performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+                if (error) {
+                    if(error.code == CKErrorUnknownItem) {
+                        [strongself.privateDB saveRecord:record completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+                            NSLog(@"synced interaction record %@", interactionName);
+                        }];
+                    } else {
+                        // Error handling for failed fetch from public database
+                        NSLog(@"Error fetching interaction %@! %@", interactionName, error);
+                    }
+                } else {
+                    if( [results count] == 0) {
+                        [strongself.privateDB saveRecord:record completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+                            NSLog(@"synced interaction record %@", interactionName);
+                        }];
+                    } else {
+                        CKRecord *fetchedRecord = [results firstObject];
+                        if(fetchedRecord && ![fetchedRecord[@"name"] isEqualToString: interactionID]) {
+                            Interaction *localInteraction = [strongself.localDB interactionWithID:interactionID];
+                            localInteraction.interactionId = fetchedRecord[@"name"];
+                            [strongself.localDB updateInteraction:localInteraction];
+                        }
+                    }
+                }
+            }];
+        }];
+
+        if(interaction.selected.boolValue) {
+            NSOperation *selectedInteractionSyncOp = [NSBlockOperation blockOperationWithBlock:^{
+                typeof(weakself) strongself = weakself;
+                CKRecord* selectedInteractionRecord = [[CKRecord alloc] initWithRecordType:@"SelectedInteractions"];
+                selectedInteractionRecord[@"Interaction"] = [[CKReference alloc] initWithRecordID:[[CKRecordID alloc] initWithRecordName:interactionID] action:CKReferenceActionNone];
+                selectedInteractionRecord[@"User"] = [[CKReference alloc] initWithRecordID:_userRecordID action:CKReferenceActionNone];
+                [strongself.privateDB saveRecord:selectedInteractionRecord completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+                    if(error) {
+                        NSLog(@"Failed to save selected Interaction %@", error);
+                    } else {
+                        NSLog(@"synced selected Interaction record %@", interaction.name);
+                    }
+                }];
+            }];
+
+            [interactionSyncOp addDependency:selectedInteractionSyncOp];
+            [queue addOperations:@[interactionSyncOp, selectedInteractionSyncOp] waitUntilFinished:NO];
+        } else {
+            [queue addOperation:interactionSyncOp];
+        }
     }
 }
 
 -(void)syncIncidents: (NSOperationQueue*) queue {
-    NSArray *incidents = [_localDB allIncidents];
+    NSArray *incidents = [self allIncidents];
     __weak typeof(self)weakself = self;
     for(Incidence *incident in incidents) {
-        CKRecordID *incidentRecordID = [[CKRecordID alloc] initWithRecordName:incident.uuid];
-        [_publicDB fetchRecordWithID:incidentRecordID completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
-            typeof(weakself) strongself = weakself;
-            CKRecord *incidentRecord = [incident cloudKitRecord];
-            incidentRecord[@"User"] = [[CKReference alloc] initWithRecordID:strongself.userRecordID action:CKReferenceActionNone];
-            if (error) {
-                if(error.code == CKErrorUnknownItem) {
-                    [strongself.publicDB saveRecord:incidentRecord completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
-                        NSLog(@"synced incident record %@", incidentRecord);
-                    }];
-                } else {
-                    // Error handling for failed fetch from public database
-                    NSLog(@"Error fetching incident record %@! %@", incidentRecord, error);
+        NSLog(@"incident: %@", incident);
+        typeof(weakself) strongself = weakself;
+        [queue addOperationWithBlock:^{
+            CKRecordID *incidentRecordID = [[CKRecordID alloc] initWithRecordName:incident.uuid];
+            [_publicDB fetchRecordWithID:incidentRecordID completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+                CKRecord *incidentRecord = [incident cloudKitRecord];
+                incidentRecord[@"User"] = [[CKReference alloc] initWithRecordID:strongself.userRecordID action:CKReferenceActionNone];
+                if (error) {
+                    if(error.code == CKErrorUnknownItem) {
+                        [strongself.publicDB saveRecord:incidentRecord completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+                            NSLog(@"synced incident record %@", incidentRecord);
+                        }];
+                    } else {
+                        // Error handling for failed fetch from public database
+                        NSLog(@"Error fetching incident record %@! %@", incidentRecord, error);
+                    }
                 }
-            }
+            }];
         }];
     }
 }
 
 -(NSArray *)companionItemsForIncidenceWithName:(NSString *)name {
     return [_localDB companionItemsForIncidenceWithName:name];
+}
+
+-(NSArray *)allIncidentNames {
+    return [_localDB allIncidentNames];
 }
 
 -(NSArray *)allIncidents {
@@ -281,11 +398,46 @@
 }
 
 -(void)updateSymptomSelection:(Symptom *)symptom isSelected:(BOOL)selected onSuccess:(void (^)())successBlock {
-    [_localDB updateSymptomSelection:symptom isSelected:selected onSuccess:successBlock];
+    __weak typeof(self)weakself = self;
+    [_localDB updateSymptomSelection:symptom isSelected:selected onSuccess:^{
+        typeof(weakself) strongself = weakself;
+        CKRecordID *symptomRecordID = [[CKRecordID alloc] initWithRecordName:symptom.symptomId];
+        CKReference *symptomReference = [[CKReference alloc] initWithRecordID:symptomRecordID action:CKReferenceActionNone];
+        CKReference *userReference = [[CKReference alloc] initWithRecordID:strongself.userRecordID action:CKReferenceActionNone];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Symptom = %@ && User = %@", symptomReference, userReference];
+        CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SelectedSymptoms" predicate:predicate];
+        [strongself.privateDB performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+            CKRecord *selectedSymptomRecord = [results firstObject];
+            if(selectedSymptomRecord) {
+                if(!selected) {
+                    [strongself.privateDB deleteRecordWithID:selectedSymptomRecord.recordID completionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
+                        NSLog(@"symptom deselected %@", error);
+                    }];
+                }
+            } else {
+                if(selected) {
+                    selectedSymptomRecord = [[CKRecord alloc] initWithRecordType:@"SelectedSymptoms"];
+                    selectedSymptomRecord[@"Symptom"] = symptomReference;
+                    selectedSymptomRecord[@"User"] = userReference;
+                    [strongself.privateDB saveRecord:selectedSymptomRecord completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+                        NSLog(@"symptom selected %@", error);
+                    }];
+                }
+            }
+        }];
+    }];
 }
 
 -(NSArray *)selectedSymptoms {
     return [_localDB selectedSymptoms];
+}
+
+-(void)updateSymptom:(Symptom *)symptom {
+    [_localDB updateSymptom:symptom];
+    CKRecord *symptomRecord = [symptom cloudKitRecord];
+    [self.publicDB saveRecord:symptomRecord completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+        NSLog(@"updated symptom %@", symptomRecord);
+    }];
 }
 
 -(void)createInteraction:(NSString *)interaction onSuccess:(void (^)(Interaction *))successBlock {
@@ -302,7 +454,42 @@
 }
 
 -(void)updateInteractionSelection:(Interaction *)interaction isSelected:(BOOL)selected onSuccess:(void (^)())successBlock {
-    [_localDB updateInteractionSelection:interaction isSelected:selected onSuccess:successBlock];
+    __weak typeof(self)weakself = self;
+    [_localDB updateInteractionSelection:interaction isSelected:selected onSuccess:^{
+        typeof(weakself) strongself = weakself;
+        CKRecordID *interactionRecordID = [[CKRecordID alloc] initWithRecordName:interaction.interactionId];
+        CKReference *interactionReference = [[CKReference alloc] initWithRecordID:interactionRecordID action:CKReferenceActionNone];
+        CKReference *userReference = [[CKReference alloc] initWithRecordID:strongself.userRecordID action:CKReferenceActionNone];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"Interaction = %@ && User = %@", interactionReference, userReference];
+        CKQuery *query = [[CKQuery alloc] initWithRecordType:@"SelectedInteractions" predicate:predicate];
+        [strongself.privateDB performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+            CKRecord *selectedInteractionRecord = [results firstObject];
+            if(selectedInteractionRecord) {
+                if(!selected) {
+                    [strongself.privateDB deleteRecordWithID:selectedInteractionRecord.recordID completionHandler:^(CKRecordID * _Nullable recordID, NSError * _Nullable error) {
+                        NSLog(@"interaction deselected %@", error);
+                    }];
+                }
+            } else {
+                if(selected) {
+                    selectedInteractionRecord = [[CKRecord alloc] initWithRecordType:@"SelectedInteractions"];
+                    selectedInteractionRecord[@"Interaction"] = interactionReference;
+                    selectedInteractionRecord[@"User"] = userReference;
+                    [strongself.privateDB saveRecord:selectedInteractionRecord completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+                        NSLog(@"interaction selected %@", error);
+                    }];
+                }
+            }
+        }];
+    }];
+}
+
+-(void)updateInteraction:(Interaction *)interaction {
+    [_localDB updateInteraction:interaction];
+    CKRecord *interactionRecord = [interaction cloudKitRecord];
+    [self.publicDB saveRecord:interactionRecord completionHandler:^(CKRecord * _Nullable record, NSError * _Nullable error) {
+        NSLog(@"updated interaction %@", interactionRecord);
+    }];
 }
 
 -(NSArray *)selectedInteractions {
