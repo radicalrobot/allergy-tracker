@@ -7,10 +7,9 @@
 //
 
 #import "RRLocationManager.h"
-#import <MagicalRecord/MagicalRecord.h>
 
+#import "RRDataManager.h"
 #import "Incidence+Extras.h"
-#import "MagicalRecord+BackgroundTask.h"
 
 #import <Analytics.h>
 
@@ -72,35 +71,7 @@
     NSNumber *latitude = @(currentLocation.coordinate.latitude);
     NSNumber *longitude = @(currentLocation.coordinate.longitude);
     
-    [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext *localContext) {
-        Incidence *location = [Incidence MR_createEntityInContext:localContext];
-        location.latitude = latitude;
-        location.longitude = longitude;
-        location.time = time;
-        location.type = @"location";
-    } completion:^(BOOL success, NSError *error) {
-        if(success) {
-            Incidence *newlyCreatedIncidence = [Incidence MR_findFirstByAttribute:@"time" withValue:time];
-            
-            [[SEGAnalytics sharedAnalytics] track:@"Logged Location Change"
-                                       properties:@{ @"id": newlyCreatedIncidence.uuid,
-                                                     @"name": newlyCreatedIncidence.type,
-                                                     @"time": newlyCreatedIncidence.formattedTime,
-                                                     @"latitude": newlyCreatedIncidence.latitude,
-                                                     @"longitude": newlyCreatedIncidence.longitude,
-                                                     @"notes": newlyCreatedIncidence.notes ? newlyCreatedIncidence.notes : [NSNull null],
-                                                     @"writeSuccess": @(success)}];
-        } else {
-            [[SEGAnalytics sharedAnalytics] track:@"Logged Location Change"
-                                       properties:@{ @"id": [NSNull null],
-                                                     @"name": @"location",
-                                                     @"time": time,
-                                                     @"latitude": latitude,
-                                                     @"longitude": longitude,
-                                                     @"notes": [NSNull null],
-                                                     @"writeSuccess": @(success)}];
-        }
-    }];
+    [[RRDataManager currentDataManager] createLocation:time latitude:latitude longitude:longitude onSuccess:nil];
 }
 
 @end

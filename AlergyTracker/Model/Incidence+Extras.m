@@ -7,10 +7,12 @@
 //
 
 #import "Incidence+Extras.h"
-#import <MagicalRecord/MagicalRecord.h>
+#import "RRDataManager.h"
 #import "Symptom+Extras.h"
 #import "Interaction+Extras.h"
 #import "NSNumber+Utilities.h"
+
+#import <CoreLocation/CoreLocation.h>
 
 @implementation Incidence(Extras)
 
@@ -39,7 +41,7 @@
 }
 
 +(NSArray *)getTopIncidents {
-    NSArray *alltypes = [[Symptom MR_findAll] arrayByAddingObjectsFromArray:[Interaction MR_findAll]];
+    NSArray *alltypes = [[RRDataManager currentDataManager] allTypes];
     NSMutableDictionary *topIncidents = [NSMutableDictionary dictionary];
     for(NSObject *type in alltypes) {
         NSString *name;
@@ -48,7 +50,7 @@
         } else {
             name = ((Interaction*)type).name;
         }
-        topIncidents[name] = @([Incidence MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"type=%@", name]]);
+        topIncidents[name] = [[RRDataManager currentDataManager] numberOfIncidentsOfType:name];
     }
     return [[topIncidents allKeys] sortedArrayUsingComparator:^NSComparisonResult(NSString* key1, NSString* key2) {
         return [topIncidents[key1] reverseCompare: topIncidents[key2]];
@@ -61,6 +63,25 @@
         return topInteractions;
     }
     return [topInteractions subarrayWithRange:NSMakeRange(0, limit)];
+}
+
+
+
+-(CKRecord *)cloudKitRecord {
+    if(!self.uuid) {
+        self.uuid = [[NSUUID UUID] UUIDString];
+        [[RRDataManager currentDataManager] saveIncidence:self withCompletion:nil];
+    }
+    NSString *recordName = self.uuid;
+    CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:recordName];
+    CKRecord *record = [[CKRecord alloc] initWithRecordType:@"Incidence" recordID:recordID];
+    record[@"FormattedTime"] = self.formattedTime;
+    record[@"Location"] = [[CLLocation alloc] initWithLatitude:self.latitude.doubleValue longitude:self.longitude.doubleValue];
+    record[@"Notes"] = self.notes;
+    record[@"Time"] = self.time;
+    record[@"Type"] = self.type;
+    record[@"UUID"] = self.uuid;
+    return record;
 }
 
 @end

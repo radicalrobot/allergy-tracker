@@ -7,7 +7,7 @@
 //
 
 #import "Symptom+Extras.h"
-#import <MagicalRecord/MagicalRecord.h>
+#import "RRDataManager.h"
 
 @implementation Symptom (Extras)
 
@@ -20,15 +20,21 @@
     self.symptomId = [[NSUUID UUID] UUIDString];
 }
 
-+(NSArray *)alphabeticacisedSymptomsSelected:(bool) selected {
-    NSPredicate *predicate = nil;
-    if(selected) {
-        predicate = [NSPredicate predicateWithFormat:@"selected=1"];
-    }
-    NSArray *symptoms = [Symptom MR_findAllWithPredicate:predicate];
-    
++(NSArray *)alphabetisedSymptomsSelected:(bool) selected {
+    NSArray *symptoms = selected ? [[RRDataManager currentDataManager] selectedSymptoms] : [[RRDataManager currentDataManager] allSymptoms];
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
     return [symptoms sortedArrayUsingDescriptors:@[sort]];
+}
+
+-(CKRecord *)cloudKitRecord {
+    if(!self.symptomId) {
+        self.symptomId = [[NSUUID UUID] UUIDString];
+        [[RRDataManager currentDataManager] updateSymptom:self];
+    }
+    CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:self.symptomId];
+    CKRecord *record = [[CKRecord alloc] initWithRecordType:@"Symptom" recordID:recordID];
+    record[@"Name"] = self.name;
+    return record;
 }
 
 @end

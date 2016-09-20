@@ -9,7 +9,7 @@
 #import "AllergyLogViewController.h"
 
 #import "RRLocationManager.h"
-#import "DataManager.h"
+#import "LocalDataManager.h"
 #import "Incidence+Extras.h"
 #import "Interaction+Extras.h"
 #import "Symptom+Extras.h"
@@ -19,9 +19,7 @@
 
 #import "UIView+FrameAccessors.h"
 #import "UIColor+Utilities.h"
-#import "MagicalRecord+BackgroundTask.h"
 
-#import <MagicalRecord/MagicalRecord.h>
 #import "UIButton+Badge.h"
 
 #import <AudioToolbox/AudioServices.h>
@@ -87,7 +85,7 @@ static UIColor* badgeColor;
 -(void)updateViewStatus {
     [[SEGAnalytics sharedAnalytics] screen:@"Allergy Log"
                                 properties:nil];
-    if([DataManager isFirstRun]){
+    if([[RRDataManager currentDataManager] isFirstRun]){
         [self performSegueWithIdentifier:kSettingsSegue sender:self];
     }
     cellSize = CGSizeZero;
@@ -100,7 +98,7 @@ static UIColor* badgeColor;
 }
 
 -(void)updateSymptoms {
-    self.selectedSymptoms = [Symptom alphabeticacisedSymptomsSelected:YES];
+    self.selectedSymptoms = [Symptom alphabetisedSymptomsSelected:YES];
     [self.collectionView reloadData];
 }
 
@@ -116,7 +114,7 @@ static UIColor* badgeColor;
 }
 
 -(void)setupAllergens {
-    self.selectedAllergens = [Interaction MR_findAllSortedBy:@"name" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"selected=1"]];
+    self.selectedAllergens = [[RRDataManager currentDataManager] selectedInteractions];
     UIButton *medication = [self toolbarButtonWithImageNamed:@"Pill" tag:MEDICATION_TAG];
     NSMutableArray *items = [NSMutableArray arrayWithObject:medication];
     UIButton *allergen;
@@ -139,7 +137,7 @@ static UIColor* badgeColor;
     UIButton *button = sender;
     NSInteger numberOfIncidentsOfInteraction;
     if(button.tag == MEDICATION_TAG) {
-        numberOfIncidentsOfInteraction = [DataManager numberOfIncidentsWithName:@"Medication" betweenDate:_dayStart endDate:_dayEnd];
+        numberOfIncidentsOfInteraction = [[RRDataManager currentDataManager] numberOfIncidentsWithName:@"Medication" betweenDate:_dayStart endDate:_dayEnd];
         button.badgeValue = [NSString stringWithFormat:@"%ld", (long)numberOfIncidentsOfInteraction];
         if(numberOfIncidentsOfInteraction > 0){
             [button setImage:[UIImage imageNamed:@"PillFilled"] forState:UIControlStateNormal];
@@ -150,7 +148,7 @@ static UIColor* badgeColor;
     }
     else {
         Interaction *allergen = self.selectedAllergens[button.tag];
-        numberOfIncidentsOfInteraction = [DataManager numberOfIncidentsWithName:allergen.name betweenDate:_dayStart endDate:_dayEnd];
+        numberOfIncidentsOfInteraction = [[RRDataManager currentDataManager] numberOfIncidentsWithName:allergen.name betweenDate:_dayStart endDate:_dayEnd];
         
         button.badgeValue = [NSString stringWithFormat:@"%ld", (long)numberOfIncidentsOfInteraction];
         if(numberOfIncidentsOfInteraction > 0){
@@ -175,7 +173,7 @@ static UIColor* badgeColor;
     NSDate *now = [NSDate date];
     NSNumber *latitude = @(currentLocation.coordinate.latitude);
     NSNumber *longitude = @(currentLocation.coordinate.latitude);
-    [self createIncident:now latitude:latitude longitude:longitude type:symptom.displayName onSuccess:nil];
+    [[RRDataManager currentDataManager] createIncident:now latitude:latitude longitude:longitude type:symptom.displayName onSuccess:nil];
 }
 
 - (IBAction)actionTaken:(id)sender {
@@ -194,47 +192,9 @@ static UIColor* badgeColor;
     
     NSNumber *latitude = @(currentLocation.coordinate.latitude);
     NSNumber *longitude = @(currentLocation.coordinate.latitude);
-    [self createIncident:now latitude:latitude longitude:longitude type:incidenceType onSuccess:^{
+    [[RRDataManager currentDataManager] createIncident:now latitude:latitude longitude:longitude type:incidenceType onSuccess:^(Incidence *incidence){
         typeof(weakself) localself = weakself;
         [localself updateAllergen:sender];
-    }];
-}
-
--(void) createIncident: (NSDate*) now latitude:(NSNumber*) latitude longitude:(NSNumber*) longitude type:(NSString*) incidenceType onSuccess:(void (^)())successBlock {
-    [MagicalRecord saveOnBackgroundThreadWithBlock:^(NSManagedObjectContext *localContext) {
-        Incidence *incidence = [Incidence MR_createEntityInContext:localContext];
-        incidence.latitude = latitude;
-        incidence.longitude = longitude;
-        incidence.time = now;
-        incidence.type = incidenceType;
-    } completion:^(BOOL success, NSError *error) {
-        if(success) {
-            if(successBlock) {
-                successBlock();
-            }
-            Incidence *newlyCreatedIncidence = [Incidence MR_findFirstByAttribute:@"time" withValue:now];
-            
-            NSArray *top2Incidents = [Incidence getTopIncidentsWithLimit:2];
-            [QuickActions addTopIncidents: top2Incidents];
-            
-            [[SEGAnalytics sharedAnalytics] track:@"Logged Incident"
-                                       properties:@{ @"id": newlyCreatedIncidence.uuid,
-                                                     @"name": newlyCreatedIncidence.type,
-                                                     @"time": newlyCreatedIncidence.formattedTime,
-                                                     @"latitude": newlyCreatedIncidence.latitude,
-                                                     @"longitude": newlyCreatedIncidence.longitude,
-                                                     @"notes": newlyCreatedIncidence.notes ? newlyCreatedIncidence.notes : [NSNull null],
-                                                    @"writeSuccess": @(success)}];
-        } else {
-            [[SEGAnalytics sharedAnalytics] track:@"Logged Incident"
-                                       properties:@{ @"id": [NSNull null],
-                                                     @"name": incidenceType,
-                                                     @"time": now,
-                                                     @"latitude": latitude,
-                                                     @"longitude": longitude,
-                                                     @"notes": [NSNull null],
-                                                     @"writeSuccess": @(success)}];
-        }
     }];
 }
 
@@ -252,7 +212,7 @@ static UIColor* badgeColor;
     Symptom *selectedSymptom = self.selectedSymptoms[indexPath.row];
     IncidentCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellIdentifier forIndexPath:indexPath];
     cell.symptomNameLabel.text = selectedSymptom.displayName;
-    cell.incidenceCountLabel.text = [[Incidence MR_numberOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"time >= %@ && time <= %@ && type=[c]%@", _dayStart, _dayEnd, selectedSymptom.name]] stringValue];
+    cell.incidenceCountLabel.text = [[[RRDataManager currentDataManager] numberOfEventsOfType:selectedSymptom.name between:_dayStart and:_dayEnd] stringValue];
     
     return cell;
 }

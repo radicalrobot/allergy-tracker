@@ -8,10 +8,10 @@
 
 #import "QuickActions.h"
 #import "Incidence+Extras.h"
-#import "DataManager.h"
+#import "LocalDataManager.h"
 #import "RRLocationManager.h"
+#import "RRDataManager.h"
 
-#import <MagicalRecord/MagicalRecord.h>
 #import <Analytics.h>
 
 @implementation QuickActions
@@ -33,40 +33,21 @@ static NSString* nameKey = @"name";
 +(BOOL) handleShortcut: (UIApplicationShortcutItem*) shortcutItem {
     NSString *shortcutType = shortcutType = shortcutItem.type;
     NSDate *now = [NSDate date];
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-        Incidence *incidence = [Incidence MR_createEntityInContext:localContext];
-        CLLocation *location = [RRLocationManager currentLocation];
-        incidence.latitude = @(location.coordinate.latitude);
-        incidence.longitude = @(location.coordinate.longitude);
-        incidence.time = now;
-        if([shortcutItem.type isEqualToString:@"LogInteraction"]) {
-            // log the interaction
-            incidence.type = (NSString*)shortcutItem.userInfo[nameKey];
-        } else if ([shortcutItem.type isEqualToString: @"AddMedication"]) {
-            // log a medication
-            incidence.type = @"Medication";
-        } else {
-            // log a location
-            incidence.type = @"location";
-        }
-    } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
-        if(contextDidSave) {
-            Incidence *newlyCreatedIncidence = [Incidence MR_findFirstByAttribute:@"time" withValue:now];
-            
-            NSArray *top2Incidents = [Incidence getTopIncidentsWithLimit:2];
-            [QuickActions addTopIncidents: top2Incidents];
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"NewIncidenceCreated" object:nil];
-            
-            [[SEGAnalytics sharedAnalytics] track:@"Logged Incident"
-                                       properties:@{ @"id": newlyCreatedIncidence.uuid,
-                                                     @"name": newlyCreatedIncidence.type,
-                                                     @"time": newlyCreatedIncidence.formattedTime,
-                                                     @"latitude": newlyCreatedIncidence.latitude,
-                                                     @"longitude": newlyCreatedIncidence.longitude,
-                                                     @"notes": newlyCreatedIncidence.notes ? newlyCreatedIncidence.notes : [NSNull null],
-                                                     @"writeSuccess": @(contextDidSave)}];
-        }
+    CLLocation *location = [RRLocationManager currentLocation];
+    NSString* type;
+    if([shortcutItem.type isEqualToString:@"LogInteraction"]) {
+        // log the interaction
+        type = (NSString*)shortcutItem.userInfo[nameKey];
+    } else if ([shortcutItem.type isEqualToString: @"AddMedication"]) {
+        // log a medication
+        type = @"Medication";
+    } else {
+        // log a location
+        type = @"location";
+    };
+    
+    [[RRDataManager currentDataManager] createIncident:now latitude:@(location.coordinate.latitude) longitude:@(location.coordinate.longitude) type:type onSuccess:^(Incidence *incidence) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NewIncidenceCreated" object:nil];
     }];
     return YES;
 }
